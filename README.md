@@ -224,10 +224,12 @@ rlimit-nproc=3
 
 | 限制 | 影响 | 缓解措施 |
 |------|------|---------|
-| HomeKit 偶发"无响应" | 跨子网 mDNS 公告可能超时 | 首次配对在主网完成；avahi 服务过滤减少噪声 |
+| HomeKit 跨子网偶发"无响应" | mDNS 公告超时导致 | 优先使用 Home Assistant / Agent 控制（TCP，完全可靠）；HomeKit 仅作备用 |
 | AirPlay 发现延迟 5-15 秒 | 首次发现比同网段慢 | 启用 reflector-quick-join；可接受 |
 | 主网络无法主动访问工作子网 | NAT 导致单向可访问 | 当前需求不需要反向访问 |
-| HomeKit 首次配对需同网段 | 跨子网配对可能失败 | 新设备先在主网配对后再使用 |
+| HomeKit 首次配对需同网段 | 跨子网配对可能失败 | 所有设备在主网配对完成后再使用（当前已是如此） |
+
+> **核心结论**：由于 Agent 系统和 Home Assistant 均基于 TCP 协议，跨子网控制智能家居完全可靠。HomeKit 的 mDNS 限制仅影响直接通过 Siri/家庭 App 控制的场景，不影响主要控制路径。
 
 > 详细可行性分析见 [docs/dual-router-feasibility-analysis.md](docs/dual-router-feasibility-analysis.md)
 
@@ -236,6 +238,24 @@ rlimit-nproc=3
 ### 已接入设备
 
 #### 智能家居设备
+
+**品牌生态**
+- **绿米 (Aqara)**：传感器、开关面板、窗帘电机等（HomeKit 原生支持）
+- **欧瑞博 (ORVIBO)**：智能面板、照明等（通过 Home Assistant 集成）
+
+**控制体系（优先级从高到低）**
+
+| 控制方式 | 协议 | 跨子网可靠性 | 说明 |
+|---------|------|-------------|------|
+| Agent 系统 | HTTP/WebSocket (TCP) | ✅ 完全可靠 | 通过 Home Assistant API 控制，不依赖 mDNS |
+| Home Assistant | HTTP/WebSocket (TCP) | ✅ 完全可靠 | Web UI / App 远程控制，基于 TCP 单播 |
+| HomeKit | mDNS + Bonjour | ⚠️ 依赖 mDNS 中继 | 跨子网偶发"无响应"，主网内完全正常 |
+
+> 所有智能家居设备均在主网络 (192.168.1.0/24) 配对和运行。工作子网设备通过 Home Assistant API 控制智能家居完全可靠，仅 HomeKit 直接控制依赖 mDNS 中继。
+
+**已接入设备**
+- 绿米 (Aqara) 传感器 / 开关 / 窗帘电机
+- 欧瑞博 (ORVIBO) 智能面板 / 照明
 - 米家激光投影仪
 - Apple TV 4K
 - 小米踢脚线暖风机
