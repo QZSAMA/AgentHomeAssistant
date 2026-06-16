@@ -9,11 +9,254 @@
 - 🔄 **灵活可扩展**：Agent 可自由替换，适配器模式解耦 Home Assistant
 - ⚙️ **YAML + Web UI**：核心配置版本化管理，可视化配置灵活调整
 
+## 网络架构
+
+### 双路由方案
+
+采用主路由器 + 副路由器双路由架构，实现家庭网络与工作网络的物理隔离，通过切换 WiFi 即可切换网络出口。
+
+```
+互联网
+  │
+  ▼
+┌──────────────────┐
+│   光猫 (桥接模式)  │
+└────────┬─────────┘
+         │
+         ▼
+┌──────────────────────────────┐
+│   主路由器 (原厂固件)          │
+│   192.168.1.1                │
+│   DHCP: 192.168.1.100-200    │
+│   WiFi: "Home"               │
+└────────┬─────────────────────┘
+         │
+    ┌────┴──────────────────────┐
+    │  主网络 192.168.1.0/24     │
+    │  NAS / Mac / 智能家居设备   │
+    │                            │
+    │  ┌────────────────────────┐│
+    │  │ 副路由器 (OpenWrt)      ││
+    │  │ WAN: DHCP → 192.168.1.x││
+    │  │ LAN: 192.168.2.1       ││
+    │  │ WiFi: "Work"           ││
+    │  │ + WireGuard 隧道        ││
+    │  │ + avahi-daemon 中继     ││
+    │  │ + NAT (MASQUERADE)      ││
+    │  └────────┬───────────────┘│
+    │           │                │
+    │  工作子网 192.168.2.0/24    │
+    │  工作设备 (切换 WiFi 即可)   │
+    └────────────────────────────┘
+```
+
+### 设计原则
+
+| 原则 | 说明 |
+|------|------|
+| 主路由零改动 | 主路由器保持原厂固件，不做任何配置变更 |
+| 网络隔离 | 工作流量与家庭流量完全隔离，VPN 故障不影响家庭网络 |
+| 切换便捷 | 切换 WiFi 即可切换网络出口，无需额外操作 |
+| NAS 互通 | 工作网络通过 NAT 穿透访问主网络 NAS |
+| 设备发现 | 通过 avahi-daemon mDNS 中继实现跨子网 AirPlay/HomeKit |
+
+### 数据流路径
+
+| 场景 | 流量路径 |
+|------|---------|
+| 工作设备 → 公司网络 | 设备 → 副路由器 → WireGuard 隧道 → 公司网络 |
+| 工作设备 → NAS | 设备 → 副路由器 NAT → 主网络 → NAS |
+| 工作设备 → AirPlay | 设备 mDNS → avahi 中继 → 主网络 AirPlay 设备 → 副路由器 NAT → 设备 |
+| 工作设备 → 智能家居 (Agent) | 设备 → Home Assistant API (TCP) → 副路由器 NAT → 主网络 HA → 智能家居 |
+| 家庭设备 → 互联网 | 设备 → 主路由器 → 互联网（不经过副路由器） |
+
+### 副路由器配置详情
+
+#### 硬件选型
+
+| 型号 | SoC | WiFi | 网口 | OpenWrt | 价格 | 备注 |
+|------|-----|------|------|---------|------|------|
+| 小米 AX3000T (RD03) | MT7981B | WiFi 6 AX3000 | 4× 千兆 | 23.05+ | ~¥130 | 性价比首选，**必须 RD03 版本** |
+| GL.iNet MT3000 | MT7981B | WiFi 6 AX3000 | 1× 2.5G + 1× 千兆 | 原生 | ~¥300 | 开箱即用 |
+| CMCC RAX3000M | MT7981B | WiFi 6 AX3000 | 4× 千兆 + USB | 官方 | ~¥200 | 均衡之选 |
+
+#### OpenWrt 配置步骤
+
+**1. 基础网络配置**
+
+```uci
+# /etc/config/network
+
+config interface 'lan'
+    option device 'br-lan'
+    option proto 'static'
+    option ipaddr '192.168.2.1'
+    option netmask '255.255.255.0'
+
+config interface 'wan'
+    option device 'wan'
+    option proto 'dhcp'    # 从主路由器获取 192.168.1.x
+```
+
+**2. DHCP 服务**
+
+```uci
+# /etc/config/dhcp
+
+config dhcp 'lan'
+    option interface 'lan'
+    option start '100'
+    option limit '100'
+    option leasetime '12h'
+```
+
+**3. 防火墙配置**
+
+```uci
+# /etc/config/firewall
+
+config zone
+    option name 'lan'
+    list network 'lan'
+    option input 'ACCEPT'
+    option output 'ACCEPT'
+    option forward 'ACCEPT'
+
+config zone
+    option name 'wan'
+    list network 'wan'
+    list network 'wan6'
+    option input 'REJECT'
+    option output 'ACCEPT'
+    option forward 'REJECT'
+    option masq '1'        # NAT 穿透，使工作设备可访问主网络
+    option mtu_fix '1'     # MSS Clamping，避免双 NAT 分片问题
+
+config forwarding
+    option src 'lan'
+    option dest 'wan'      # 允许 LAN → WAN 流量
+```
+
+**4. WireGuard 隧道**
+
+```uci
+# /etc/config/network
+
+config interface 'wg0'
+    option proto 'wireguard'
+    option private_key '<YOUR_CLIENT_PRIVATE_KEY>'
+    option mtu '1420'
+    list addresses '10.x.x.x/24'     # VPN 分配的 IP
+    list dns '1.1.1.1'
+
+config wireguard_wg0
+    option description 'Company-VPN'
+    option public_key '<SERVER_PUBLIC_KEY>'
+    option preshared_key '<PRESHARED_KEY>'
+    option endpoint_host '<VPN_SERVER_IP>'
+    option endpoint_port '51820'
+    list allowed_ips '0.0.0.0/0'       # 所有流量走 VPN
+    option route_allowed_ips '1'
+    option persistent_keepalive '25'    # 保持 NAT 穿透状态
+```
+
+```uci
+# /etc/config/firewall - 添加 WireGuard 区域
+
+config zone
+    option name 'wg'
+    list network 'wg0'
+    option input 'REJECT'
+    option output 'ACCEPT'
+    option forward 'REJECT'
+    option masq '1'
+    option mtu_fix '1'
+
+config forwarding
+    option src 'lan'
+    option dest 'wg'         # LAN 流量 → VPN 隧道
+```
+
+**5. mDNS 中继 (avahi-daemon)**
+
+```bash
+# 安装
+opkg update && opkg install avahi-daemon
+
+# 禁用默认 umdns（避免冲突）
+/etc/init.d/umdns stop && /etc/init.d/umdns disable
+```
+
+```ini
+# /etc/avahi/avahi-daemon.conf
+
+[server]
+use-ipv4=yes
+use-ipv6=no
+allow-interfaces=br-lan,eth0    # LAN 和 WAN 接口
+check-response-ttl=no
+use-iff-running=no
+
+[publish]
+disable-publishing=no
+publish-workstation=no
+
+[reflector]
+enable-reflector=yes
+reflect-ipv6=no
+reflect-filters=_airplay._tcp,_raop._tcp,_ipp._tcp,_hap._tcp
+reflector-quick-join=yes
+
+[rlimits]
+rlimit-core=0
+rlimit-data=4194304
+rlimit-nofile=30
+rlimit-stack=4194304
+rlimit-nproc=3
+```
+
+```bash
+# 启动并设置开机自启
+/etc/init.d/avahi-daemon enable
+/etc/init.d/avahi-daemon start
+```
+
+### 已知限制与缓解
+
+| 限制 | 影响 | 缓解措施 |
+|------|------|---------|
+| HomeKit 跨子网偶发"无响应" | mDNS 公告超时导致 | 优先使用 Home Assistant / Agent 控制（TCP，完全可靠）；HomeKit 仅作备用 |
+| AirPlay 发现延迟 5-15 秒 | 首次发现比同网段慢 | 启用 reflector-quick-join；可接受 |
+| 主网络无法主动访问工作子网 | NAT 导致单向可访问 | 当前需求不需要反向访问 |
+| HomeKit 首次配对需同网段 | 跨子网配对可能失败 | 所有设备在主网配对完成后再使用（当前已是如此） |
+
+> **核心结论**：由于 Agent 系统和 Home Assistant 均基于 TCP 协议，跨子网控制智能家居完全可靠。HomeKit 的 mDNS 限制仅影响直接通过 Siri/家庭 App 控制的场景，不影响主要控制路径。
+
+> 详细可行性分析见 [docs/dual-router-feasibility-analysis.md](docs/dual-router-feasibility-analysis.md)
+
 ## 设备清单
 
 ### 已接入设备
 
 #### 智能家居设备
+
+**品牌生态**
+- **绿米 (Aqara)**：传感器、开关面板、窗帘电机等（HomeKit 原生支持）
+- **欧瑞博 (ORVIBO)**：智能面板、照明等（通过 Home Assistant 集成）
+
+**控制体系（优先级从高到低）**
+
+| 控制方式 | 协议 | 跨子网可靠性 | 说明 |
+|---------|------|-------------|------|
+| Agent 系统 | HTTP/WebSocket (TCP) | ✅ 完全可靠 | 通过 Home Assistant API 控制，不依赖 mDNS |
+| Home Assistant | HTTP/WebSocket (TCP) | ✅ 完全可靠 | Web UI / App 远程控制，基于 TCP 单播 |
+| HomeKit | mDNS + Bonjour | ⚠️ 依赖 mDNS 中继 | 跨子网偶发"无响应"，主网内完全正常 |
+
+> 所有智能家居设备均在主网络 (192.168.1.0/24) 配对和运行。工作子网设备通过 Home Assistant API 控制智能家居完全可靠，仅 HomeKit 直接控制依赖 mDNS 中继。
+
+**已接入设备**
+- 绿米 (Aqara) 传感器 / 开关 / 窗帘电机
+- 欧瑞博 (ORVIBO) 智能面板 / 照明
 - 米家激光投影仪
 - Apple TV 4K
 - 小米踢脚线暖风机
@@ -22,21 +265,16 @@
 
 #### 计算基础设施
 
-| 设备 | 角色 | 主要功能 | 网络隔离 |
+| 设备 | 角色 | 主要功能 | 网络位置 |
 |------|------|----------|----------|
-| Mac Studio | 软路由 + 本地大模型 | 网络管理、本地 LLM 推理 (Ollama/LocalAI) | DMZ / 主网络 |
-| Mac Mini | Agent 控制节点 | 运行 OpenClaw / Hermes Agent 实现自动化控制 | 独立安全网络 |
+| Mac Studio | 本地大模型 | 本地 LLM 推理 (Ollama/LocalAI) | 主网络 |
+| Mac Mini | Agent 控制节点 | 运行 Hermes Agent 实现自动化控制 | 主网络 (安全隔离) |
 | NAS (数据中心) | 文件存储 + 媒体服务 | 照片备份、文件共享、媒体库、备份服务 | 主网络 |
+| 副路由器 (OpenWrt) | 工作网络网关 | WireGuard 隧道、mDNS 中继、NAT 穿透 | 桥接主网络 / 工作子网 |
 
 #### Mac Studio 配置说明
 
 Mac Studio 作为核心算力设备，承担以下职责：
-
-**软路由功能**
-- 通过 macOS Server 或 pfSense 虚拟机实现网络管理
-- VPN 服务器 (WireGuard / OpenVPN)
-- DHCP / DNS 服务
-- 流量监控与防火墙规则
 
 **本地大模型**
 - 运行 Ollama / llama.cpp 等本地 LLM 推理引擎
@@ -46,23 +284,23 @@ Mac Studio 作为核心算力设备，承担以下职责：
 
 #### Mac Mini 配置说明
 
-Mac Mini 作为独立的 Agent 控制节点，与 Mac Studio 网络隔离：
+Mac Mini 作为独立的 Agent 控制节点：
 
 **Agent 运行环境**
-- 运行 OpenClaw 或 Hermes Agent 实例
+- 运行 Hermes Agent 实例
 - 专门负责智能家居自动化决策
 - 通过 Home Assistant API 控制设备
 - 日志和敏感操作记录隔离存储
 
 **安全隔离策略**
 ```
-┌─────────────────┐      隔离网络      ┌─────────────────┐
-│    Mac Studio    │◄─────────────────►│     Mac Mini     │
-│  (软路由 + LLM)  │                   │  (Agent 控制)    │
-└─────────────────┘                   └─────────────────┘
-        │                                      │
-        │ 正常网络流量                          │ 隔离网络
-        ▼                                      ▼
+┌─────────────────┐      主网络       ┌─────────────────┐
+│    Mac Studio    │◄────────────────►│     Mac Mini     │
+│   (本地 LLM)     │                  │  (Agent 控制)    │
+└─────────────────┘                  └─────────────────┘
+        │                                     │
+        │                                     │
+        ▼                                     ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                      Home Assistant                         │
 │   ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐     │
@@ -92,9 +330,6 @@ Mac Mini 作为独立的 Agent 控制节点，与 Mac Studio 网络隔离：
 | 投影仪 / 投影 | `media_player.xiaomi_projector` |
 | 暖风机 | `climate.xiaomi_heater` |
 | 净化器 / 空气净化器 | `air_quality.xiaomi_air_purifier` |
-| Mac Studio / 软路由 | `switch.mac_studio_router` |
-| Mac Mini / Agent 节点 | `switch.mac_mini_agent` |
-| NAS / 存储 / 数据中心 | `switch.nas_server` |
 
 ## 系统架构
 
@@ -183,11 +418,25 @@ Mac Mini 作为独立的 Agent 控制节点，与 Mac Studio 网络隔离：
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                          计算基础设施层                                       │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                          │
-│  │ Mac Studio  │  │  Mac Mini   │  │     NAS     │                          │
-│  │ (软路由+LLM) │  │ (Agent节点) │  │  (存储/备份) │                          │
-│  │   DMZ 区    │  │  安全隔离区  │  │   主网络     │                          │
-│  └─────────────┘  └─────────────┘  └─────────────┘                          │
+│                                                                              │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                        主网络 192.168.1.0/24                         │   │
+│   │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                  │   │
+│   │  │ Mac Studio  │  │  Mac Mini   │  │     NAS     │                  │   │
+│   │  │ (本地 LLM)  │  │ (Agent节点) │  │  (存储/备份) │                  │   │
+│   │  └─────────────┘  └─────────────┘  └─────────────┘                  │   │
+│   │                              │                                      │   │
+│   │              ┌───────────────┴───────────────┐                      │   │
+│   │              │    副路由器 (OpenWrt)           │                      │   │
+│   │              │    WireGuard + mDNS 中继        │                      │   │
+│   │              └───────────────┬───────────────┘                      │   │
+│   │                              │                                      │   │
+│   └──────────────────────────────┼──────────────────────────────────────┘   │
+│                                  │                                          │
+│   ┌──────────────────────────────┼──────────────────────────────────────┐   │
+│   │               工作子网 192.168.2.0/24                                │   │
+│   │              工作设备 (通过 WiFi "Work" 接入)                         │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -298,10 +547,10 @@ Agent：我理解了，观影模式包括：
        1. 客厅灯 - 亮度调至最暗
        2. 窗帘 - 拉上
        3. 投影仪 - 打开
-       
+
        保存中...
        [保存成功]
-       
+
        观影模式已创建完成。需要我现在执行一次吗？
 ```
 
@@ -311,11 +560,11 @@ Agent：我理解了，观影模式包括：
 用户：打开观影模式
 
 Agent：好的，正在启动观影模式...
-       
+
        ✓ 客厅灯已调至最暗
        ✓ 窗帘已拉上
        ✓ 投影仪已打开
-       
+
        观影模式已就绪！
 ```
 
@@ -326,7 +575,7 @@ Agent：好的，正在启动观影模式...
 
 Agent：我理解了，观影模式灯光从最暗调整到50%亮度。
        [保存成功]
-       
+
        观影模式已更新，灯光现在会调到50%亮度。
 ```
 
@@ -341,13 +590,12 @@ Agent：当前客厅温度是 24°C，湿度 45%。
 
 ## 技术栈
 
-- **Agent**: Hermes Agent / OpenClaw (可替换)
-- **Agent 运行**: Mac Mini (独立安全网络)
-- **本地 LLM**: Mac Studio (Ollama / llama.cpp)
+- **Agent**: Hermes Agent (可替换)
 - **Home Assistant**: 智能家居核心平台
 - **API 网关**: FastAPI / Flask
-- **配置存储**: YAML + SQLite (NAS 存储)
+- **配置存储**: YAML + SQLite
 - **设备集成**: Home Assistant REST API / WebSocket
+- **工作网络**: OpenWrt + WireGuard + avahi-daemon
 
 ## 后续建议补充的设备
 
@@ -365,6 +613,14 @@ Agent：当前客厅温度是 24°C，湿度 45%。
 
 ## 下一步计划
 
+- [ ] 采购副路由器 (推荐小米 AX3000T RD03)
+- [ ] 刷 OpenWrt 固件
+- [ ] 配置副路由器基础网络 (WAN/LAN/DHCP)
+- [ ] 配置 WireGuard 隧道连接公司网络
+- [ ] 配置 avahi-daemon mDNS 中继
+- [ ] 测试 NAS 跨子网访问
+- [ ] 测试 AirPlay 跨子网投屏
+- [ ] 测试 HomeKit 跨子网控制
 - [ ] 确定集成方案
 - [ ] 搭建运行环境 (决定是跑在本地还是 Docker)
 - [ ] 开发 Middleware 核心服务
