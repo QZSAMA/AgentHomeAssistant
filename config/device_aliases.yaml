@@ -1,0 +1,12 @@
+# 设备别名映射: 自然语言名称 -> Home Assistant Entity ID
+# 此文件由 Config Manager 管理，支持手动编辑和 API 修改
+
+灯光: light.living_room
+客厅灯: light.living_room
+窗帘: cover.living_room_curtain
+客厅窗帘: cover.living_room_curtain
+投影仪: media_player.xiaomi_projector
+投影: media_player.xiaomi_projector
+暖风机: climate.xiaomi_heater
+净化器: air_quality.xiaomi_air_purifier
+空气净化器: air_quality.xiaomi_air_purifier

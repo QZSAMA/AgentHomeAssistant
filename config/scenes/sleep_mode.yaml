@@ -1,0 +1,13 @@
+name: "睡眠模式"
+description: "睡前自动关闭所有设备"
+source: "manual"
+
+devices:
+  - entity_id: "light.living_room"
+    service: "turn_off"
+
+  - entity_id: "media_player.xiaomi_projector"
+    service: "turn_off"
+
+  - entity_id: "cover.living_room_curtain"
+    service: "close_cover"

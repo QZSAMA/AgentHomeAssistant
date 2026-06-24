@@ -1,0 +1,15 @@
+name: "观影模式"
+description: "自动开启观影环境"
+source: "natural_language"
+
+devices:
+  - entity_id: "light.living_room"
+    service: "turn_on"
+    data:
+      brightness: 0
+
+  - entity_id: "cover.living_room_curtain"
+    service: "close_cover"
+
+  - entity_id: "media_player.xiaomi_projector"
+    service: "turn_on"
