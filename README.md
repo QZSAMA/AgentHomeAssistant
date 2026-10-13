@@ -3,6 +3,7 @@
 基于 Apple 生态 + Aqara（绿米）智能家居 + Hermes Agent 的个人家庭助理自动化方案
 
 > **当前基础设施事实源**：[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)。
+> **6GHz 专项研究（2026-10-13）**：[中国大陆 Wi-Fi 7 / 6GHz 调研报告](docs/wifi7-6ghz-mainland-china-research.md)已记录官方限制、公开成功/失败案例与配置方法。存在特定组合的技术成功自述，但未发现大陆普通住宅 WLAN 开放依据；Apple 官方不支持在大陆使用 6GHz，EAP775-Wall 未经本项目实测。保留暂选型号，6GHz 不计入部署保证能力。
 > **AP 选型更新（2026-10-13）**：主卧、次卧、工作室各暂定 1 台 **EAP775-Wall 三频 Wi-Fi 7 面板 AP**，大厅保留 **EAP772 Wi-Fi 7 吊顶 AP ×1** 候选，均按 2.5G 有线回程。拓扑和 [BOM](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单) 已同步；EAP775-Wall 美国官网确认支持 2.4/5/6GHz，取代 EAP725-Wall 条件候选。地区合规、发货版本及 PoE 供电仍须核验，不代表已购买。
 > README 中较早的设备状态和网络方案用于背景参考；采购、户型、AP 布点、Apple Home Hub 和模型计划以台账为准。
 > **当前品牌范围（用户已确认）**：Apple 生态、Aqara/绿米为主；网络设备选择 TP-Link；ORVIBO/欧瑞博仅考虑空调。**不考虑任何小米/米家、华为设备**，包括网络、家电及智能家居；下文相关名称只保留为历史示例，不是当前采购或部署来源，也不代表用户已有这些设备或需要拆除。
@@ -19,6 +20,7 @@
 | [全屋网络拓扑图](docs/network-topology.md) | v1.0 连接/位置/速率基线；四条入房主干、小设备箱、工作室/Mac 10G、其余区域 2.5G、中央机柜 NAS/J3455、PoE/UPS 边界 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
+| [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
 | [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 采购门槛、四条主干及房内支线、机箱/电源、验收要求 |
 | [Hermes × HA 隔离实验指南](examples/hermes-ha-lab/README.md) / [验收记录](docs/validation/hermes-ha-lab.md) | 当前软件入口：固定官方插件、独立 profile、虚拟实体、只读 REST 探测与预期断言；真实联调仍为 `not_run` |
 
