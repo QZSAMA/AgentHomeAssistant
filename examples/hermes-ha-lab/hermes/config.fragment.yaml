@@ -1,0 +1,16 @@
+# FRAGMENT ONLY: manually merge into the aha-lab profile's config.yaml.
+# These fields do not configure the model/provider or supply authentication.
+# Keep gateway/events disabled even though HASS_TOKEN enables the CLI tools.
+platforms:
+  homeassistant:
+    enabled: false
+    extra:
+      watch_all: false
+      watch_domains: []
+      watch_entities: []
+
+# Offer only the Home Assistant toolset to this lab CLI session.
+# This is tool selection, not a security sandbox or per-entity permission layer.
+platform_toolsets:
+  cli:
+    - homeassistant

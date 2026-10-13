@@ -1,0 +1,17 @@
+# Load only in an isolated Home Assistant instance with no real integrations.
+# This is an input_boolean helper, NOT a light-domain or physical-light test.
+input_boolean:
+  aha_lab_light:
+    name: AHA Lab Virtual Light
+    icon: mdi:lightbulb-outline
+    initial: false
+
+script:
+  aha_lab_work_mode:
+    alias: AHA Lab Work Mode
+    description: Lab-only script; its only action turns on the lab helper.
+    mode: single
+    sequence:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.aha_lab_light

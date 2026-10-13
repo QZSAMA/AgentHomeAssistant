@@ -1,0 +1,6 @@
+# FRAGMENT ONLY: manually merge into the isolated lab HA configuration.yaml.
+# Do not replace configuration.yaml or duplicate an existing homeassistant key.
+# If packages already uses another include strategy, adapt aha_lab.yaml to that
+# strategy instead of adding a second packages key.
+homeassistant:
+  packages: !include_dir_named packages
