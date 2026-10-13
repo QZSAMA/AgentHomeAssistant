@@ -394,6 +394,276 @@ class ProbeBehaviorTests(unittest.TestCase):
                 self.assertNotIn(TOKEN, stdout.getvalue())
                 self.assertNotIn(self.base_url, stdout.getvalue())
 
+    def test_default_report_remains_unchanged_without_expectations(self):
+        code, report = self.run_probe()
+        self.assertEqual(code, 0)
+        self.assertEqual(report, {
+            "scope": "ha_rest_probe", "status": "passed", "exit_code": 0,
+            "ha_version": "2026.10.1",
+            "checks": [
+                {"name": "api", "status": "passed", "reason": "api_available"},
+                {"name": "config", "status": "passed", "reason": "config_available"},
+            ],
+        })
+
+    def test_expected_version_matches(self):
+        code, report = self.run_probe(["--expect-version", "2026.10.1"])
+        self.assertEqual(code, 0)
+        self.assertEqual(report["checks"][-1], {
+            "name": "version_expectation", "status": "passed", "reason": "version_matches",
+        })
+        self.assertEqual([item[1] for item in self.server.requests], ["/api/", "/api/config"])
+
+    def test_expected_version_mismatch_short_circuits_entities(self):
+        code, report = self.run_probe([
+            "--expect-version", "2026.10.2",
+            "--entity-id", "input_boolean.aha_poc_light",
+            "--expect-state", "input_boolean.aha_poc_fan=on",
+        ])
+        self.assertEqual(code, 1)
+        self.assertEqual(report["ha_version"], "2026.10.1")
+        self.assertEqual(report["checks"][-1], {
+            "name": "version_expectation", "status": "failed", "reason": "version_mismatch",
+        })
+        self.assertNotIn("2026.10.2", json.dumps(report))
+        self.assertEqual([item[1] for item in self.server.requests], ["/api/", "/api/config"])
+
+    def test_expected_versions_use_existing_format_and_exact_comparison(self):
+        for actual, expected, code in [
+            ("2026.10.0b1", "2026.10.0b1", 0),
+            ("2026.10.0rc1", "2026.10.0rc1", 0),
+            ("2026.11.0.dev0", "2026.11.0.dev0", 0),
+            ("2026.1.1", "2026.01.1", 1),
+        ]:
+            with self.subTest(actual=actual, expected=expected):
+                self.server.routes["/api/config"] = (200, {"version": actual}, {})
+                actual_code, report = self.run_probe(["--expect-version", expected])
+                self.assertEqual(actual_code, code)
+                self.assertEqual(
+                    report["checks"][-1]["reason"],
+                    "version_matches" if code == 0 else "version_mismatch",
+                )
+
+    def test_invalid_expected_versions_fail_before_network(self):
+        for value in ["", "2026.13.1", "2026.10", "v2026.10.1", " 2026.10.1", "2026.10.1\n", TOKEN]:
+            with self.subTest(value=repr(value)):
+                code, report = self.run_probe(["--expect-version", value])
+                self.assertEqual(code, 2)
+                self.assertEqual(report["checks"][0]["reason"], "invalid_expected_version")
+        self.assertEqual(self.server.requests, [])
+
+    def test_duplicate_expected_versions_are_rejected_even_if_identical(self):
+        for second in ["2026.10.1", "2026.10.2"]:
+            with self.subTest(second=second):
+                code, report = self.run_probe([
+                    "--expect-version", "2026.10.1", "--expect-version", second,
+                ])
+                self.assertEqual(code, 2)
+                self.assertEqual(report["checks"][0]["reason"], "invalid_expected_version")
+        self.assertEqual(self.server.requests, [])
+
+    def test_expected_state_selects_entity_and_matches(self):
+        code, report = self.run_probe(["--expect-state", "input_boolean.aha_poc_light=off"])
+        self.assertEqual(code, 0)
+        self.assertEqual(report["checks"][-1], {
+            "name": "entity_state", "status": "passed", "reason": "state_matches",
+            "entity_id": "input_boolean.aha_poc_light",
+        })
+        self.assertEqual([item[1] for item in self.server.requests], [
+            "/api/", "/api/config", "/api/states/input_boolean.aha_poc_light",
+        ])
+        self.assertTrue(all(item[0] == "GET" for item in self.server.requests))
+
+    def test_state_mismatch_does_not_skip_later_entities_or_retry(self):
+        code, report = self.run_probe([
+            "--expect-state", "input_boolean.aha_poc_light=on",
+            "--expect-state", "input_boolean.aha_poc_fan=on",
+        ])
+        self.assertEqual(code, 1)
+        self.assertEqual([item["reason"] for item in report["checks"][-2:]], [
+            "state_mismatch", "state_matches",
+        ])
+        self.assertEqual([item[1] for item in self.server.requests], [
+            "/api/", "/api/config", "/api/states/input_boolean.aha_poc_light",
+            "/api/states/input_boolean.aha_poc_fan",
+        ])
+        self.assertTrue(all(item[0] == "GET" for item in self.server.requests))
+
+    def test_expected_states_compare_exactly_without_normalizing_response(self):
+        for state in ["ON", " on", "on ", "On", TOKEN]:
+            with self.subTest(state=state):
+                self.server.routes["/api/states/input_boolean.aha_poc_light"] = (
+                    200, {"entity_id": "input_boolean.aha_poc_light", "state": state, "attributes": {}}, {}
+                )
+                code, report = self.run_probe(["--expect-state", "input_boolean.aha_poc_light=on"])
+                self.assertEqual(code, 1)
+                self.assertEqual(report["checks"][-1]["reason"], "state_mismatch")
+                self.assertNotIn(state, json.dumps(report))
+
+    def test_invalid_expected_state_specifications_fail_before_network(self):
+        for specification in [
+            "", "input_boolean.aha_poc_light", "=on", "input_boolean.aha_poc_light=",
+            "input_boolean.aha_poc_light=ON", "input_boolean.aha_poc_light= off",
+            "input_boolean.aha_poc_light=off ", "input_boolean.aha_poc_light=off\n",
+            "input_boolean.aha_poc_light=true", "input_boolean.aha_poc_light=on=off",
+            "input_boolean.aha_poc_light=" + TOKEN,
+        ]:
+            with self.subTest(specification=repr(specification)):
+                code, report = self.run_probe(["--expect-state", specification])
+                self.assertEqual(code, 2)
+                self.assertEqual(report["checks"][0]["reason"], "invalid_expected_state")
+        self.assertEqual(self.server.requests, [])
+
+    def test_expected_state_entities_are_validated_before_any_network(self):
+        for entity_id in [
+            "invalid", "Light.kitchen", " light.kitchen", "light.kitchen ",
+            "light.kitchen/../config", "light." + "x" * 256, TOKEN,
+        ]:
+            with self.subTest(entity_id=entity_id):
+                code, report = self.run_probe([
+                    "--expect-version", "2026.10.1",
+                    "--expect-state", "input_boolean.aha_poc_light=off",
+                    "--expect-state", entity_id + "=on",
+                ])
+                self.assertEqual(code, 2)
+                self.assertEqual(report["checks"][0]["reason"], "invalid_entity_id")
+        self.assertEqual(self.server.requests, [])
+
+    def test_duplicate_expected_states_are_rejected_even_if_identical(self):
+        for second in ["off", "on"]:
+            with self.subTest(second=second):
+                code, report = self.run_probe([
+                    "--expect-state", "input_boolean.aha_poc_light=off",
+                    "--expect-state", "input_boolean.aha_poc_light=" + second,
+                ])
+                self.assertEqual(code, 2)
+                self.assertEqual(report["checks"][0]["reason"], "duplicate_expected_state")
+        self.assertEqual(self.server.requests, [])
+
+    def test_expectations_append_only_new_entities_after_explicit_order(self):
+        code, report = self.run_probe([
+            "--expect-state", "input_boolean.aha_poc_light=off",
+            "--entity-id", "input_boolean.aha_poc_fan",
+            "--expect-state", "input_boolean.aha_poc_fan=on",
+            "--entity-id", "input_boolean.aha_poc_fan",
+            "--expect-version", "2026.10.1",
+        ])
+        self.assertEqual(code, 0)
+        self.assertEqual([item[1] for item in self.server.requests], [
+            "/api/", "/api/config", "/api/states/input_boolean.aha_poc_fan",
+            "/api/states/input_boolean.aha_poc_fan", "/api/states/input_boolean.aha_poc_light",
+        ])
+        self.assertEqual([item["reason"] for item in report["checks"]], [
+            "api_available", "config_available", "version_matches",
+            "state_matches", "state_matches", "state_matches",
+        ])
+
+    def test_unasserted_entities_keep_the_original_success_reason(self):
+        code, report = self.run_probe([
+            "--entity-id", "input_boolean.aha_poc_fan",
+            "--expect-state", "input_boolean.aha_poc_light=off",
+        ])
+        self.assertEqual(code, 0)
+        self.assertEqual([item["reason"] for item in report["checks"][-2:]], [
+            "entity_available", "state_matches",
+        ])
+
+    def test_api_and_config_errors_precede_version_expectation(self):
+        for path, response, reason in [
+            ("/api/", (401, {}, {}), "authentication_failed"),
+            ("/api/config", (403, {}, {}), "authentication_failed"),
+            ("/api/config", (200, {"version": TOKEN}, {}), "invalid_response"),
+        ]:
+            with self.subTest(path=path, reason=reason):
+                self.setUp()
+                self.server.routes[path] = response
+                code, report = self.run_probe([
+                    "--expect-version", "2026.10.1",
+                    "--expect-state", "input_boolean.aha_poc_light=off",
+                ])
+                self.assertEqual(code, 1)
+                self.assertEqual(report["checks"][-1]["reason"], reason)
+                self.assertNotIn("version_expectation", [item["name"] for item in report["checks"]])
+                self.assertTrue(all(not item[1].startswith("/api/states/") for item in self.server.requests))
+
+    def test_entity_errors_precede_state_expectations(self):
+        entity_id = "input_boolean.aha_poc_light"
+        for status, payload, reason in [
+            (401, {}, "authentication_failed"),
+            (404, {}, "endpoint_not_found"),
+            (200, {"entity_id": entity_id, "state": "on"}, "invalid_response"),
+            (200, {"entity_id": entity_id, "state": None, "attributes": {}}, "invalid_response"),
+            (200, {"entity_id": "light.wrong", "state": "on", "attributes": {}}, "invalid_response"),
+            (200, {"entity_id": entity_id, "state": "unknown", "attributes": {}}, "entity_unavailable"),
+            (200, {"entity_id": entity_id, "state": " Unavailable ", "attributes": {}}, "entity_unavailable"),
+        ]:
+            with self.subTest(status=status, reason=reason):
+                self.server.routes[f"/api/states/{entity_id}"] = (status, payload, {})
+                code, report = self.run_probe(["--expect-state", entity_id + "=on"])
+                self.assertEqual(code, 1)
+                self.assertEqual(report["checks"][-1]["reason"], reason)
+
+    def test_expectation_inputs_and_responses_do_not_reflect_tokens(self):
+        cases = [
+            (["--expect-version", "2026.10.2"], "2026.10.2", 1, "version_mismatch"),
+            (["--expect-version", "2026.10.1"], "2026.10.1", 1, "invalid_response"),
+            (["--expect-state", "input_boolean.aha_poc_light=off"], "aha_poc", 2, "invalid_entity_id"),
+        ]
+        for args, token, expected_code, reason in cases:
+            with self.subTest(args=args):
+                code, report = self.run_probe(args, {"HASS_TOKEN": token})
+                self.assertEqual(code, expected_code)
+                self.assertEqual(report["checks"][-1]["reason"], reason)
+                self.assertNotIn(token, json.dumps(report))
+
+    def test_expectation_text_matches_json_without_state_or_expected_values(self):
+        for args, expected_code, reason in [
+            (["--expect-state", "input_boolean.aha_poc_light=off"], 0, "state_matches"),
+            (["--expect-state", "input_boolean.aha_poc_light=on"], 1, "state_mismatch"),
+            (["--expect-version", "2026.10.2"], 1, "version_mismatch"),
+            (["--expect-version", TOKEN], 2, "invalid_expected_version"),
+            (["--expect-state", "input_boolean.aha_poc_light=" + TOKEN], 2, "invalid_expected_state"),
+        ]:
+            with self.subTest(args=args):
+                json_code, report = self.run_probe(args)
+                self.assertEqual(json_code, expected_code)
+                self.assertEqual(report["checks"][-1]["reason"], reason)
+                stdout, stderr = io.StringIO(), io.StringIO()
+                with mock.patch.object(os, "environ", {"HASS_URL": self.base_url, "HASS_TOKEN": TOKEN}):
+                    with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+                        code = PROBE.main(args)
+                self.assertEqual(code, expected_code)
+                self.assertEqual(stderr.getvalue(), "")
+                expected_lines = [
+                    f"scope=ha_rest_probe status={report['status']} exit_code={code} "
+                    f"ha_version={report['ha_version'] or 'not_available'}"
+                ]
+                for item in report["checks"]:
+                    target = f" {item['entity_id']}" if "entity_id" in item else ""
+                    expected_lines.append(f"{item['name']}{target}: {item['status']} ({item['reason']})")
+                self.assertEqual(stdout.getvalue(), "\n".join(expected_lines) + "\n")
+                self.assertNotIn(TOKEN, stdout.getvalue())
+                self.assertNotIn(self.base_url, stdout.getvalue())
+                self.assertNotIn("2026.10.2", stdout.getvalue())
+                self.assertTrue(all(set(item) <= {"name", "status", "reason", "entity_id"} for item in report["checks"]))
+
+    def test_isolated_cli_runs_expectations_against_offline_fixture(self):
+        environment = {**os.environ, "HASS_URL": self.base_url, "HASS_TOKEN": TOKEN}
+        completed = subprocess.run(
+            [sys.executable, "-I", "-S", "-B", str(SCRIPT),
+             "--expect-version=2026.10.1", "--expect-state=input_boolean.aha_poc_light=off", "--json"],
+            env=environment, capture_output=True, text=True, timeout=10, check=False,
+        )
+        self.assertEqual(completed.returncode, 0)
+        self.assertEqual(completed.stderr, "")
+        self.assertNotIn(TOKEN, completed.stdout)
+        report = json.loads(completed.stdout)
+        self.assertEqual([item["reason"] for item in report["checks"][-2:]], [
+            "version_matches", "state_matches",
+        ])
+        self.assertEqual(len(self.server.requests), 3)
+        self.assertTrue(all(item[0] == "GET" for item in self.server.requests))
+
 
 class ProbeCliTests(unittest.TestCase):
     def run_cli(self, *args: str, settings: dict[str, str] | None = None):
@@ -429,6 +699,21 @@ class ProbeCliTests(unittest.TestCase):
         self.assertEqual(completed.returncode, 0)
         self.assertIn("Read-only HA REST probe", completed.stdout)
         self.assertEqual(completed.stderr, "")
+
+    def test_help_describes_the_optional_expectations(self):
+        completed = self.run_cli("--help")
+        self.assertEqual(completed.returncode, 0)
+        self.assertIn("--expect-version", completed.stdout)
+        self.assertIn("--expect-state", completed.stdout)
+        self.assertEqual(completed.stderr, "")
+
+    def test_missing_expectation_values_are_sanitized_cli_errors(self):
+        for flag in ["--expect-version", "--expect-state"]:
+            with self.subTest(flag=flag):
+                completed = self.run_cli("--json", flag)
+                self.assertEqual(completed.returncode, 2)
+                self.assertEqual(completed.stderr, "")
+                self.assertEqual(json.loads(completed.stdout)["checks"][0]["reason"], "invalid_arguments")
 
 
 if __name__ == "__main__":

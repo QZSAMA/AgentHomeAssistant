@@ -55,6 +55,23 @@ def make_report() -> dict:
     }
 
 
+def parse_expectations(
+    versions: list[str], states: list[str]
+) -> tuple[str | None, dict[str, str]]:
+    """Parse optional assertions without echoing their untrusted values."""
+    if len(versions) > 1 or any(not VERSION_PATTERN.fullmatch(value) for value in versions):
+        raise InputError("invalid_expected_version")
+    expected_states = {}
+    for specification in states:
+        entity_id, separator, state = specification.partition("=")
+        if not separator or not entity_id or state not in {"on", "off"}:
+            raise InputError("invalid_expected_state")
+        if entity_id in expected_states:
+            raise InputError("duplicate_expected_state")
+        expected_states[entity_id] = state
+    return (versions[0] if versions else None), expected_states
+
+
 def validate_settings(raw_url: str, token: str, entities: list[str]) -> str:
     """Reject every invalid input before constructing a network transport."""
     if not raw_url:
@@ -151,7 +168,13 @@ def add_check(report: dict, name: str, reason: str, passed: bool, entity_id: str
     report["checks"].append(check)
 
 
-def probe(base_url: str, token: str, entities: list[str]) -> dict:
+def probe(
+    base_url: str,
+    token: str,
+    entities: list[str],
+    expected_version: str | None = None,
+    expected_states: dict[str, str] | None = None,
+) -> dict:
     report = make_report()
     report["exit_code"] = 1
     opener = build_opener(
@@ -175,6 +198,14 @@ def probe(base_url: str, token: str, entities: list[str]) -> dict:
     if reason:
         return report
     report["ha_version"] = version
+    if expected_version is not None:
+        matches = version == expected_version
+        add_check(
+            report, "version_expectation",
+            "version_matches" if matches else "version_mismatch", matches,
+        )
+        if not matches:
+            return report
     for entity_id in entities:
         state, reason = get_json(opener, base_url, token, f"/api/states/{entity_id}")
         if reason is None:
@@ -188,7 +219,11 @@ def probe(base_url: str, token: str, entities: list[str]) -> dict:
                 reason = "invalid_response"
             elif state["state"].strip().casefold() in {"unknown", "unavailable"}:
                 reason = "entity_unavailable"
-        add_check(report, "entity_state", reason or "entity_available", reason is None, entity_id)
+        expected_state = (expected_states or {}).get(entity_id)
+        if reason is None and expected_state is not None and state["state"] != expected_state:
+            reason = "state_mismatch"
+        success_reason = "state_matches" if expected_state is not None else "entity_available"
+        add_check(report, "entity_state", reason or success_reason, reason is None, entity_id)
     if all(check["status"] == "passed" for check in report["checks"]):
         report["status"] = "passed"
         report["exit_code"] = 0
@@ -215,16 +250,29 @@ def main(argv: list[str] | None = None) -> int:
         allow_abbrev=False,
     )
     parser.add_argument("--entity-id", action="append", default=[], metavar="DOMAIN.OBJECT")
+    parser.add_argument(
+        "--expect-version", action="append", default=[], metavar="VERSION",
+        help="Require an exact HA version; may be specified only once.",
+    )
+    parser.add_argument(
+        "--expect-state", action="append", default=[], metavar="ENTITY_ID=on|off",
+        help="Read this explicit entity and require its exact state; repeat for different entities.",
+    )
     parser.add_argument("--json", action="store_true", help="Emit a structured, sanitized report.")
     try:
         options = parser.parse_args(arguments)
         token = os.environ.get("HASS_TOKEN", "")
-        base_url = validate_settings(os.environ.get("HASS_URL", ""), token, options.entity_id)
+        expected_version, expected_states = parse_expectations(
+            options.expect_version, options.expect_state
+        )
+        entities = list(options.entity_id)
+        entities.extend(entity_id for entity_id in expected_states if entity_id not in entities)
+        base_url = validate_settings(os.environ.get("HASS_URL", ""), token, entities)
     except InputError as error:
         report = make_report()
         add_check(report, "input", str(error), False)
     else:
-        report = probe(base_url, token, options.entity_id)
+        report = probe(base_url, token, entities, expected_version, expected_states)
     render_report(report, "--json" in arguments)
     return report["exit_code"]
 

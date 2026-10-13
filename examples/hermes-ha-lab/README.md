@@ -113,9 +113,31 @@ python scripts/ha_probe.py --entity-id input_boolean.aha_lab_light --entity-id s
 
 脚本仅 `GET /api/`、`GET /api/config` 和显式指定实体的 `GET /api/states/{entity_id}`，不枚举全屋实体、不 POST、不订阅事件。固定 5 秒 socket/单次网络操作超时（不是所有检查合计的总截止时间），无重试，不跟随重定向、不解析其 Location；仅接受不超过 1 MiB 的响应，最多读取 1 MiB + 1 字节以检测溢出。探测器禁用环境代理，不通过 `HTTP_PROXY` / `HTTPS_PROXY` 等代理变量转发 HA Token。URL 仅接受 `http(s)` origin（可带一个末尾 `/`），不接受 userinfo、其他 path/query/fragment、空白或控制字符。
 
-JSON 的 `scope` 固定为 `ha_rest_probe`，包含 `status`、`exit_code`、`ha_version` 和逐项 `checks`；每项带 `name`、`status`、`reason`，实体项带显式 `entity_id`。不输出 Token、URL、原始响应、实体属性或状态值。退出码 `0`=该探测范围全通过，`1`=连接/响应失败，`2`=输入或配置无效。
+JSON 的 `scope` 固定为 `ha_rest_probe`，包含 `status`、`exit_code`、`ha_version` 和逐项 `checks`；每项带 `name`、`status`、`reason`，实体项带显式 `entity_id`。不输出 Token、URL、原始响应、实体属性、状态值或预期参数原文。退出码 `0`=该探测范围全通过，`1`=连接/响应或预期断言失败，`2`=输入或配置无效。文本输出与 JSON 使用相同检查结果。
 
-脚本检查实体响应结构和非 `unknown` / `unavailable`，**不判断 helper 是 on 还是 off**。REST probe `passed` 不能证明 Hermes 已安装、插件已加载、模型工具调用成功、script 正确控制 helper、真实灯具或 `light` 域成功；HA 版本仍需与固定基线人工核对。
+不传断言参数时，脚本仍只检查实体响应结构和非 `unknown` / `unavailable`，**不判断 helper 是 on 还是 off**；不指定任何实体时，只检查 API 与 HA 版本响应，不读取实体。默认 JSON 结构与请求顺序保持不变。REST probe `passed` 不能证明 Hermes 已安装、插件已加载、模型工具调用成功、script 正确控制 helper、真实灯具或 `light` 域成功；未使用版本断言时，HA 版本仍需与固定基线人工核对。
+
+#### 可选：预期版本与 helper 状态断言
+
+在后续隔离环境中，可以增加一次性只读断言。下面是不同验收时点使用的两个命令，不是控制操作，也不要不分阶段地连续执行：
+
+```text
+python scripts/ha_probe.py --expect-version 2026.10.1 --expect-state input_boolean.aha_lab_light=on --json
+python scripts/ha_probe.py --expect-version 2026.10.1 --expect-state input_boolean.aha_lab_light=off --json
+```
+
+`on` 适合在 B2 直接开启或 B4 调用 script 后补充观察；`off` 适合 B1 初态、B3/B5 恢复后观察。它们不替代 B 节的 Hermes 工具调用记录与 `ha_get_state` 回读。尤其不能因为 helper 已经是 `on`，就推断某次 Hermes 请求导致了它开启。
+
+- `--expect-version VERSION` 只能提供一次，即使重复值相同也拒绝。格式沿用 HA 版本校验；按完整字符串精确比较，不去空白、不做版本归一化。
+- `--expect-state ENTITY_ID=on|off` 可为不同实体重复提供，状态仅接受小写 `on` 或 `off`。同一实体重复声明全部拒绝，即使期望值相同也不覆盖；多余空白、缺少/多出 `=`、非法 ID 或状态均为输入错误。
+- 状态断言本身就是一个明确读取目标，不必再写 `--entity-id`。先按原 `--entity-id` 顺序读取，再按断言声明顺序补入尚未选中的实体；新增断言不会重复附加已有目标。原先手动重复 `--entity-id` 的行为不变。
+- 全部参数与合并后的实体 ID 在网络请求前校验；输入错误退出 `2`，不发请求，也不回显错误参数原文。
+
+读取 `/api/`、`/api/config` 后，版本断言新增 `version_expectation` 检查项：匹配为 `version_matches`；不匹配为 `version_mismatch`、退出 `1`，并**停止后续实体读取**。安全解析出的实际版本仍保留在 `ha_version`，但不回显预期版本参数原文。
+
+实体先通过原有结构和可用性检查，再比较预期状态：断言项返回 `state_matches` 或 `state_mismatch`，没有断言的实体仍为 `entity_available`。单个实体不符或失败不会跳过后续明确目标；总体只要有失败就退出 `1`。认证/HTTP/结构错误或 `unknown` / `unavailable` 保留各自原失败原因，不把它们伪装成普通 `state_mismatch`。
+
+范围仍为 `ha_rest_probe`：断言只证明**这一次 GET 观察**是否符合预期，不证明 Hermes 因果链、插件成功或物理设备成功。状态传播可能有延迟；本工具不轮询、不重试、不发送 POST，也不补发控制指令。发生不匹配应停止并人工检查原因，不因脚本失败自动再次控制设备。
 
 ### B. Hermes CLI → helper → script
 
@@ -186,3 +208,9 @@ hermes profile delete aha-lab
 - HA 官方 [packages](https://www.home-assistant.io/docs/configuration/packages/)、[input_boolean](https://www.home-assistant.io/integrations/input_boolean/)、[script](https://www.home-assistant.io/integrations/script/)：仅静态对照配置语法，未运行 HA 配置检查/启动加载。
 
 旧 Middleware 入口 `src/middleware/main.py` 引用不存在的 `middleware.core.engine`，且 `RealHAAdapter` 仍抛出 `NotImplementedError`。本实验不绕过或修复这两项，也不以官方插件实验的成功替代旧 Middleware 验收。旧 pytest 基线当前失败于 `No module named pytest`；未安装依赖恢复其基线。独立 REST 探测器的离线 unittest 与真实 Hermes/HA 集成分别记录。
+
+## 7. 后续拉取开发分支验证
+
+本次只读断言增强已获准在完成验证后推送 `origin` 的 `codex/hermes-ha-lab` 开发分支；推送完成情况以维护者核对远端 ref 后的交付记录为准，本文不提前声明已完成，也不代表已合并 `main`。
+
+待确认远程分支可用后，可在独立实验 checkout 拉取该开发分支，先运行 `python -m unittest discover -s tests/ha_lab -v`；拉取代码或离线通过不会安装/启动 Hermes 或 HA。之后仍需按本 runbook 人工准备隔离环境，在正确阶段运行 A 节只读命令并填写验收记录。当前真实 HA、Hermes 和新增断言的在线验收均为 `not_run`，远程推送不改变这些状态。
