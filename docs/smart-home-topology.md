@@ -11,6 +11,7 @@
 - 全屋以 Aqara/绿米为主要选型方向，目标接入 Apple Home 和 Home Assistant（HA），**不考虑任何小米、华为设备**；不是所有 Aqara 产品都使用同一种协议，也不是所有型号都能完整接入两个平台。
 - 住宅约 **100㎡**、一层矩形，目前无正式设计图，房间关系已知但覆盖、点位及数量须复尺。宽带计划 **1000Mbps 下载 / 30Mbps 上传**，局域网/本地自动化能力不由 WAN 标称速度保证。
 - 网络拓扑 v1.0 的连接、位置与速率基线已确定：主卧、次卧、工作室/电竞房、大厅各一条 Cat6A 主干接入房间设备箱，每箱一台交换机再接箱外 AP 和本地设备；工作室上联/Mac 为 10G，其余三区域上联为 2.5G，AP 有线接口至少 2.5G。详见[家庭网络拓扑](network-topology.md)。房间内部仍需短网线或支线；静音由用户另行考虑，不影响此连接基线。
+- AP 形态已确认：主卧、次卧、工作室各暂定一台 **EAP775-Wall 三频 Wi-Fi 7 面板 AP**，大厅候选一台 **EAP772 Wi-Fi 7 吊顶（吸顶）AP**，共 3+1 台、2.5G 上联。面板装箱外墙面，大厅 AP 装顶面可见位置，不藏吊顶内部；地区频段/发货版本/供电验收见 [BOM](device-selection-list.md#64-按最新拓扑更新的候选购买清单)。HomePod mini 和未来 Home Hub 的 Wi-Fi 接入关系不变，Thread 仍走独立的 Thread 网络，AP 支持 6GHz 不代表 HomePod mini 支持该频段。
 - Wi-Fi 终端接 AP；Zigbee 设备接 Zigbee 网关/协调器；Matter over Thread 设备通过 Thread 网络和边界路由器进入家庭 LAN。**Matter 是应用层互通标准，Thread 与 Wi-Fi 才是这里的网络接入方式。**
 - Apple Home 与 HA 属于控制层，不是串在交换机、AP 与终端之间的网络转发设备。未来 Apple Home Hub 只按用户意向预留大厅 Wi-Fi 连接，不承诺其未确认的 Thread、Matter 或其他产品能力，也不视为 HA 或 Zigbee 网关的替代品。
 - 用户同时需要 **HomePod/Siri 家居控制**与**各房间同 Mac 本地模型对话**，两类需求都保留，具体语音终端/接入方案未定。不能默认 HomePod 的麦克风能作为任意本地模型前端，未来 Home Hub 也不据此预设能力。
@@ -25,7 +26,7 @@ flowchart TB
     LAN["家庭 LAN<br/>中央交换机与各房间交换机"]
 
     subgraph MASTER["主卧 · 规划"]
-        AP1["AP-MASTER<br/>箱外 Wi-Fi 7 AP"]
+        AP1["AP-MASTER · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP · 箱外墙面"]
         HP1["HomePod mini"]
         W1["主卧 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
         AP1 -. "Wi-Fi" .-> HP1
@@ -33,7 +34,7 @@ flowchart TB
     end
 
     subgraph SECOND["次卧 · 规划"]
-        AP2["AP-SECOND<br/>箱外 Wi-Fi 7 AP"]
+        AP2["AP-SECOND · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP · 箱外墙面"]
         HP2["HomePod mini"]
         W2["次卧 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
         AP2 -. "Wi-Fi" .-> HP2
@@ -41,7 +42,7 @@ flowchart TB
     end
 
     subgraph STUDIO["工作室 / 电竞房 · 规划"]
-        AP3["AP-STUDIO<br/>箱外 Wi-Fi 7 AP"]
+        AP3["AP-STUDIO · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP · 箱外墙面"]
         HP3["HomePod mini"]
         W3["工作室 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
         MAC["计划 Mac Studio，留工作室<br/>512GB 统一内存 / 4TB SSD<br/>本地模型，10G 接房间交换机"]
@@ -50,7 +51,7 @@ flowchart TB
     end
 
     subgraph HALL["大厅 · 规划"]
-        AP4["AP-HALL<br/>箱外 Wi-Fi 7 AP"]
+        AP4["AP-HALL · EAP772 候选<br/>Wi-Fi 7 吊顶 AP · 顶面可见"]
         FUTURE["未来 Apple Home Hub<br/>只预留 Wi-Fi 客户端连接"]
         W4["大厅 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
         AP4 -. "Wi-Fi · 用户意向" .-> FUTURE
@@ -127,14 +128,14 @@ flowchart TB
     MESH -. "可用边界出口" .-> HP2["次卧 HomePod mini<br/>Thread 边界路由器"]
     MESH -. "可用边界出口" .-> HP3["工作室 HomePod mini<br/>Thread 边界路由器"]
 
-    HP1 -. "Wi-Fi" .-> AP1["AP-MASTER"]
-    HP2 -. "Wi-Fi" .-> AP2["AP-SECOND"]
-    HP3 -. "Wi-Fi" .-> AP3["AP-STUDIO"]
+    HP1 -. "Wi-Fi" .-> AP1["AP-MASTER · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP"]
+    HP2 -. "Wi-Fi" .-> AP2["AP-SECOND · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP"]
+    HP3 -. "Wi-Fi" .-> AP3["AP-STUDIO · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP"]
     AP1 -->|"有线，经主卧交换机"| LAN["家庭 LAN"]
     AP2 -->|"有线，经次卧交换机"| LAN
     AP3 -->|"有线，经工作室交换机"| LAN
 
-    HUB["未来 Apple Home Hub<br/>不预设 Thread 能力"] -. "Wi-Fi · 用户意向" .-> AP4["AP-HALL"]
+    HUB["未来 Apple Home Hub<br/>不预设 Thread 能力"] -. "Wi-Fi · 用户意向" .-> AP4["AP-HALL · EAP772 候选<br/>Wi-Fi 7 吊顶 AP"]
     AP4 -->|"有线，经大厅交换机"| LAN
 ```
 
@@ -146,7 +147,7 @@ flowchart TB
 ## 4. 设备箱、供电与验收边界
 
 1. 保持四个房间箱、四条中央主干、每箱一台交换机；工作室上联/Mac/AP/电脑四连接，至少两个 10G 口同时用于上联/Mac，建议第三个作备用，AP/电脑口至少 2.5G。静音由用户另议，不再以无风扇作为拓扑定稿门槛；旧 TL-SX1008 和 SX3206HPP + ES206X-M2 组合仍仅作历史，不自动恢复采购。具体型号、箱体尺寸另核，箱体需可维护、通风及满足插头/弯曲空间，**AP、HomePod mini、Zigbee/Thread 网关和协调器天线放箱外**，尤其不要藏在金属箱内。强弱电分隔按现场规范执行。
-2. 房间 PoE 交换机通常需要本地市电，再为 AP/摄像头供电；普通交换机不会自动转送中央 PoE 电力。PoE 受电并转供仅在具体型号、协议和功率预算核验后使用；每台 AP/摄像头仍需各自的网线支线。
+2. 房间 PoE 交换机通常需要本地市电，再为 AP/摄像头供电；普通交换机不会自动转送中央 PoE 电力。EAP775-Wall 官网概览与规格表对下游 PoE 输出的 at/bt 输入条件存在冲突，当前不使用 AP 下游 PoE 输出，摄像头直接接房间交换机；每台 AP/摄像头仍需各自的网线支线。AP 的 45W 最大功耗记录包含 25W 转供，不作为独立功耗；供电细节及 PoE/UPS 预算见 BOM。
 3. 用户要求停电后 **NAS、Mac 与全屋网络继续运行，UPS 目标至少 1 小时**。必须覆盖光猫/主路由/中央交换机、所有房间交换机及 AP/注入器、NAS/J3455、工作室 Mac 的实际供电路径；本地市电设备不会仅因中央机柜有 UPS 就自动续航。容量/型号按实测功耗、峰值、停电满载策略与电池曲线核算，不能宣称已经达成；房间 UPS 或集中后备回路须经电气设计。HomePod、Aqara 网关、HA 等控制节点的保活需按停电时所需家居功能另核，不能以 AP 有电替代控制层可用性验收。
 4. 首期优先验证同一可信网络中的发现、配网、控制和离线自动化；之后再隔离访客、摄像头或 IoT。跨 VLAN 要另验收 IPv6、mDNS/Bonjour、组播和访问规则，不能以“能上网”代替智能家居联通验收。
 5. 最终逐设备登记型号、区域版本、协议、供电、所在区域、所属网关/Thread 网络、Apple Home/HA 集成方式及离线测试结果。摄像头点位和隐私边界单独确认，不默认在卧室或卫生间部署。
