@@ -3,6 +3,8 @@
 > **调研日期**：2026-06-16
 > **关键发现**：Hermes Agent 原生支持 Home Assistant 集成，可大幅简化方案
 
+> **执行入口已更新（2026-10-13）**：本篇保留早期调研，工具、安装方式和路线图不适用于当前实验基线，不应按“仅 Token + URL”或旧 Gateway 命令部署。当前以[隔离实验指南](../examples/hermes-ha-lab/README.md)及[验收记录](validation/hermes-ha-lab.md)为准：Hermes `v0.21.7`、官方 HA 插件 `2.0.1` 的固定 revision、独立 `aha-lab` profile、CLI-only，以及不含真实设备的测试 HA。Gateway、事件订阅和真实设备控制均不在本轮范围；真实联调仍为 `not_run`。
+
 > **设备范围校正（2026-10-13）**：本文是历史软件集成调研，不是设备采购或已部署清单。当前方向为 Apple 生态、Aqara/绿米为主，网络选择 TP-Link，ORVIBO/欧瑞博仅考虑空调；任何小米/米家、华为设备均不在当前选型范围。下方投影仪、暖风机等只代表通用设备角色，不据此指定或认定用户已有某品牌设备；具体型号与接入能力以[设备选型清单](device-selection-list.md)及验收记录为准。
 > 文中的 `xiaomi_*` 实体 ID 保留为旧调用示例，不可直接用作当前部署配置；真实接入时须替换为获选设备的实际实体并验收。
 
@@ -54,6 +56,8 @@ Hermes Agent **原生提供完整的 Home Assistant 集成**，包括：
 - 需要配置 `watch_domains` / `watch_entities` / `watch_all` 过滤器
 
 ### 2.4 配置方式
+
+> **历史示例，不执行**：以下默认 profile 与 Gateway 步骤已被[当前实验指南](../examples/hermes-ha-lab/README.md)替代；保留仅为研究记录，不是当前可复现配置。
 
 ```bash
 # ~/.hermes/.env
@@ -259,6 +263,8 @@ Hermes Gateway 支持 14+ 平台：
 ## 六、具体建议
 
 ### 6.1 立即可做的工作
+
+> **历史建议，不执行**：以下安装、`stable` 镜像、默认 profile、Gateway 和真实设备示例均不属于当前批准的实验步骤。当前仅交付软件与离线测试，后续人工部署须遵循[固定版本隔离实验指南](../examples/hermes-ha-lab/README.md)，逐项填写[验收记录](validation/hermes-ha-lab.md)。
 
 1. **安装 Hermes Agent**：
    ```bash

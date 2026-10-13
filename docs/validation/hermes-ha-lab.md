@@ -37,7 +37,7 @@
 | E2 | 资源警告与独立 CLI 回归 | `passed` | 同日执行 `python -B -W error::ResourceWarning -m unittest discover -s tests/ha_lab -v`：50 tests，5.402s，OK，无资源警告；另执行 `python -I -S -B scripts/ha_probe.py --help`，新增参数可见。JSON/文本/退出码一致与默认兼容均有回归测试。 |
 | E3 | 独立代码／安全／文档复核 | `passed` | 独立 reviewer 复跑 50 项通过，并额外检查 12 组组合边界，无阻断缺陷；包括非法预期零请求、严格状态比较、原错误优先、版本短路、目标顺序、固定脱敏输出。transport 未改，保持 GET-only 与无重试/轮询。 |
 | E4 | 本轮 Git 空白与变更范围检查 | `passed` | 已执行 `git diff --check`、`git diff --cached --check` 与暂存范围检查，无空白错误。本轮仅 6 个相关文件：探针、测试、runbook、验收记录、新设计与计划；未纳入原工作区未提交修改或真实凭据。 |
-| E5 | 推送开发分支并核对远端 ref | `passed` | 2026-10-13 已推送实现提交 `4bcdbdeeba1da77ac1d005b831d3ba94caae9ec1` 至 `origin/codex/hermes-ha-lab`，`git ls-remote` 读回与本地 HEAD 一致；包含第一阶段底座 `ab7f4e3`。远端 `main` 仍为 `137da3107b5b055d933646e1080a4050f2ef2ec2`，未强推、未合并。本条为已确认实现提交的交付回执，后续文档提交可继续位于该分支；推送不是集成验收。 |
+| E5 | 推送开发分支并核对远端 ref | `passed` | 2026-10-13 已推送实现提交 `4bcdbdeeba1da77ac1d005b831d3ba94caae9ec1` 至 `origin/codex/hermes-ha-lab`，`git ls-remote` 读回与本地 HEAD 一致；包含第一阶段底座 `ab7f4e3`。该次核对时远端 `main` 为 `137da3107b5b055d933646e1080a4050f2ef2ec2`，当次未强推、未合并。本条是开发分支交付的历史回执，不表示当前 `main` 状态；后续 main 整合见下节，推送不是集成验收。 |
 
 断言契约：`--expect-version` 只允许一次，按字符串精确比较；`--expect-state ENTITY_ID=on|off` 可为不同实体重复，隐式加入明确读取目标，同实体重复声明即使值相同也拒绝。原显式目标顺序在前，尚未选中的断言目标依声明顺序补入；所有参数在任何请求前校验。
 
@@ -51,7 +51,19 @@
 | R2 | helper 实际 on/off 断言 | `not_run` | 按 runbook B2/B4 后观察 `on`、B1/B3/B5 时观察 `off`，分别执行明确 helper 的 `--expect-state`；单次状态匹配不证明 Hermes 因果成功，不替代工具记录/回读。 |
 | R3 | 隔离环境的不匹配与错误处理 | `not_run` | 人工确认不匹配得到失败且不会轮询、重试或控制；版本不符无实体读取，单个状态不符仍检查后续显式目标。仅在隔离环境执行。 |
 
-开发分支已可拉取；可在独立实验 checkout 复跑离线测试，再按 runbook 人工验证。本轮真实环境缺位，R1–R3 和下列 I1–I15 保持 `not_run`。
+实验代码已从开发分支合入 `main`；在独立实验 checkout 复跑离线测试后，再按 runbook 人工验证。本轮真实环境缺位，R1–R3 和下列 I1–I15 保持 `not_run`。
+
+## main 整合与合并后回归（2026-10-13）
+
+用户已授权将“智能(网络)”与“智能”两个线程的文档更新，以及本实验开发分支合入 `main` 并推送。文档快照提交为 `0bf7485`（10 个文件），正常合并提交为 `863f042`，保留开发分支 `3ba1dd7` 及其全部历史，没有强推或重写历史。
+
+| ID | 检查范围 | 状态 | 证据与限制 |
+| --- | --- | --- | --- |
+| M1 | 文档与实验分支整合 | `passed` | 无合并冲突；网络拓扑 v1.0、智能家居/Thread 图、设备/布线台账与 HA 实验文件同时保留。旧双路由入口已补房间交换机，旧 Hermes 部署步骤已加历史警告，README 指向当前实验指南。 |
+| M2 | 合并后的独立 unittest | `passed` | 在 `main` 执行 `python -m unittest discover -s tests/ha_lab -v`：50 tests，5.457s，OK。 |
+| M3 | 合并后的资源警告回归 | `passed` | 在 `main` 执行 `python -B -W error::ResourceWarning -m unittest discover -s tests/ha_lab -v`：50 tests，5.381s，OK。 |
+
+以上仅是 Git 整合与本机离线证据，不是实际部署、施工或 Hermes/HA 端到端验收；旧 Middleware 的 pytest 基线未在此次合并中重跑，仍保留 S5 的依赖缺失记录。远端交付需另核对 `refs/heads/main` 与本地提交号；提交/推送成功不能将 R1–R3、I1–I15 改为通过。
 
 ## 独立 HA 与 Hermes 人工验收
 

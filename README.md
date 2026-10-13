@@ -19,6 +19,9 @@
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
 | [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 采购门槛、四条主干及房内支线、机箱/电源、验收要求 |
+| [Hermes × HA 隔离实验指南](examples/hermes-ha-lab/README.md) / [验收记录](docs/validation/hermes-ha-lab.md) | 当前软件入口：固定官方插件、独立 profile、虚拟实体、只读 REST 探测与预期断言；真实联调仍为 `not_run` |
+
+软件实验底座及只读断言已合入 `main`。可先运行 `python -m unittest discover -s tests/ha_lab -v` 复跑离线测试；这不安装 Hermes/HA、不连接真实家居，也不代表旧 Middleware 或真实集成已通过验收。准备隔离测试环境后，按实验指南逐项验证，不执行下方历史部署步骤。
 
 房屋约 **100㎡、单层**，尚无正式设计图；计划宽带 **1000Mbps 下载 / 30Mbps 上传**。图纸是方案，不代表已安装。用户已有 J3455 自建服务器：**16GB 内存、10TB 存储、千兆网口、Proxmox**，已运行非官方群晖 NAS 及家庭代理/数据转发容器，规划移入弱电箱附近服务器机柜；HA 部署仍待评估。
 
