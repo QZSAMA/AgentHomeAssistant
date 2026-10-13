@@ -129,7 +129,14 @@ python scripts/ha_probe.py --expect-version 2026.10.1 --expect-state input_boole
 - [x] 独立 reviewer 检查默认兼容、预校验、固定脱敏 reason、无控制请求、版本短路、真实验收仍未运行；发现缺陷必须先补失败测试再修复。
 - [x] 最终运行 `python -m unittest discover -s tests/ha_lab -v` 与 `python -B -W error::ResourceWarning -m unittest discover -s tests/ha_lab -v`；应全部通过。
 - [x] `git diff --check`、逐个暂存本轮文件，执行 `git diff --cached --check` 与 `git diff --cached --stat`，排除原工作区改动和秘密文件。
-- [ ] `git commit -m "feat: add read-only HA version and state expectations"`。
+- [x] `git commit -m "feat: add read-only HA version and state expectations"`。
 - [x] 只读核对远端 `git ls-remote --heads origin refs/heads/codex/hermes-ha-lab`；存在非快进冲突时停止，不强推。
-- [ ] `git push --set-upstream origin codex/hermes-ha-lab`，仅在本地验证完成后执行。
-- [ ] 再次读取远端 ref，与本地 `git rev-parse HEAD` 一致才报告推送完成；附远程分支链接与后续拉取／验证命令。真实联调状态不因推送改变。
+- [x] `git push --set-upstream origin codex/hermes-ha-lab`，仅在本地验证完成后执行。
+- [x] 再次读取远端 ref，与本地 `git rev-parse HEAD` 一致才报告推送完成；附远程分支链接与后续拉取／验证命令。真实联调状态不因推送改变。
+
+## 执行结果
+
+- 50 项离线测试通过（原 29 项 + 新 21 项），严格资源警告测试和独立复核通过。
+- 实现提交 `4bcdbdeeba1da77ac1d005b831d3ba94caae9ec1` 已推送并核对远端 ref；远端 `main` 未变。
+- 使用现有仓库授权完成推送，仅作用于该次 Git 进程；未改变全局默认账号、未将令牌写入仓库。
+- 交付与真实验收状态见 [validation](../../validation/hermes-ha-lab.md)；真实联调仍为 `not_run`。

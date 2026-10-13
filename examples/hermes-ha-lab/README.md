@@ -211,6 +211,14 @@ hermes profile delete aha-lab
 
 ## 7. 后续拉取开发分支验证
 
-本次只读断言增强已获准在完成验证后推送 `origin` 的 `codex/hermes-ha-lab` 开发分支；推送完成情况以维护者核对远端 ref 后的交付记录为准，本文不提前声明已完成，也不代表已合并 `main`。
+本次只读断言增强已推送至 [codex/hermes-ha-lab](https://github.com/QZSAMA/AgentHomeAssistant/tree/codex/hermes-ha-lab) 开发分支，包含第一阶段底座；已核对的实现提交为 `4bcdbdeeba1da77ac1d005b831d3ba94caae9ec1`，交付记录见 validation E5。尚未合并 `main`。
 
-待确认远程分支可用后，可在独立实验 checkout 拉取该开发分支，先运行 `python -m unittest discover -s tests/ha_lab -v`；拉取代码或离线通过不会安装/启动 Hermes 或 HA。之后仍需按本 runbook 人工准备隔离环境，在正确阶段运行 A 节只读命令并填写验收记录。当前真实 HA、Hermes 和新增断言的在线验收均为 `not_run`，远程推送不改变这些状态。
+在未来实验机器的合适目录运行以下命令；先确认目标 `AgentHomeAssistant-lab` 不存在，不覆盖已有 checkout：
+
+```powershell
+git clone --branch codex/hermes-ha-lab --single-branch https://github.com/QZSAMA/AgentHomeAssistant.git AgentHomeAssistant-lab
+cd AgentHomeAssistant-lab
+python -m unittest discover -s tests/ha_lab -v
+```
+
+使用 Python 3.14。拉取代码或离线通过不会安装/启动 Hermes 或 HA。之后仍需按本 runbook 人工准备隔离环境，在正确阶段运行 A 节只读命令并填写验收记录。当前真实 HA、Hermes 和新增断言的在线验收均为 `not_run`，远程推送不改变这些状态。

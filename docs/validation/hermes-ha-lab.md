@@ -29,7 +29,7 @@
 
 ## 第二阶段：只读预期断言（本轮记录）
 
-仅新增 `--expect-version` 与 `--expect-state`，保留第一阶段 29 项历史测试结果，不以新测试数覆盖历史。下列状态由最终执行者根据本轮实际命令与结果更新；本轮已获授权在验证后推送开发分支，但未核对远端 ref 前不能记录为完成。
+仅新增 `--expect-version` 与 `--expect-state`，保留第一阶段 29 项历史测试结果，不以新测试数覆盖历史。下列状态依据本轮实际命令与结果记录；用户已授权推送开发分支，远端交付确认见 E5，真实联调结果仍独立记录。
 
 | ID | 检查范围 | 状态 | 证据与限制 |
 | --- | --- | --- | --- |
@@ -37,7 +37,7 @@
 | E2 | 资源警告与独立 CLI 回归 | `passed` | 同日执行 `python -B -W error::ResourceWarning -m unittest discover -s tests/ha_lab -v`：50 tests，5.402s，OK，无资源警告；另执行 `python -I -S -B scripts/ha_probe.py --help`，新增参数可见。JSON/文本/退出码一致与默认兼容均有回归测试。 |
 | E3 | 独立代码／安全／文档复核 | `passed` | 独立 reviewer 复跑 50 项通过，并额外检查 12 组组合边界，无阻断缺陷；包括非法预期零请求、严格状态比较、原错误优先、版本短路、目标顺序、固定脱敏输出。transport 未改，保持 GET-only 与无重试/轮询。 |
 | E4 | 本轮 Git 空白与变更范围检查 | `passed` | 已执行 `git diff --check`、`git diff --cached --check` 与暂存范围检查，无空白错误。本轮仅 6 个相关文件：探针、测试、runbook、验收记录、新设计与计划；未纳入原工作区未提交修改或真实凭据。 |
-| E5 | 推送开发分支并核对远端 ref | `not_run` | 用户已授权推送 `origin/codex/hermes-ha-lab`，不强推、不改 `main`。实际推送后以远端 ref 与本地 commit 一致为完成证据；推送不是集成验收。 |
+| E5 | 推送开发分支并核对远端 ref | `passed` | 2026-10-13 已推送实现提交 `4bcdbdeeba1da77ac1d005b831d3ba94caae9ec1` 至 `origin/codex/hermes-ha-lab`，`git ls-remote` 读回与本地 HEAD 一致；包含第一阶段底座 `ab7f4e3`。远端 `main` 仍为 `137da3107b5b055d933646e1080a4050f2ef2ec2`，未强推、未合并。本条为已确认实现提交的交付回执，后续文档提交可继续位于该分支；推送不是集成验收。 |
 
 断言契约：`--expect-version` 只允许一次，按字符串精确比较；`--expect-state ENTITY_ID=on|off` 可为不同实体重复，隐式加入明确读取目标，同实体重复声明即使值相同也拒绝。原显式目标顺序在前，尚未选中的断言目标依声明顺序补入；所有参数在任何请求前校验。
 
@@ -51,7 +51,7 @@
 | R2 | helper 实际 on/off 断言 | `not_run` | 按 runbook B2/B4 后观察 `on`、B1/B3/B5 时观察 `off`，分别执行明确 helper 的 `--expect-state`；单次状态匹配不证明 Hermes 因果成功，不替代工具记录/回读。 |
 | R3 | 隔离环境的不匹配与错误处理 | `not_run` | 人工确认不匹配得到失败且不会轮询、重试或控制；版本不符无实体读取，单个状态不符仍检查后续显式目标。仅在隔离环境执行。 |
 
-确认开发分支已推送后，可在独立实验 checkout 拉取并复跑离线测试，再按 runbook 人工验证；本轮真实环境缺位，R1–R3 和下列 I1–I15 保持 `not_run`。
+开发分支已可拉取；可在独立实验 checkout 复跑离线测试，再按 runbook 人工验证。本轮真实环境缺位，R1–R3 和下列 I1–I15 保持 `not_run`。
 
 ## 独立 HA 与 Hermes 人工验收
 
