@@ -49,3 +49,7 @@ Thumbs.db
 config/secrets.yaml
 config/*.local.yaml
 .trae/
+
+# Local integration credentials; keep credential-free templates visible.
+.env*
+!.env.example
