@@ -3,22 +3,28 @@
 基于 Apple 生态 + Aqara（绿米）智能家居 + Hermes Agent 的个人家庭助理自动化方案
 
 > **当前基础设施事实源**：[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)。
-> **核心设备最新状态（2026-10-15）**：ER707-M2主路由、ES206XPP-M2大厅交换机已确认选型，未购/未部署；Omada 改为在现有 J3455/Proxmox 上新建独立 Linux VM 运行软件控制器，OC200 退出当前采购。Home Assistant 同样确定在 J3455 上新建独立 HAOS VM；两项均为部署决定、尚未实施，须先核宿主资源、SSD、备份与 UPS。中央推荐ES210XPP-M2（90W/口、200W总PoE），仍待用户确认。运营商考虑电信或联通、尚未确定，保留光猫桥接；ER707-M2光口仅1G，猫棒兼容不作保证。供电核算与光猫替代条件见[网络调研](docs/tplink-network-research.md)。
+> **采购与报价（2026-10-15）**：[完整采购BOM](docs/purchase-bom.md)区分已确认、暂选与未决；NAS已确认靠近工作室交换机，当前用兼容SFP+ DAC短线。四区域不额外预埋光纤，保留可抽换弱电管/牵引线。
+> **核心设备最新状态（2026-10-15）**：用户暂定 **Fusion 2.5G 普通版 ×1（非 PoE 版）**作为主路由，使用其内置 Omada 控制器；ER707-M2 和 J3455 上的 Omada Linux VM 撤出当前计划，OC200 不采购。大厅 ES206XPP-M2 选型保留；中央仍推荐 ES210XPP-M2（90W/口、200W总PoE），待用户确认。Home Assistant 继续在现有 J3455/Proxmox 上新增独立 HAOS VM，尚未实施，须核资源、SSD、备份与 UPS。Fusion 未购/未部署，保留运营商光猫桥接；普通版无 PoE、无 SFP，不替代中央 PoE 交换机。功能、价格与电源证据见[网络调研](docs/tplink-network-research.md#25-fusion-25g-普通版暂定与电源核验2026-10-15)。
+> **J3455与协调器补充（2026-10-15）**：J3455现为1GbE，用户计划升级2.5G网卡，仍使用电竞房已分配的同一个交换机端口；型号、Proxmox驱动与桥接迁移待验证。HA经LAN连接有线网关/以太网协调器，不默认使用USB直通；Aqara网关集成与HA直管协调器是不同路径，具体型号和协议仍待选，见[智能家居接法](docs/smart-home-topology.md#21-各协议的实际接法)。
+> **PoE 与端口复核（2026-10-15）**：中央推荐ES210XPP-M2两卧室AP保守规划117W/200W，未来PoE可按需增加独立ES206XPP-M2。用户确认电竞房不扩交换机；继续使用单台ES210XPP-M2。工作室EAP775-Wall除上联外还有1×2.5G+3×1G数据下联，Apple TV/投影可改接两个1G口，从而释放两个ES210端口；J3455/HA、Mac、NAS和PC保持交换机直连，不使用AP PoE Out。见[网络拓扑](docs/network-topology.md#22-交换机-poe-与端口复核2026-10-15)及[BOM](docs/device-selection-list.md#63-交换机与-poe-预算)。
 > **6GHz 专项研究（2026-10-13）**：[中国大陆 Wi-Fi 7 / 6GHz 调研报告](docs/wifi7-6ghz-mainland-china-research.md)已记录官方限制、公开成功/失败案例与配置方法。存在特定组合的技术成功自述，但未发现大陆普通住宅 WLAN 开放依据；Apple 官方不支持在大陆使用 6GHz，EAP775-Wall 未经本项目实测。保留暂选型号，6GHz 不计入部署保证能力。
 > **AP 优先级确认（2026-10-14）**：支持6GHz的三频设备保持第一优先，主卧/次卧/工作室各暂选 **EAP775-Wall ×1**，大厅 **EAP772 ×1** 为第一优先候选，均按2.5G有线回程。[BOM](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单)与v1.2拓扑型号/数量不变；[AP有无6GHz选型与价格对比报告](docs/ap-6ghz-selection-price-comparison.md)保存美国官方/Amazon报价、725版本差异及快速更新流程，双频725/723仅留备选。地区合规、发货版本及PoE仍须核验，不代表已购买或大陆6GHz可启用。
-> README 中较早的设备状态和网络方案用于背景参考；采购、户型、AP 布点、Apple Home Hub 和模型计划以台账为准。
+> **Apple设备最新决定（2026-10-15）**：大厅 **Apple HomeView非壁挂／桌面版×1已确认**，通过大厅AP Wi-Fi，使用随箱电源，不买壁挂版/底座。壁挂另用平板电脑或iPad，型号/数量/点位/供电待选。HomeView美国预购$299、11月13日供货；三房mini 2建议各1，美$149/大陆¥1,099、10月30日供货，代际/数量/地区仍待确认。用户接受英语Siri AI，大陆服务/账户/配套设备仍待验；未购/未部署，不改四主干/AP PoE。见[官方核验与建议](docs/apple-home-devices-2026.md)。
+> README 中较早的设备状态和网络方案用于背景参考；采购、户型、AP布点、Apple HomeView和模型计划以台账为准。
 > **当前品牌范围（用户已确认）**：Apple 生态、Aqara/绿米为主；网络设备选择 TP-Link；ORVIBO/欧瑞博仅考虑空调。**不考虑任何小米/米家、华为设备**，包括网络、家电及智能家居；下文相关名称只保留为历史示例，不是当前采购或部署来源，也不代表用户已有这些设备或需要拆除。
-> **网络拓扑 v1.2（2026-10-14）：四条主干2.5G，仅电竞房Mac/NAS本地10G**。网络采购方向为 **TP-Link Omada**；主卧/次卧各一条Cat6A/2.5G直达EAP775-Wall，不设设备箱/交换机，电脑等有线设备接AP下联（1×2.5G+3×1G）；电竞房/大厅各保留一箱一交换机。电竞房已选 **ES210XPP-M2 ×1**，10G RJ45给Mac Studio、10G SFP+给未来高速NAS；J3455及其他终端接电竞房。八个2.5G口和两个10G口均已规划占用，现有1G/100M终端按实际接口；核心网络仍在弱电箱附近机柜，中央至少两口需匹配卧室AP PoE。规格与采购入口见 [TP-Link 网络产品调研](docs/tplink-network-research.md)。
+> **网络拓扑 v1.2（2026-10-14）：四条主干2.5G，仅电竞房Mac/NAS本地10G**。网络采购方向为 **TP-Link Omada**；主卧/次卧各一条Cat6A/2.5G直达EAP775-Wall，不设设备箱/交换机，电脑等有线设备接AP下联（1×2.5G+3×1G）；电竞房/大厅各保留一箱一交换机。电竞房已选 **ES210XPP-M2 ×1**，10G RJ45给Mac Studio、10G SFP+给未来高速NAS；J3455及其他关键终端接电竞房交换机。完整直连表会占用八个2.5G口和两个10G口；Apple TV、投影改接工作室AP的两个1G下联后可释放两个交换机2.5G口，AP仍余1×2.5G+1×1G。现有1G/100M终端按实际接口；核心网络仍在弱电箱附近机柜，中央至少两口需匹配卧室AP PoE。规格与采购入口见 [TP-Link 网络产品调研](docs/tplink-network-research.md)。
 
-> 最新候选购买 BOM 见 [设备清单第6.4节](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单)：电竞房ES210XPP-M2十口已规划占用（中央上联、Mac/NAS、PC×2、Mac Mini、J3455、有线AppleTV、投影、AP）；中央五连接（网关、两卧室AP、电竞房/大厅交换机），建议≥8×2.5G且至少两口匹配EAP775-Wall PoE输入/功率，非PoE中央型号不直接满足。Omada 与 HA 复用 J3455 已有的单个1G物理接入口，不新增中央端口。两卧室无交换机/箱，AP下联为1×2.5G+3×1G；电竞房AP直接PoE++供电、不买注入器，NAS需兼容SFP+网卡与DAC/光纤。发货SKU、PoE/UPS、散热与正式施工尺寸仍须核验。
+> 最新候选购买 BOM 见 [设备清单第6.4节](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单)：电竞房只用一台ES210XPP-M2，不增加交换机；完整直连表可占满十口，但工作室AP下联可承载Apple TV/投影等低带宽终端。中央五连接，建议≥8×2.5G且至少两口匹配EAP775-Wall PoE输入/功率。两卧室无交换机/箱，三台面板AP均有1×2.5G+3×1G下联；不启用AP PoE Out。Omada 使用暂定 Fusion 的内置控制器，不另占交换机端口；HA 通过 J3455 的既有接入口联网（现1G，计划2.5G）。
 >
 > **⚠️ 历史内容警告（2026-10）**：本文下方的“双路由/副路由”、千兆交换机、ORVIBO面板/照明和“已接入设备”均为历史或未核验记录，禁止据此采购/施工。当前基线是 **AC（主路由器/网关）→ 中央匹配PoE的2.5G交换机 → 两卧室Wall AP（直达）/电竞房与大厅交换机 → 有线AP/终端**；AC不是无线控制器，也不是空调。
 
-## 当前方案与图纸入口（2026-10-14）
+## 当前方案与图纸入口（2026-10-15）
 
 | 文档 | 内容 |
 |---|---|
-| [全屋网络拓扑图](docs/network-topology.md) | v1.2：四条主干2.5G；两卧室直达Wall AP且无设备箱/交换机，电竞房/大厅各一箱一交换机；电竞房Mac RJ45/NAS SFP+本地10G、十口已规划占用；PoE/UPS/并发与故障边界 |
+| [Apple HomeView / mini 2官方核验](docs/apple-home-devices-2026.md) | HomeView桌面版×1已确认、mini 2待选；官方规格/报价与地区限制，壁挂平板或iPad待选，不买HomeView壁挂底座 |
+| [采购BOM与未决清单](docs/purchase-bom.md) | 已确认/暂选分表，六列采购清单、精确Amazon链接、2026-10-15单价/卖家、辅材与待用户决定项 |
+| [全屋网络拓扑图](docs/network-topology.md) | v1.2：四条主干2.5G；两卧室直达Wall AP，电竞房/大厅各一箱一交换机；电竞房Mac RJ45/NAS SFP+本地10G，Wall AP下联可释放低速终端端口；PoE/UPS/故障边界 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
 | [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
@@ -28,9 +34,9 @@
 
 软件实验底座及只读断言已合入 `main`。可先运行 `python -m unittest discover -s tests/ha_lab -v` 复跑离线测试；这不安装 Hermes/HA、不连接真实家居，也不代表旧 Middleware 或真实集成已通过验收。准备隔离测试环境后，按实验指南逐项验证，不执行下方历史部署步骤。
 
-房屋约 **100㎡、单层**，尚无正式设计图；计划宽带 **1000Mbps 下载 / 30Mbps 上传**。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接电竞房交换机、箱外摆放，未执行迁移。已决定在其 Proxmox 上分别新增 HAOS VM 与 Omada Linux VM，但尚未部署或完成资源验收。
+房屋约 **100㎡、单层**，尚无正式设计图；计划宽带 **1000Mbps 下载 / 30Mbps 上传**。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接电竞房交换机、箱外摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
 
-Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，官方可购SKU另核。未来高速NAS若新增，接同台交换机10G SFP+，需兼容网卡/DAC或光模块/光纤。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅未来Home Hub继续计划Wi-Fi接入。
+Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+兼容DAC短线，接口/网卡待选，不另买光模块对。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
 
 停电后 **NAS、Mac和全屋网络先按至少1小时目标规划**，按实测负载/UPS续航及必要散热核容量。两卧室PoE AP计中央UPS，不再单列卧室网络箱UPS；AP下联电脑等市电设备不随PoE保活。电竞房Mac/存储/交换机/AP与大厅交换机/AP分别需后备供电，中央UPS不会自动覆盖。静音/隔声由用户另议，通风/空间/供电待设计，不通过密封机柜隔音。
 
@@ -55,8 +61,8 @@ Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接�
 | 智能家居设备 | Apple TV 4K | ✅ 已有 | 可用于 HomeKit 测试 |
 | 智能家居设备 | 投影仪 | ✅ 已有 | 待接入 HA |
 | 计算设备 | MacBook | ✅ 已有 | 暂代 Mac Studio 做开发测试 |
-| 计算设备 | Mac Studio | ⏳ 计划购买 | 最新：M5 Ultra，512GB 统一内存 + 4TB 内置 SSD；10GbE 接工作室交换机，需求已由用户确认，官方可购 SKU 另核 |
-| 计算设备 / 现有 NAS | J3455 自建服务器 | ✅ 用户确认已有；HA/Omada部署位置已定 | 16GB/10TB/1GbE/Proxmox，影音NAS及代理服务保留；计划电竞房箱外，未迁移；新增独立 HAOS VM 与 Omada Linux VM，尚未部署/验收 |
+| 计算设备 | Mac Studio | ⏳ 计划购买 | 最新：M5 Ultra，512GB统一内存+4TB SSD、10GbE接工作室交换机；Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机精确报价待开放后核验 |
+| 计算设备 / 现有 NAS | J3455 自建服务器 | ✅ 用户确认已有；HA 部署位置已定 | 16GB/10TB/现1GbE、计划2.5G/Proxmox，影音NAS及代理服务保留；计划电竞房箱外，未迁移；新增独立 HAOS VM 尚未部署/验收；Omada 由暂定 Fusion 承载 |
 | 计算设备（本轮接入计划） | Mac Mini | 1G终端，部署状态待核 | 电竞房已分配1个铜口，不因接入规划追加整机采购 |
 | 存储设备（未来扩购） | 高速 NAS | ⏳ 待评估，非必购 | 与J3455区分；电竞房10G SFP+预留，型号/磁盘/网卡待核，不再规划中央接入 |
 | 网络设备（历史候选） | 副路由器 | ⏳ 未核验 | 不属于当前 AP 主干；禁止按此行采购 |
@@ -695,7 +701,7 @@ Agent：当前客厅温度是 24°C，湿度 45%。
 
 ## 下一步计划（历史路线，不是当前执行清单）
 
-> **⚠️ 请勿按本节直接采购或施工**：本节保留早期软件/副路由路线；当前网络、设备、房间点位、Home Hub 和模型部署以[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)为准。
+> **⚠️ 请勿按本节直接采购或施工**：本节保留早期软件/副路由路线；当前网络、设备、房间点位、Apple HomeView和模型部署以[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)为准。
 
 - 历史副路由器采购项已取消：小米 AX3000T RD03 不在当前品牌范围；不得按本条采购或部署。
 - [ ] 刷 OpenWrt 固件

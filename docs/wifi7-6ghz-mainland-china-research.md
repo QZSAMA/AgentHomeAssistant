@@ -1,5 +1,7 @@
 # 中国大陆 Wi-Fi 7 / 6GHz 可用性、成功案例与启用方法调研报告
 
+> **2026-10-15 Apple产品补充**：Apple HomeView与HomePod mini 2已正式发布，官方均列Wi-Fi 6E/802.11ax、Thread；mini 2大陆官网也有产品/价格。此前“未来Home Hub型号/频段待发布”表述已由[最新官方核验](apple-home-devices-2026.md)替代。**这不改变本报告大陆6GHz不计保证能力的结论**；下文较早来源保留原始日期，不由美国规格推定大陆可用。
+
 调研截止：2026-10-13。适用项目：AgentHomeAssistant。性质：公开资料调研与采购风险评估，**不是实机测试报告或无线电使用许可**。
 
 关联文档：[调研框架](research/wifi7-6ghz-mainland-framework.md) · [基础设施台账](home-infrastructure-register.md) · [当前 BOM](device-selection-list.md#64-按最新拓扑更新的候选购买清单) · [网络拓扑](network-topology.md) · [TP-Link 产品研究](tplink-network-research.md)。
@@ -59,7 +61,7 @@
 |---|---|---|
 | EAP775-Wall 硬件 | 美国官方规格为2.4/5/6GHz三频Wi-Fi 7、2.5G上联；原型号核验见项目产品研究 | 三频射频能力不等于大陆固件允许发射；具体地区SKU、硬件版本、控制器与客户端组合尚无现场记录 |
 | Omada 6GHz配置 | 官方以EAP783示例，提供WLAN勾选6GHz、WPA3/PMF、PSC等设置方法 | 示例不是EAP775-Wall专用菜单保证；国家选择、SKU锁定、软件版本限制需逐机核对 |
-| Apple客户端 | 官方2026-03-26文档明确：“Wi‑Fi 6E 在中国大陆不可用。Wi-Fi 7 在中国大陆受支持，但不能使用 6 GHz。” | 没有官方保证靠美版AP、海外Apple ID、地区/语言切换即可解除；不可假定未来Home Hub支持6GHz |
+| Apple客户端 | 官方2026-03-26文档明确：“Wi‑Fi 6E 在中国大陆不可用。Wi-Fi 7 在中国大陆受支持，但不能使用 6 GHz。” | 没有官方保证靠美版AP、海外Apple ID、地区/语言切换即可解除；不能仅由HomeView/mini 2的美国Wi-Fi 6E规格推定大陆可用6GHz |
 | Intel AX210等 | 官方要求当地监管允许、OEM平台启用、双方支持6E或以上、合适驱动及Windows 11 | AX210是6E，不因更新驱动变成Wi-Fi 7；BE200的成功不能推及AX210、BE201或全部系统 |
 | 其他PC/Android终端 | 公开案例显示高通/Realtek及Intel有差异 | 无法据此保证整个品牌、全部国行/海外版；具体驱动、地区识别和固件必须单列 |
 | 发现与安全 | Omada建议检查SSID广播、PSC、客户端支持；6GHz个人加密使用WPA3-SAE，PMF强制 | 无法发现可能是地区/信道，不一定是坏AP；不能用降低到WPA2或关闭PMF解决6GHz问题 |
@@ -128,7 +130,7 @@
 | 三房EAP775-Wall×3 | 保留用户暂选，面板形态/数量不变；不记为已购 | 取得精确SKU/硬件/固件的大陆认证与允许配置书面说明；若价值主要依赖6GHz，先不批量采购 |
 | 大厅EAP772×1 | 保留候选；须特别记录硬件版本 | AFC指南已区分v2.0等版本，不能只验型号名；地区功能与本地可用性逐项确认 |
 | 日常无线 | 合规2.4/5GHz为设计与验收基线；6GHz不计保证覆盖/容量 | 实测Apple Home、HomePod、IoT、漫游和多AP信道/功率；海外SKU即使关闭6GHz仍须核本地认证/功率要求 |
-| Apple Home Hub / HomePod mini | 不将6GHz列为需求前置条件 | 未来Home Hub型号/频段以正式发布为准；现有智能设备按各自支持的Wi-Fi/Thread/Zigbee接入 |
+| Apple HomeView / HomePod mini（优先推荐mini 2） | 不将6GHz列为需求前置条件 | 2026-10-15已核两新品官方Wi-Fi 6E/Thread规格，仍按大陆合规频段部署；接入能力不等于大陆6GHz或Siri AI可用，详见[产品核验](apple-home-devices-2026.md) |
 | 工作室Mac与NAS | 按v1.2，同一ES210XPP-M2的Mac 10G RJ45/NAS 10G SFP+；中央上联2.5G | 同VLAN本地10G不走主干，无线6GHz不替代此路径；J3455仍1GbE |
 | 无线速率口径 | EAP775-Wall和候选EAP772的2.5G回程不变 | 5764Mbps等无线PHY/聚合显示不等于穿过2.5G上联的实际吞吐；不能承诺无线单客户端到NAS跑出同样速率 |
 | 研究与实测状态 | 公开文献研究完成，型号专项证据不足，实机验证`not_run` | 本报告不勾选采购验收，不自动购买、改变设备或追加新品牌 |
