@@ -4,7 +4,7 @@
 > 本文是研究与建议，不代表已购买、已部署或最终施工批准。早期Amazon入口仅核标题；四款AP于2026-10-14核验的价格、卖家和库存快照见[选型与价格对比报告](ap-6ghz-selection-price-comparison.md)，其他入口不据此升级为已核价。跨境配送、保修及最终发货硬件版仍待核。
 > 当前需求事实见 [家庭基础设施台账](home-infrastructure-register.md)，布线交底见 [施工需求](renovation-wiring-requirements.md)，图示见 [网络拓扑](network-topology.md) 与 [全屋智能家居拓扑](smart-home-topology.md)。
 > **AP 优先级确认（2026-10-14）**：支持6GHz的三频设备保持第一优先，主卧/次卧/工作室各1台 **EAP775-Wall（第一优先暂选）**，大厅1台 **EAP772（第一优先候选）**，合计 **3+1**。[对比报告](ap-6ghz-selection-price-comparison.md)保留双频EAP725-Wall/EAP723为非默认备选，附报价日期、版本区别及未来更新流程；不替换当前BOM。地区合规、6GHz实际可用性、下单时库存、跨境发货及保修仍待核，本方案不使用AP PoE Out。
-> **核心设备选型确认（2026-10-14）**：用户确认ER707-M2主路由×1、ES206XPP-M2大厅交换机×1、OC200独立控制器×1；仅选型确认，未购/未部署。OC200当前采购入口为V3，发货版本、固件及全套设备兼容仍需核验；中央PoE交换机仍待选型，不改变拓扑、端口和UPS目标。
+> **核心设备更新（2026-10-15）**：ER707-M2主路由×1、ES206XPP-M2大厅交换机×1继续保留；用户决定在现有J3455/Proxmox上新建独立Linux VM运行Omada软件控制器，OC200未购买并退出当前BOM。Home Assistant同时采用独立HAOS VM。部署位置已定但两个VM尚未创建/验收；中央PoE交换机仍待选型，UPS须覆盖J3455才能维持HA与网络管理服务。
 > **v1.2用户已确认：四条主干2.5G，两卧室仅Wall AP、无设备箱/交换机；中央各一条Cat6A直接供数据/匹配PoE，卧室有线设备接AP下联1×2.5G+3×1G。** 电竞房/大厅各一箱一交换机；电竞房单台ES210XPP-M2，Mac原生RJ45/NAS SFP+本地10G、十口已规划占用/零备用。NAS/J3455规划电竞房箱外，中央只放核心网络并供卧室AP。约100㎡、1000/30Mbps及至少1小时后备目标不变。v1.1四箱、旧A/B与v1.0中央NAS/10G主干仅历史；数量以[设备清单6.4](device-selection-list.md#64-按最新拓扑更新的候选购买清单)为准，排除小米/米家、华为。
 
 ## 1. 结论与稳定性边界
@@ -49,19 +49,18 @@ Mac Studio 的10GbE接 ES210XPP-M2 原生10G RJ45，高速NAS接10G SFP+；中�
                       │                        ├─ 2.5G + 匹配bt PoE → EAP775-Wall 面板 AP
                       │                        ├─ 两个2.5G口 → PC×2（现1G，计划2.5G）
                       │                        ├─ 1G → Mac Mini
-                      │                        ├─ 1G → J3455 / Proxmox / 影音NAS / 代理转发
+                      │                        ├─ 1G → J3455 / Proxmox / 黑群晖VM / HAOS VM / Omada Linux VM / 代理转发
                       │                        ├─ 有线，速率按型号 → Apple TV
                       │                        └─ 有线，接口待核 → 投影仪
-                      └─ LAN 管理连接 → OC200（选型已确认，当前采购入口 V3）
 ```
 
-这里 AC 指主路由，不是 Omada 控制器。主路由LAN到中央目标2.5G；OC200是LAN管理节点，按实际接口速率接入，不串在光猫与交换机之间，不是客户端数据转发必经路径。NAS/J3455改为电竞房接入是本次用户设计决定，尚未执行迁移；核心机柜位置继续沿用。
+这里 AC 指主路由，不是 Omada 控制器。主路由LAN到中央目标2.5G；Omada软件控制器是J3455上的LAN管理服务，不串在光猫与交换机之间，也不是客户端数据转发必经路径。NAS/J3455改为电竞房接入是用户设计决定，尚未执行迁移；核心机柜位置继续沿用。
 
 AP仍**EAP775-Wall ×3 + EAP772 ×1**，四条主干不变；两卧室主干直接接Wall AP，电竞房/大厅各1条本地AP支线。卧室电脑接AP下联，电竞房终端接本房交换机。摄像头后续按点位/空余PoE口另审，不默认用卧室AP PoE Out或电竞房已有端口，当前不使用AP转供。
 
-中央仍6连接：网关、两卧室AP、电竞房/大厅交换机、OC200，建议≥8×2.5G；**至少2口匹配卧室AP PoE输入/单口功率**，10G非必需。无转供功耗未核清前按45W/台和bt口保守预留，总预算至少 `2×45×1.3=117W` 加其他实际PoE负载。非PoE ES210X-M2不再满足直接供电；SG2210XMP-M2为30W/口at，仅在具体无转供模式/功耗证明后条件候选。2026-10-14本轮核验后推荐中央ES210XPP-M2×1，2.5G bt口/90W单口/200W总预算满足保守规划，详见第2.3.1节；仍待用户确认，不将已确认电竞房采购数量自动改为全屋2台。最终SKU/控制器兼容待核。中央当前不采购注入器。大厅端口按电视/网关/摄像头真实数量重算；电竞房零备用。
+中央现为5连接：网关、两卧室AP、电竞房/大厅交换机，建议≥8×2.5G；**至少2口匹配卧室AP PoE输入/单口功率**，10G非必需。无转供功耗未核清前按45W/台和bt口保守预留，总预算至少 `2×45×1.3=117W` 加其他实际PoE负载。非PoE ES210X-M2不再满足直接供电；SG2210XMP-M2为30W/口at，仅在具体无转供模式/功耗证明后条件候选。2026-10-14核验后推荐中央ES210XPP-M2×1，2.5G bt口/90W单口/200W总预算满足保守规划，详见第2.3.1节；仍待用户确认，不将已确认电竞房采购数量自动改为全屋2台。最终SKU/软件控制器兼容待核。中央当前不采购注入器。大厅端口按电视/网关/摄像头真实数量重算；电竞房零备用。
 
-用户已说明J3455为16GB内存、10TB存储、1GbE、Proxmox，已运行非官方群晖NAS及家庭代理/转发容器；现有服务保留，HA未确认部署。10TB的盘数/容量口径/冗余/备份另核；新高速NAS仍非必购。Mac↔高速NAS和Apple TV↔J3455的同VLAN本地流量都留在电竞房交换机内；跨房访问共享2.5G，J3455仍受自身千兆口和存储限制。
+用户已说明J3455为16GB内存、10TB存储、1GbE、Proxmox，已运行独立黑群晖VM及家庭代理/转发容器；现有服务保留。2026-10-15决定新增独立HAOS VM与Omada Linux VM，尚未部署，先核宿主CPU/RAM余量、SSD、磁盘健康、备份及UPS。10TB的盘数/容量口径/冗余/备份另核；新高速NAS仍非必购。Mac↔高速NAS和Apple TV↔J3455的同VLAN本地流量都留在电竞房交换机内；跨房访问共享2.5G，J3455仍受自身千兆口和存储限制。
 
 ### 2.2 为什么撤下原来的两套工作室方案
 
@@ -87,13 +86,13 @@ v1.1确认的电竞房ES210XPP-M2单台与Mac/NAS两个10G口在v1.2保持。202
 
 十口已规划占用，NAS未购也保留其SFP+口，不计为空闲余量。Mac↔NAS与Apple TV↔J3455同VLAN本地流量不走中央上联；多个客户端访问同一NAS仍共享NAS网口与磁盘性能。跨VLAN若由主路由转发，会经过2.5G上联及网关，不能据此保证10G剪辑；初期保持所需本地数据路径在同一可信LAN。
 
-Omada硬件/软件控制器要求内置版本≥5.15.20，云控制器≥5.15.22，具体OC200发货固件及adoption须验证。页面脚注限定 port-based/802.1p/DSCP QoS 仅独立模式；PoE Auto Recovery仅独立模式，控制器模式为手动Recovery，不把简易管理型功能等同完整L2+能力。
+本项目改用官方Linux软件控制器。2026-10-15核对官方6.3.0.45 `.deb`：控制器包为`Architecture: all`，依赖Java 17及MongoDB `>=3.0,<8.1`；TP-Link官方指南说明v5.15.20+支持MongoDB 4.4～8，而MongoDB 5.0+在x86_64需要AVX。J3455没有AVX，因此当前兼容组合为**Omada 6.3 + Java 17 + MongoDB 4.4**，不是MongoDB 8。MongoDB 4.4已于2024-02-29结束上游支持，故仅开放受控管理网络、固定数据库版本、定期导出控制器配置并保留迁移路径。页面脚注限定 port-based/802.1p/DSCP QoS 仅独立模式；PoE Auto Recovery仅独立模式，控制器模式为手动Recovery，不把简易管理型功能等同完整L2+能力。
 
 [美国官方商城](https://store.omadanetworks.com/products/omada-8-port-2-5g-2-port-10g-easy-managed-switch-with-8-port-poe-es210xpp-m2)本次对话已核型号、列为可售，标价$229.99；这是当次查询状态，不保证下单时价格/库存、跨境发货、区域固件或中国大陆保修。Amazon仍只有[搜索入口](https://www.amazon.com/s?k=Omada+ES210XPP-M2)，未核精确ASIN。
 
 ### 2.3.1 中央 PoE 交换机推荐：ES210XPP-M2（2026-10-14，待用户确认）
 
-用户本轮已确认主路由 ER707-M2、大厅交换机 ES206XPP-M2、独立控制器 OC200；仅中央交换机继续选型。**建议中央也采用 ES210XPP-M2 ×1**，与电竞房同款但位于不同位置，不改变电竞房只用一台的决定。此处是研究推荐，不是用户已确认新增采购；若后续采纳，全屋该型号才由电竞房已选 1 台变为中央 1 台 + 电竞房 1 台，共 2 台。
+用户已确认主路由 ER707-M2、大厅交换机 ES206XPP-M2；Omada控制器改为J3455上的软件实例，OC200退出当前BOM。**建议中央也采用 ES210XPP-M2 ×1**，与电竞房同款但位于不同位置，不改变电竞房只用一台的决定。此处是研究推荐，不是用户已确认新增采购；若后续采纳，全屋该型号才由电竞房已选 1 台变为中央 1 台 + 电竞房 1 台，共 2 台。
 
 本轮重新读取了[美国官方规格](https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es210xpp-m2/#specifications)及[美国官方商城](https://store.omadanetworks.com/products/omada-8-port-2-5g-2-port-10g-easy-managed-switch-with-8-port-poe-es210xpp-m2)：
 
@@ -102,13 +101,13 @@ Omada硬件/软件控制器要求内置版本≥5.15.20，云控制器≥5.15.22
 | 数据与供电口 | 8×2.5G RJ45，全部支持 IEEE 802.3af/at/bt PoE++；另有 1×10G RJ45、1×10G SFP+ |
 | 单口 / 总预算 | 单个 PoE 口最高 90W，所有 PoE 口合计 200W；不是 8 口可同时各输出 90W |
 | 两卧室 AP 预算 | 沿用已归档 EAP775-Wall 45W/台最高值（含 25W PoE Out）保守预留：`2×45W×1.3=117W`，低于交换机标称 200W；当前不使用 AP PoE Out，117W 不是两个裸 AP 的实测用电 |
-| 其余供电 | 200−117=83W 仅为相对于上述规划预算的余量；OC200 若用 PoE 及其他新增受电设备须另计，核实实际 PoE 分级/分配、线损和温度，不把所有余量承诺为可用扩容 |
-| 中央端口示例 | 2.5G 口 1/2 接两卧室 AP，3 接 ER707-M2 LAN，4/5 接电竞房/大厅交换机，6 接 OC200（按其实际速率协商）；余 2 个 2.5G 口及 2 个 10G 接口。大厅/电竞房交换机依旧本地市电，不靠中央 PoE 供电 |
+| 其余供电 | 200−117=83W 仅为相对于上述规划预算的余量；其他新增受电设备须另计，核实实际 PoE 分级/分配、线损和温度，不把所有余量承诺为可用扩容 |
+| 中央端口示例 | 2.5G 口 1/2 接两卧室 AP，3 接 ER707-M2 LAN，4/5 接电竞房/大厅交换机；余 3 个 2.5G 口及 2 个 10G 接口。Omada复用J3455的电竞房接入口；大厅/电竞房交换机依旧本地市电，不靠中央 PoE 供电 |
 | 尺寸 / 电源 | 无风扇；226×131.2×35mm；随箱 AC/DC 适配器输入 100–240V、输出 54V/4.16A，适配器及网线弯曲空间另算；无风扇仍需散热 |
-| 控制器 | 官方要求硬件/软件控制器内置版本 ≥5.15.20；云控制器 ≥5.15.22。OC200 需核实际固件及全套设备兼容，不把 V3 外壳版本等同软件版本 |
+| 控制器 | J3455上的官方Linux软件控制器；采用Omada 6.3 + Java 17 + MongoDB 4.4兼容路径，核全套设备adoption/固件兼容、数据库版本锁定与恢复 |
 | 美国报价快照 | 2026-10-14 官方商城显示 $229.99/台、有 Add to cart 按钮；不含税运、进口成本，不保证跨境配送/保修及后续库存，不据此下单 |
 
-**推荐依据**：端口数量满足中央六连接并保留余量，bt 单口与总预算能覆盖当前保守规划，无需依赖尚未澄清的 EAP775-Wall 仅 at 供电功耗模式。原 SG2210XMP-M2 的 160W 总预算不是主要疑点，单口 30W/at 与 AP 在相应模式的功耗/功能才需要另证；不能断言该型号一定无法带不转供的 AP，也不将其当作无需验证的等价替代。
+**推荐依据**：端口数量满足中央五连接并保留余量，bt 单口与总预算能覆盖当前保守规划，无需依赖尚未澄清的 EAP775-Wall 仅 at 供电功耗模式。原 SG2210XMP-M2 的 160W 总预算不是主要疑点，单口 30W/at 与 AP 在相应模式的功耗/功能才需要另证；不能断言该型号一定无法带不转供的 AP，也不将其当作无需验证的等价替代。
 
 ES210XPP-M2 属于 Easy Managed，而非完整 L2+/三层交换机。官网列有 802.1Q VLAN（最多 32 组）、IGMP Snooping 等；部分 QoS 仅独立模式可用，控制器模式 PoE Recovery 为手动。当前基础 VLAN/集中管理方向可评估采用，后续高级 ACL、组播/IPv6、跨 VLAN 发现须按实际功能验证。它的额外 10G 口只是余量，不把四条 2.5G 主干改为 10G。200W 是输出预算而非恒定耗电，UPS 应按交换机自身加实际受电负载测算，避免重复计算。
 
@@ -143,7 +142,7 @@ ES210XPP-M2 属于 Easy Managed，而非完整 L2+/三层交换机。官网列�
 | 工作室 10G 交换机（同 LAN 条件） | **TL-SX1008** | 1 | 8×100M/1/2.5/5/10G RJ45；六连接后余两口；**非管理型、无 PoE**；1 个调速风扇；294×180×44mm；AC 100–240V 直接供电。需接受工作室不能配置端口 VLAN/Omada adoption | [商品页](https://www.amazon.com/dp/B0916BNNML) |
 | 工作室 AP 本地 PoE 注入器 | **POE260S / TL-POE260S** | 1，与 TL-SX1008 配套 | 2.5G 数据/PoE 接口，802.3af/at、30W；供 EAP772；使用本地市电，不为 AP 增加中央回线 | [商品页](https://www.amazon.com/dp/B0C54CPVXV?th=1) |
 | 三频 Wi-Fi 7 AP | **EAP772** | 最多 4 | 2.4/5/6GHz 三频；1×2.5G 上联；IEEE 802.3at PoE+；官方 PoE 最大功耗 25.4W；安装在箱外 | [商品页](https://www.amazon.com/dp/B0D2M26NYW) |
-| 独立管理控制器 | **OC200，当前商品页为 V3** | 1 | Omada 本地硬件控制器，统一管理网关/交换机/AP；独立于模型主机，避免随开发或视频工作重启。V3 为 2×千兆口，不套用旧版参数 | [商品页](https://www.amazon.com/dp/B07GX6GVB6) |
+| Omada 软件控制器 | **现有J3455/Proxmox上的独立Linux VM** | 1个实例，无新增硬件采购 | 官方Linux控制器 + Java 17 + MongoDB 4.4；J3455无AVX，不升级至MongoDB 5+。MongoDB 4.4上游EOL，限制管理面访问、定期配置备份并保留迁移/OC200回退路径 | [官方Linux安装指南](https://www.omadanetworks.com/en/support/faq/3272/) |
 | 中央至工作室主干 10G 铜模块（有条件） | **SM5310-T** | 单交换机方案共 1，中央侧 | SFP+ 转 1/2.5/5/10G RJ45；10G 使用 Cat6A 或更高等级，**整条铜通道上限 30m，含跳线**。TL-SX1008 一端为原生 RJ45，不另买模块；管理型组合在工作室端另需 1 个，合计 2 个 | [商品页](https://www.amazon.com/dp/B0B12N5SJN) |
 
 ### 3.1 房间交换机的使用规则
@@ -153,7 +152,7 @@ ES210XPP-M2 属于 Easy Managed，而非完整 L2+/三层交换机。官网列�
 - 该交换机由**本地外置适配器**供电，不靠中央交换机 PoE 受电。中央 UPS 不能自动保障房间交换机/AP。
 - 使用 10G SFP+ 上联时，五个 RJ45 仍然只有 2.5G。不能把一个 SFP+ 口同时算作 10G 上联和 Mac Studio 的第二个 10G 接口。
 - ES206XPP-M2仍不作为工作室交换机：v1.1的Mac/NAS需两个同时可用10G接口，另需八个2.5G端口，它只有一个SFP+和五个铜口。
-- ES206XPP-M2 已列入官方 Omada SDN 兼容清单，支持硬件/软件控制器；需使用相互支持的 OC200、交换机固件并做 adoption 验收，不能保证任意旧固件即插即管。
+- ES206XPP-M2 已列入官方 Omada SDN 兼容清单，支持硬件/软件控制器；需使用相互支持的软件控制器版本与交换机固件并做 adoption 验收，不能保证任意旧固件即插即管。
 
 ### 3.2 网关速率不能只看端口
 
@@ -232,7 +231,7 @@ SX3206HPP 是 **4×多速率 10G RJ45 + 2×10G SFP+**，不是六个铜口；四
 |---|---|---|
 | **TL-SX105** | 5×10G RJ45、无风扇、非管理型、无PoE；不足当前电竞房十连接，且不满足Omada管理，仅留历史 | [商品页](https://www.amazon.com/dp/B09CYNHL4S) |
 | **SX3206HPP + ES206X-M2** | 历史方案B见第3.4节，因工作室噪声/两台限制已撤下。产品可另作机柜研究，但不按旧房间拓扑直接采购；四铜/两SFP+不可当六铜口，SX推荐只用一个铜模块 | [SX3206HPP 商品页](https://www.amazon.com/dp/B0BPDHZ9S9)、[ES206X-M2 商品页](https://www.amazon.com/dp/B0GRCDJJTC) |
-| **ES210X-M2（无PP）** | 8×2.5G + 2×10G SFP+、无PoE；**v1.2不能直接给两卧室AP供电，退出当前直接供电候选**。如另审中央2.5G/匹配PoE注入器回退可评估，但不自动增加配件；OC200供电另核。不是电竞房型号 | [商品页](https://www.amazon.com/dp/B0GKPNRFGF) |
+| **ES210X-M2（无PP）** | 8×2.5G + 2×10G SFP+、无PoE；**v1.2不能直接给两卧室AP供电，退出当前直接供电候选**。如另审中央2.5G/匹配PoE注入器回退可评估，但不自动增加配件。不是电竞房型号 | [商品页](https://www.amazon.com/dp/B0GKPNRFGF) |
 | **ES210XPP-M2** | **电竞房已选1台**，8×2.5G PoE++ + 1×10G RJ45(Mac) + 1×10G SFP+(NAS)；2.5G上联、十口已规划占用。美国规格和官方商城已核，采购前复核版本/库存/跨境保修 | [官方商城](https://store.omadanetworks.com/products/omada-8-port-2-5g-2-port-10g-easy-managed-switch-with-8-port-poe-es210xpp-m2)；Amazon精确商品仍未核 |
 | **POE260S** | 旧非PoE方案配件，2.5G、af/at、30W；不能直接保证EAP775-Wall含转供45W工况。当前电竞房注入器数量0，不购买；其他房间若改非PoE再单独核验 | [历史商品页](https://www.amazon.com/dp/B0C54CPVXV?th=1) |
 | **ES206X-M2** | 5×2.5G + 1×10G SFP+、无PoE；仅大厅如改用匹配本地注入器时另审，**主卧/次卧不采购交换机**。不增加中央AP回线，也不满足电竞房十连接/多10G要求 | [商品页](https://www.amazon.com/dp/B0GRCDJJTC) |
@@ -287,12 +286,12 @@ SX3206HPP 是 **4×多速率 10G RJ45 + 2×10G SFP+**，不是六个铜口；四
 
 ### 5.3 建议验收门槛
 
-1. 保存最终 SKU、硬件版本、固件版本与回滚方法；OC200 能识别所有管理型设备。稳定固件先小范围升级，不自动追最新。
+1. 保存最终 SKU、硬件版本、固件版本与回滚方法；J3455上的Omada软件控制器能识别所有管理型设备。稳定固件先小范围升级，不自动追最新；数据库固定MongoDB 4.4，不让系统自动拉升至5+。
 2. 四条Cat6A中央主干均验收2.5G，房间分支另计；Mac本地RJ45和NAS本地SFP+协商10G，NAS链路记录DAC/模块/光纤类型。完成线材认证和并发吞吐测试，不把协商速率当文件拷贝成绩。
 3. 进行 24–72 小时负载验收：并发下载/局域网拷贝、模型/视频主机负载、游戏延迟、HomePod 播放、HA 控制与断连日志；记录箱内温度。
 4. 在卧室—工作室—大厅移动验证漫游；客户端决定切换，不能承诺任何终端都无缝零丢包。不要只测测速软件最高分。
 5. 断电/网关/控制器/AP重启后验证恢复；中央UPS覆盖两卧室PoE AP，不覆盖AP下联电脑；电竞房/大厅普通交换机不透传中央PoE，分别测当地UPS/Apple Home/HA恢复。
-6. 电竞房ES210XPP-M2十口已规划占用、无余量；中央六连接另留余量；Mac↔NAS/AppleTV↔J3455同VLAN本地并发与2.5G跨房访问分别测试。J3455/Mini/现PC仍为1G，AppleTV/投影按实机。旧A/B及v1.0不按其数量验收；UPS按新位置实测至少1小时后记通过。
+6. 电竞房ES210XPP-M2十口已规划占用、无余量；中央五连接另留余量；Mac↔NAS/AppleTV↔J3455同VLAN本地并发与2.5G跨房访问分别测试。J3455/Mini/现PC仍为1G，AppleTV/投影按实机。旧A/B及v1.0不按其数量验收；UPS按新位置实测至少1小时后记通过，并验证黑群晖、HAOS和Omada VM有序关机/恢复。
 7. AP仍3面板EAP775-Wall+1吊顶EAP772，上联2.5G；卧室下联验1×2.5G+3×1G及有线/无线并发共享回程。45W含25W转供不推定裸机；本方案使用数据下联但不转供。中央2口匹配PoE/总预算，电竞房匹配bt/200W本地预算，注入器0；地区/6GHz/版本单独验收。
 
 ## 6. 官方证据与采购前未决事项
@@ -304,7 +303,7 @@ SX3206HPP 是 **4×多速率 10G RJ45 + 2×10G SFP+**，不是六个铜口；四
 - [ES206XPP-M2](https://www.tp-link.com/us/business-networking/omada-switch-agile/es206xpp-m2/)、[ES206X-M2](https://www.tp-link.com/us/business-networking/omada-switch-agile/es206x-m2/)、[Omada 兼容清单](https://www.tp-link.com/us/omada-sdn/product-list/)。
 - [EAP775-Wall 美国官方规格](https://www.omadanetworks.com/us/business-networking/omada-wifi-wall-plate/eap775-wall/#specifications)、[官方商城](https://store.omadanetworks.com/products/omada-be11000-tri-band-wall-plate-wi-fi-7-access-point-eap775-wall)：2026-10-13 核验，三频/2.5G/尺寸及随箱附件见第2.4节；PoE Out 的 at/bt 条件在同页存在矛盾，未据此承诺转供能力。
 - [EAP772](https://www.tp-link.com/us/business-networking/omada-wifi-ceiling-mount/eap772/)、[EAP773](https://www.tp-link.com/us/business-networking/omada-wifi-ceiling-mount/eap773/)、[EAP725-Wall（非默认双频备选，须区分版本）](https://www.tp-link.com/us/business-networking/omada-wifi-wall-plate/eap725-wall/)；725指定版本与723商城证据、四款AP报价见[对比报告参考资料](ap-6ghz-selection-price-comparison.md#6-参考资料)。
-- [OC200](https://www.tp-link.com/us/business-networking/omada-controller-hardware/oc200/)。
+- [Omada软件控制器Linux安装指南](https://www.omadanetworks.com/en/support/faq/3272/)：官方列出Java、MongoDB版本兼容和AVX要求；[官方下载页](https://support.omadanetworks.com/us/download/software/omada-controller/)提供Linux `.deb`/`.tar.gz`；[MongoDB生命周期](https://www.mongodb.com/legal/support-policy/lifecycles)用于确认4.4已EOL。[OC200](https://www.tp-link.com/us/business-networking/omada-controller-hardware/oc200/)仅保留为历史/回退候选。
 - [TL-SX1008](https://www.tp-link.com/us/business-networking/unmanaged-switch/tl-sx1008/)、[TL-SX105](https://www.tp-link.com/us/business-networking/unmanaged-switch/tl-sx105/)、[TL-SG105-M2](https://www.tp-link.com/us/business-networking/unmanaged-switch/tl-sg105-m2/)。
 - [SX3206HPP](https://www.tp-link.com/us/business-networking/omada-switch-access-max/sx3206hpp/)：四个 RJ45、两个 SFP+，官方建议只使用一个 SM5310-T 铜模块。
 - [ES210X-M2](https://www.tp-link.com/us/business-networking/omada-switch-agile/es210x-m2/)、[ES210XPP-M2](https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es210xpp-m2/)：二者10G接口不同，不混用；后者官方规格/商城当次可售已核，见第2.3节。
@@ -314,16 +313,20 @@ SX3206HPP 是 **4×多速率 10G RJ45 + 2×10G SFP+**，不是六个铜口；四
 
 ### 下单前需要锁定
 
-- 宽带目标1000/30Mbps及ER707-M2主路由选型已确认；运营商、桥接/PPPoE/IPv6/CGNAT与IPS/VPN配置仍待核。大厅ES206XPP-M2和独立OC200选型亦已确认；OC200当前采购入口V3，实际发货版本/固件及全套设备兼容待核。三者均未购/未部署，不再列为待决定型号。
-- v1.2四条2.5G主干：两卧室直达Wall AP并利用1×2.5G+3×1G下联、无箱/交换机，电竞房/大厅各一箱一交换机。电竞房单台ES210XPP-M2、Mac RJ45/NAS SFP+本地10G、十口已规划占用；复核固件/NAS网卡/介质。中央6连接/建议≥8铜口且2口匹配卧室AP PoE/功率，SKU/总预算待核；不购旧铜模块/电竞房注入器，不采用大厅汇聚卧室AP。
-- J3455基本配置与已有NAS/代理服务已登记；补盘数/容量口径/健康/备份和空闲资源，HA新增方案不扰动既有服务。未来高速NAS尚未采购。
+- 宽带目标1000/30Mbps及ER707-M2主路由选型已确认；运营商、桥接/PPPoE/IPv6/CGNAT与IPS/VPN配置仍待核。大厅ES206XPP-M2选型亦已确认；OC200已从当前采购撤下。
+- v1.2四条2.5G主干：两卧室直达Wall AP并利用1×2.5G+3×1G下联、无箱/交换机，电竞房/大厅各一箱一交换机。电竞房单台ES210XPP-M2、Mac RJ45/NAS SFP+本地10G、十口已规划占用；复核固件/NAS网卡/介质。中央5连接/建议≥8铜口且2口匹配卧室AP PoE/功率，SKU/总预算待核；不购旧铜模块/电竞房注入器，不采用大厅汇聚卧室AP。
+- J3455基本配置与已有黑群晖VM/代理服务已登记；HAOS VM和Omada Linux VM部署位置已定但尚未实施。补盘数/容量口径/健康/备份和空闲资源，验证MongoDB 4.4锁定、管理面隔离、配置导出及UPS恢复；未来高速NAS尚未采购。
 - AP 已暂选 **EAP775-Wall 面板 ×3 + EAP772 吊顶 ×1**；地区版本/6GHz 合法使用、供货和保修待核。房屋约100㎡、设计图未出，墙材、三个面板安装位及大厅顶面支线/固定方式、信道和功率待实测；不由面积推断线长或机柜尺寸。核 EAP775-Wall 45W 含转供的功耗口径、无转供独立功能/功耗及工作室供电；当前不启用 AP PoE Out，官网 at/bt 转供条件矛盾待官方澄清。核底盒/支架和随箱附件，不重复购买。
 - NAS/Mac/全屋网络至少1小时后备供电目标已确认；UPS型号/容量按各位置实际负载、Mac工况、必要排风与厂家曲线锁定，另验有序关机/恢复。
 - 最终发货版本、官方兼容清单、固件、卖家、退换货和价格；本轮未采购或配置设备。文档的 Git 提交、远端同步及合并状态以仓库实际交付记录为准，不把型号暂选视为已下单。
 
 ### 2026-10-14 设计变更追溯
 
-同日用户确认ER707-M2主路由×1、ES206XPP-M2大厅交换机×1、OC200独立控制器×1的选型，OC200当前采购入口V3；采购前版本/固件兼容核验保留。中央推荐ES210XPP-M2×1、待用户确认，详见第2.3.1节。用户考虑电信或联通、运营商未定；光猫桥接和猫棒条件见第3.2.1节，当前不取消光猫。未调整v1.2拓扑、端口和至少1小时UPS目标，未采购或部署。
+同日用户曾确认ER707-M2主路由×1、ES206XPP-M2大厅交换机×1、OC200独立控制器×1；OC200未购买，并于2026-10-15被J3455上的软件控制器方案取代。中央推荐ES210XPP-M2×1、待用户确认，详见第2.3.1节。用户考虑电信或联通、运营商未定；光猫桥接和猫棒条件见第3.2.1节，当前不取消光猫。
+
+### 2026-10-15 控制器与HA主机决定
+
+用户决定由现有J3455/Proxmox分别承载独立HAOS VM和独立Omada Linux VM，保留黑群晖VM及代理/转发服务。官方Linux控制器本体没有AVX要求；官方指南确认v5.15.20+可使用MongoDB 4.4～8，而MongoDB 5+在x86_64需要AVX，因此无AVX的J3455采用MongoDB 4.4。该数据库已经上游EOL，故此选择附带管理面隔离、固定版本、配置备份及未来迁移要求。OC200退出当前BOM，中央物理连接由6减至5；尚未创建VM、修改现有服务或完成验收。
 
 本次用户明确放弃电竞房双交换机，选择 ES210XPP-M2 单台并接受对外2.5G、零备用口。将10G RJ45专给Mac、SFP+专给高速NAS，替代2026-10-13 v1.0的中央NAS与工作室10G上联。旧A/B、SX3206HPP+ES210XPP双机建议和SX3832MPP大型单机均未采用，不合并下单；NAS/J3455位置、UPS与施工点位跟随新台账核算。
 
