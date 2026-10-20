@@ -1,0 +1,127 @@
+{
+  "updated_at": "2026-10-20",
+  "currency": "USD",
+  "active_plan": "3A-tri-band",
+  "active_plan_status": "当前暂定定稿；未购买、未部署",
+  "alternative_plan": "3A-dual-band",
+  "alternative_plan_status": "保留的预算备选；未启用",
+  "price_basis": "美国新机单件页面价，不含税、运费、进口、辅材或施工；不计订阅、信用卡或捆绑优惠",
+  "products": [
+    {
+      "id": "fusion",
+      "model": "Fusion 2.5G 普通版",
+      "amazon_asin": "B0H4P7XX8G",
+      "amazon_url": "https://www.amazon.com/dp/B0H4P7XX8G",
+      "amazon_price": 169.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada Fusion 2.5G Multi-WAN Wired VPN Router",
+      "official_url": "https://store.omadanetworks.com/products/omada-all-in-one-gateway-fusion-2-5g",
+      "official_price": 184.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.tp-link.com/productpages/spec/116210-3.html"
+    },
+    {
+      "id": "fusion-poe",
+      "model": "Fusion 2.5G PoE",
+      "amazon_asin": "B0HKQ8ZPML",
+      "amazon_url": "https://www.amazon.com/dp/B0HKQ8ZPML",
+      "amazon_price": 349.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada Fusion 2.5G PoE Gateway",
+      "official_url": "https://store.omadanetworks.com/products/omada-gateway-controller-in-one-with-poe-fusion-2-5g-poe",
+      "official_price": 349.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.tp-link.com/productpages/spec/116211-3.html"
+    },
+    {
+      "id": "es210xpp",
+      "model": "ES210XPP-M2",
+      "amazon_asin": "B0HB17QTKX",
+      "amazon_url": "https://www.amazon.com/dp/B0HB17QTKX",
+      "amazon_price": 229.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada 8 Port 2.5G PoE++ Easy Managed Switch w/ 2×10G Uplink",
+      "verification_note": "页面列8×2.5G PoE++、1×10G RJ45、1×10G SFP+、200W及90W/口，与官方ES210XPP-M2匹配",
+      "official_url": "https://store.omadanetworks.com/products/omada-8-port-2-5g-2-port-10g-easy-managed-switch-with-8-port-poe-es210xpp-m2",
+      "official_price": 229.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es210xpp-m2/#specifications"
+    },
+    {
+      "id": "es206xpp",
+      "model": "ES206XPP-M2",
+      "amazon_asin": "B0GKQ5SD2L",
+      "amazon_url": "https://www.amazon.com/dp/B0GKQ5SD2L",
+      "amazon_price": 149.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada ES206XPP-M2, 5 Port 2.5G Easy Managed PoE Switch",
+      "verification_note": "选中5 Port / 2.5G PoE++ 120W；页面列5×2.5G中4个PoE++、1×10G SFP+",
+      "official_url": "https://store.omadanetworks.com/products/omada-5-port-2-5g-base-t-and-1-port-10ge-sfp-easy-managed-switch-with-4-port-poe-es206xpp-m2",
+      "official_price": 169.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es206xpp-m2/#specifications"
+    },
+    {
+      "id": "eap775",
+      "model": "EAP775-Wall",
+      "amazon_asin": "B0G88FG4QH",
+      "amazon_url": "https://www.amazon.com/dp/B0G88FG4QH",
+      "amazon_price": 179.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada 7 Pro Wall, BE11000 Wireless Access Point, Paintable(EAP775-Wall)",
+      "official_url": "https://store.omadanetworks.com/products/omada-be11000-tri-band-wall-plate-wi-fi-7-access-point-eap775-wall",
+      "official_price": 189.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-wifi-wall-plate/eap775-wall/#specifications"
+    },
+    {
+      "id": "eap772",
+      "model": "EAP772",
+      "amazon_asin": "B0D2M26NYW",
+      "amazon_url": "https://www.amazon.com/dp/B0D2M26NYW",
+      "amazon_price": 169.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada 7 Pro BE11000 WiFi Access Point, 2.5G Port, w/o DC Adapter(EAP772)",
+      "official_url": "https://store.omadanetworks.com/products/omada-be11000-ceiling-mount-tri-band-wi-fi-7-access-point-with-1x2-5g-port",
+      "official_price": 179.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-wifi-ceiling-mount/eap772/#specifications"
+    },
+    {
+      "id": "eap725",
+      "model": "EAP725-Wall（要求US V2）",
+      "amazon_asin": "B0FB1W85FN",
+      "amazon_url": "https://www.amazon.com/dp/B0FB1W85FN",
+      "amazon_price": 134.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada 7 Wall BE5000 Wall-Plate WiFi Access Point, 5yr Warranty(EAP725-Wall)",
+      "verification_note": "型号与双频匹配，但页面仍列1×2.5G+2×1G下联，不能保证发货US V2的四下联口；此价仅作条件比较",
+      "official_url": "https://store.omadanetworks.com/products/eap725-wall",
+      "official_price": 144.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-wifi-wall-plate/eap725-wall/#specifications"
+    },
+    {
+      "id": "eap723",
+      "model": "EAP723",
+      "amazon_asin": "B0DT4YP2GX",
+      "amazon_url": "https://www.amazon.com/dp/B0DT4YP2GX",
+      "amazon_price": 89.99,
+      "amazon_verified_at": "2026-10-20",
+      "amazon_product_title": "Omada 7, BE5000 Wireless Access Point, 2.5G Port, w/o DC Adapter(EAP723)",
+      "official_url": "https://store.omadanetworks.com/products/omada-be5000-ceiling-mount-dual-band-wi-fi-7-access-point-with-1x2-5g-port",
+      "official_price": 94.99,
+      "official_verified_at": "2026-10-20",
+      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-wifi-ceiling-mount/eap723/#specifications"
+    }
+  ],
+  "plans": {
+    "3A-tri-band": {"fusion": 1, "es210xpp": 1, "es206xpp": 2, "eap775": 2, "eap772": 1},
+    "3A-dual-band": {"fusion": 1, "es210xpp": 1, "es206xpp": 2, "eap725": 2, "eap723": 1},
+    "3B-tri-band": {"fusion-poe": 1, "es210xpp": 1, "es206xpp": 1, "eap775": 2, "eap772": 1}
+  },
+  "history_price_snapshots": [
+    {"date": "2026-10-19", "plan": "3A-tri-band", "amazon_total": 1264.21, "official_total": 1314.93},
+    {"date": "2026-10-19", "plan": "3A-dual-band", "amazon_total": 1094.21, "official_total": 1139.93}
+  ]
+}

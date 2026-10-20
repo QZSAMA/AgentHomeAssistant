@@ -1,5 +1,16 @@
 # TP-Link 全屋多千兆网络：产品调研与候选采购清单
 
+> **2026-10-20 当前网络方案：3A三频，暂定定稿。** 普通Fusion ×1、中央及大厅ES206XPP-M2各1、电竞房ES210XPP-M2 ×1、主卧/电竞房EAP775-Wall ×2、大厅吊顶EAP772 ×1。双频725×2+723×1保留预算备选。次卧只施工Cat6A/RJ45，已有TL-7DR3630可选有线复用。四条2.5G主干、两房间设备箱、Mac/NAS本地双10G与交换机PoE直供保持。设备未购/未部署。
+>
+> 当前型号/数量/链接/预算见[采购BOM](purchase-bom.md)与[方案比较](network-cost-optimization.md)，商品链接已于2026-10-20逐项核对；[核对记录](network-link-audit.md)。下方带旧日期的三面板一吊顶、次卧AP或中央ES210建议仅用于追溯。
+
+<details>
+<summary>较早版本说明与核验日期</summary>
+
+> **2026-10-19 最新结论**：[第三版成本优化](network-cost-optimization.md)确认四台AP由Omada交换机/PoE网关直接供电，不采用独立供电器。3A以中央ES206XPP-M2替代较大的中央ES210XPP，工作室ES210XPP与大厅ES206XPP保留；3B为Fusion 2.5G PoE替代普通Fusion和中央交换机。当前Amazon条件预算3A更低。725-Wall仍须US V2四下联口书面确认，PoE实际协商和满载必须验收。本条覆盖下方较早的“中央ES210推荐”和注入器回退讨论。
+
+> **2026-10-16 当前采购/装修范围**：[基础网络采购与装修交底 Excel](../outputs/network-renovation-20261016/基础网络采购与装修交底.xlsx)覆盖网络硬件、材料、逐条布线、端口/PoE、配置和分阶段验收。高速NAS、UPS搬入后再考虑，不作为入住前必购；NAS要求自带10G SFP+，不买网卡，介质待实物确认。Mac走原生10G RJ45；Apple TV 4K旧款、米家激光投影仪、树莓派均已有，不重复购买。壁挂屏先试已有杂牌安卓，不合适再选二手iPad mini/便宜iPad，暂未定。J3455已确认PCIe 2.0 x1，TX201为兼容性待验的首选候选。下方较早的固定DAC与UPS入住前要求由本条更新；不改四主干/两房间箱/三面板一吊顶。
+
 > 调研更新日期：2026-10-15（保留较早条目的原始核验日期）。住宅位于中国大陆；用户偏好美国版设备，购买入口优先美国 Amazon，补充已核验的美国官方商城。
 > 本文是研究与建议，不代表已购买、已部署或最终施工批准。**2026-10-15已核Fusion、ES210、ES206、EAP775-Wall、EAP772的精确Amazon商品与新机购买栏**，报价/卖家统一见[集中采购BOM](purchase-bom.md)；2026-10-14四款AP历史价格见[对比报告](ap-6ghz-selection-price-comparison.md)。跨境配送、当地认证、保修及最终发货硬件版仍待核。
 > 当前需求事实见 [家庭基础设施台账](home-infrastructure-register.md)，布线交底见 [施工需求](renovation-wiring-requirements.md)，图示见 [网络拓扑](network-topology.md) 与 [全屋智能家居拓扑](smart-home-topology.md)。
@@ -7,7 +18,11 @@
 > **核心设备更新（2026-10-15）**：用户暂定 **Fusion 2.5G 普通版 ×1（非PoE版）**作为主路由并使用内置Omada控制器；ER707-M2/J3455 Omada Linux VM撤出当前计划，OC200不采购。大厅ES206XPP-M2保留，中央推荐ES210XPP-M2待确认；Home Assistant继续计划J3455独立HAOS VM。Fusion未购/未部署，HA VM未创建/验收；控制器随Fusion纳入中央UPS，不另占端口，功能/价格/电源证据见第2.5节。
 > **v1.2用户已确认：四条主干2.5G，两卧室仅Wall AP，电竞房/大厅各一箱一交换机。** 电竞房继续单台ES210XPP-M2，不增加交换机；Mac原生RJ45/NAS SFP+本地10G。EAP775-Wall另有1×2.5G+3×1G下联，Apple TV/投影可改接两个1G口；J3455/HA、Mac、NAS和PC保持ES210直连，不使用AP PoE Out。
 
+</details>
+
 ## 1. 结论与稳定性边界
+
+> 下文是2026-10-15及以前的研究快照，包含已撤销的四AP数量和中央ES210建议，供追溯规格与依据；不得据其“当前/推荐”措辞下单。现行采购仅以文首所链2026-10-20的BOM、拓扑和采购数据为准。
 
 **6GHz专项研究已完成（文献层面）**：见[中国大陆Wi-Fi 7/6GHz报告](wifi7-6ghz-mainland-china-research.md)。存在特定设备/驱动的成功自述与实际频段截图，但没有本项目EAP775-Wall的完整大陆复现证据，也未发现普通住宅WLAN开放依据；Apple明确在大陆不能使用6GHz。保留3+1暂选BOM，6GHz不计入部署保证；具体认证/硬件版/固件/保修与实机仍待核。Omada AFC指南还区分EAP772硬件版本，不可只凭型号名套用能力。
 

@@ -1,5 +1,16 @@
 # AgentHomeAssistant
 
+> **2026-10-20 当前暂定定稿：3A三频。** 普通Fusion×1、ES206XPP-M2×2（中央/大厅）、ES210XPP-M2×1（电竞房）、EAP775-Wall×2（主卧/电竞房）、EAP772×1（大厅吊顶）。次卧只保留Cat6A/RJ45。双频725×2+723×1保留预算备选。网络设备Amazon参考$1,229.93，双频$1,059.93（10/20页面价，不含税运与施工）。[当前BOM](docs/purchase-bom.md)、[最新拓扑](docs/network-topology.md)、[方案比较](docs/network-cost-optimization.md)、[链接核对记录](docs/network-link-audit.md)维护现行信息；以下旧日期的四AP/中央ES210与旧预算是历史方案。
+
+<details>
+<summary>2026-10-19及以前的项目说明（历史，非当前采购/施工口径）</summary>
+
+> **2026-10-19 第三版成本优化（用户确认网络采购主案）**：[Omada成本优化Excel](outputs/network-value-20261019/基础网络采购与装修交底_第三版Omada成本优化.xlsx)已按最新决定改为交换机直接PoE，不买独立供电器或SM5310-T。用户确认3A：Fusion 2.5G普通版 + 中央ES206XPP-M2 + 工作室ES210XPP-M2 + 大厅ES206XPP-M2；Amazon条件预算$1,229.20。3B用Fusion 2.5G PoE取代普通Fusion与中央交换机，Amazon $1,242.07，仅保留为比较。两种拓扑、端口、PoE、施工和验收边界见[第三版说明](docs/network-cost-optimization.md)。725-Wall仍须书面确认US V2四下联口；设备均未购买或部署。
+
+> **2026-10-19 双频备选**：[不含6GHz的Wi-Fi 7对照Excel](outputs/network-dualband-20261019/基础网络采购与装修交底_双频WiFi7对照版.xlsx)已另存，含拓扑、BOM、施工与差价。四AP按今日Amazon页面价省$215、官方商城省$220；725-Wall必须先确认US V2四下联口及对应报价。原三频版保留，尚未批准换型。详见[差价与版本核验](docs/ap-6ghz-selection-price-comparison.md)。
+
+> **2026-10-16 当前采购/装修范围**：[基础网络采购与装修交底 Excel](outputs/network-renovation-20261016/基础网络采购与装修交底.xlsx)覆盖网络硬件、材料、逐条布线、端口/PoE、配置和分阶段验收。高速NAS、UPS搬入后再考虑，不作为入住前必购；NAS要求自带10G SFP+，不买网卡，介质待实物确认。Mac走原生10G RJ45；Apple TV 4K旧款、米家激光投影仪、树莓派均已有，不重复购买。壁挂屏先试已有杂牌安卓，不合适再选二手iPad mini/便宜iPad，暂未定。J3455已确认PCIe 2.0 x1，TX201为兼容性待验的首选候选。下方较早的固定DAC与UPS入住前要求由本条更新；不改四主干/两房间箱/三面板一吊顶。
+
 基于 Apple 生态 + Aqara（绿米）智能家居 + Hermes Agent 的个人家庭助理自动化方案
 
 > **当前基础设施事实源**：[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)。
@@ -11,34 +22,38 @@
 > **AP 优先级确认（2026-10-14）**：支持6GHz的三频设备保持第一优先，主卧/次卧/工作室各暂选 **EAP775-Wall ×1**，大厅 **EAP772 ×1** 为第一优先候选，均按2.5G有线回程。[BOM](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单)与v1.2拓扑型号/数量不变；[AP有无6GHz选型与价格对比报告](docs/ap-6ghz-selection-price-comparison.md)保存美国官方/Amazon报价、725版本差异及快速更新流程，双频725/723仅留备选。地区合规、发货版本及PoE仍须核验，不代表已购买或大陆6GHz可启用。
 > **Apple设备最新决定（2026-10-15）**：大厅 **Apple HomeView非壁挂／桌面版×1已确认**，通过大厅AP Wi-Fi，使用随箱电源，不买壁挂版/底座。壁挂另用平板电脑或iPad，型号/数量/点位/供电待选。HomeView美国预购$299、11月13日供货；三房mini 2建议各1，美$149/大陆¥1,099、10月30日供货，代际/数量/地区仍待确认。用户接受英语Siri AI，大陆服务/账户/配套设备仍待验；未购/未部署，不改四主干/AP PoE。见[官方核验与建议](docs/apple-home-devices-2026.md)。
 > README 中较早的设备状态和网络方案用于背景参考；采购、户型、AP布点、Apple HomeView和模型计划以台账为准。
-> **当前品牌范围（用户已确认）**：Apple 生态、Aqara/绿米为主；网络设备选择 TP-Link；ORVIBO/欧瑞博仅考虑空调。**不考虑任何小米/米家、华为设备**，包括网络、家电及智能家居；下文相关名称只保留为历史示例，不是当前采购或部署来源，也不代表用户已有这些设备或需要拆除。
+> **当前品牌范围（用户已确认）**：Apple 生态、Aqara/绿米为主；网络设备选择 TP-Link；ORVIBO/欧瑞博仅考虑空调。**不新增小米/米家、华为设备**；用户已有米家激光投影仪继续复用，不重复采购。其他旧小米设备示例不视为已有。
 > **网络拓扑 v1.2（2026-10-14）：四条主干2.5G，仅电竞房Mac/NAS本地10G**。网络采购方向为 **TP-Link Omada**；主卧/次卧各一条Cat6A/2.5G直达EAP775-Wall，不设设备箱/交换机，电脑等有线设备接AP下联（1×2.5G+3×1G）；电竞房/大厅各保留一箱一交换机。电竞房已选 **ES210XPP-M2 ×1**，10G RJ45给Mac Studio、10G SFP+给未来高速NAS；J3455及其他关键终端接电竞房交换机。完整直连表会占用八个2.5G口和两个10G口；Apple TV、投影改接工作室AP的两个1G下联后可释放两个交换机2.5G口，AP仍余1×2.5G+1×1G。现有1G/100M终端按实际接口；核心网络仍在弱电箱附近机柜，中央至少两口需匹配卧室AP PoE。规格与采购入口见 [TP-Link 网络产品调研](docs/tplink-network-research.md)。
 
 > 最新候选购买 BOM 见 [设备清单第6.4节](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单)：电竞房只用一台ES210XPP-M2，不增加交换机；完整直连表可占满十口，但工作室AP下联可承载Apple TV/投影等低带宽终端。中央五连接，建议≥8×2.5G且至少两口匹配EAP775-Wall PoE输入/功率。两卧室无交换机/箱，三台面板AP均有1×2.5G+3×1G下联；不启用AP PoE Out。Omada 使用暂定 Fusion 的内置控制器，不另占交换机端口；HA 通过 J3455 的既有接入口联网（现1G，计划2.5G）。
 >
 > **⚠️ 历史内容警告（2026-10）**：本文下方的“双路由/副路由”、千兆交换机、ORVIBO面板/照明和“已接入设备”均为历史或未核验记录，禁止据此采购/施工。当前基线是 **AC（主路由器/网关）→ 中央匹配PoE的2.5G交换机 → 两卧室Wall AP（直达）/电竞房与大厅交换机 → 有线AP/终端**；AC不是无线控制器，也不是空调。
 
-## 当前方案与图纸入口（2026-10-15）
+</details>
+
+## 当前方案与图纸入口（2026-10-20）
 
 | 文档 | 内容 |
 |---|---|
+| [装修原图与网络设备位置](docs/floorplan-and-network-locations.md) | 两张用户装修原图、局部尺寸边界；弱电箱在入户门左侧，四条Cat6A汇聚起点及现场核验清单 |
 | [Apple HomeView / mini 2官方核验](docs/apple-home-devices-2026.md) | HomeView桌面版×1已确认、mini 2待选；官方规格/报价与地区限制，壁挂平板或iPad待选，不买HomeView壁挂底座 |
-| [采购BOM与未决清单](docs/purchase-bom.md) | 已确认/暂选分表，六列采购清单、精确Amazon链接、2026-10-15单价/卖家、辅材与待用户决定项 |
-| [全屋网络拓扑图](docs/network-topology.md) | v1.2：四条主干2.5G；两卧室直达Wall AP，电竞房/大厅各一箱一交换机；电竞房Mac RJ45/NAS SFP+本地10G，Wall AP下联可释放低速终端端口；PoE/UPS/故障边界 |
+| [采购BOM与未决清单](docs/purchase-bom.md) | 当前3A三频七台设备、六列采购清单、10/20核验的Amazon入口/单价、双频备选、装修辅材与后置设备 |
+| [全屋网络拓扑图](docs/network-topology.md) | 四条主干目标2.5G；主卧775、次卧RJ45预留、电竞房ES210/大厅ES206各一箱，电竞房775及大厅772交换机PoE直供；Mac/NAS本地10G |
+| [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视、电竞房投影、Switch 双底座、PS5/PS TV Remote Play；两条约10m反向光纤 HDMI AOC 与复尺/施工要求 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
 | [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
-| [AP 有无 6GHz 选型与价格对比](docs/ap-6ghz-selection-price-comparison.md) | 三频第一优先、双频备用；2026-10-14美国官方/Amazon报价快照、组合成本、725硬件版本风险及以后快速更新BOM流程 |
-| [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 采购门槛、四条2.5G主干、两卧室AP下联与两处设备箱/电源、验收要求 |
+| [AP 有无 6GHz 选型与价格对比](docs/ap-6ghz-selection-price-comparison.md) | 三频暂定定稿、双频保留备选；同三AP/同交换机，Amazon相差$170，US V2风险另核 |
+| [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 四条2.5G主干、两面板一吊顶、次卧RJ45预留、两房间箱、电源与分阶段验收；NAS/UPS后置 |
 | [Hermes × HA 隔离实验指南](examples/hermes-ha-lab/README.md) / [验收记录](docs/validation/hermes-ha-lab.md) | 当前软件入口：固定官方插件、独立 profile、虚拟实体、只读 REST 探测与预期断言；真实联调仍为 `not_run` |
 
 软件实验底座及只读断言已合入 `main`。可先运行 `python -m unittest discover -s tests/ha_lab -v` 复跑离线测试；这不安装 Hermes/HA、不连接真实家居，也不代表旧 Middleware 或真实集成已通过验收。准备隔离测试环境后，按实验指南逐项验证，不执行下方历史部署步骤。
 
-房屋约 **100㎡、单层**，尚无正式设计图；计划宽带 **1000Mbps 下载 / 30Mbps 上传**。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接电竞房交换机、箱外摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
+房屋约 **100㎡、单层**，已收到并归档[装修布置图与尺寸标注图](docs/floorplan-and-network-locations.md)。**弱电箱在入户门左侧**，光猫、Fusion和中央交换机规划在该箱或附近通风核心柜，四条Cat6A由此汇聚。大厅/入户过道已确认有吊顶或局部吊顶，新增[设备点位与埋线草案](docs/network-placement-and-cabling-plan.md)及标注图；箱体、完整电气点位、实际管线路径与逐线长度仍待现场签认，Excel尚未写回该草案。计划宽带 **1000Mbps 下载 / 30Mbps 上传**。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接电竞房交换机、箱外摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
 
-Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+兼容DAC短线，接口/网卡待选，不另买光模块对。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
+Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+兼容DAC短线，NAS自带SFP+且不买网卡；介质待入住后选型。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
 
-停电后 **NAS、Mac和全屋网络先按至少1小时目标规划**，按实测负载/UPS续航及必要散热核容量。两卧室PoE AP计中央UPS，不再单列卧室网络箱UPS；AP下联电脑等市电设备不随PoE保活。电竞房Mac/存储/交换机/AP与大厅交换机/AP分别需后备供电，中央UPS不会自动覆盖。静音/隔声由用户另议，通风/空间/供电待设计，不通过密封机柜隔音。
+UPS入住后再评估，装修先留位置、电源与通风；原至少1小时仅为后续评估目标，不作入住前购买/验收条件。当前只有主卧AP计中央PoE，电竞房/大厅AP由本地交换机供电；AP下联电脑不随PoE保活。后续按实测负载、分散供电位置及安全关机要求选UPS，不通过密封机柜隔音。
 
 ## 早期项目状态（历史记录，非最新验收）
 
@@ -64,7 +79,7 @@ Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接�
 | 计算设备 | Mac Studio | ⏳ 计划购买 | 最新：M5 Ultra，512GB统一内存+4TB SSD、10GbE接工作室交换机；Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机精确报价待开放后核验 |
 | 计算设备 / 现有 NAS | J3455 自建服务器 | ✅ 用户确认已有；HA 部署位置已定 | 16GB/10TB/现1GbE、计划2.5G/Proxmox，影音NAS及代理服务保留；计划电竞房箱外，未迁移；新增独立 HAOS VM 尚未部署/验收；Omada 由暂定 Fusion 承载 |
 | 计算设备（本轮接入计划） | Mac Mini | 1G终端，部署状态待核 | 电竞房已分配1个铜口，不因接入规划追加整机采购 |
-| 存储设备（未来扩购） | 高速 NAS | ⏳ 待评估，非必购 | 与J3455区分；电竞房10G SFP+预留，型号/磁盘/网卡待核，不再规划中央接入 |
+| 存储设备（未来扩购） | 高速 NAS | ⏳ 待评估，非必购 | 与J3455区分；电竞房10G SFP+预留，型号/磁盘入住后再选，自带SFP+且不另买网卡，不再规划中央接入 |
 | 网络设备（历史候选） | 副路由器 | ⏳ 未核验 | 不属于当前 AP 主干；禁止按此行采购 |
 | 智能家居设备（历史合并项） | 绿米/欧瑞博 | ⏳ 未核验 | 当前方向以台账为准：Aqara 为主，ORVIBO 仅评估空调 |
 
