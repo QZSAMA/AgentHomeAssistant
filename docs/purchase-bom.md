@@ -1,6 +1,8 @@
 # 家庭基础设施采购 BOM 与未决清单
 
-更新日期：2026-10-20。**当前暂定定稿为3A三频**，双频方案保留预算备选。选型定稿表示本次设计采用，不表示设备已购买、部署或完成到货验收。
+更新日期：2026-10-26。**当前暂定定稿为3A三频**，双频方案保留预算备选。选型定稿表示本次设计采用，不表示设备已购买、部署或完成到货验收。
+
+**2026-10-26 绿米签字方案定稿**：Aqara 全屋智能报价已经用户签字确认（两页合计产品 ¥15,459＋25% 服务费 ¥3,865＝**¥19,324**，设备均未购/未施工/未部署），完整 BOM 见[绿米最终签字方案](aqara-final-quote-20261026.md)。该笔绿米设备为人民币独立采购，不并入本表美元基础网络合计。
 
 ## 当前基础网络采购表
 
@@ -9,7 +11,7 @@
 | 主路由/Omada控制器 | Fusion 2.5G普通版 | 1 | [规格](https://www.tp-link.com/productpages/spec/116210-3.html)：5×2.5G，内置Omada控制器；接光猫与中央交换机 | [B0H4P7XX8G](https://www.amazon.com/dp/B0H4P7XX8G) | $169.99 |
 | 中央PoE交换机 | ES206XPP-M2 | 1 | [规格](https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es206xpp-m2/#specifications)：5×2.5G中4口PoE++，90W/口、120W总；1×10G SFP+。网关和四条主干占五个铜口 | [B0GKQ5SD2L](https://www.amazon.com/dp/B0GKQ5SD2L) | $149.99 |
 | 电竞房交换机 | ES210XPP-M2 | 1 | [规格](https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es210xpp-m2/#specifications)：8×2.5G PoE++、90W/口、200W总；原生10G RJ45给Mac，10G SFP+给附近未来NAS | [B0HB17QTKX](https://www.amazon.com/dp/B0HB17QTKX) | $229.99 |
-| 大厅PoE交换机 | ES206XPP-M2 | 1 | 同中央型号；接大厅吊顶AP、电视、HALL-IOT-GW有线网关点位，另留一铜口 | [B0GKQ5SD2L](https://www.amazon.com/dp/B0GKQ5SD2L) | $149.99 |
+| 大厅PoE交换机 | ES206XPP-M2 | 1 | 同中央型号；接大厅吊顶AP（772）、电视、客餐厅吊顶 M200 网关 PoE 支线，另留一铜口；HALL-IOT-GW 墙面口转备用 | [B0GKQ5SD2L](https://www.amazon.com/dp/B0GKQ5SD2L) | $149.99 |
 | 主卧/电竞房面板AP | EAP775-Wall | 2 | [规格](https://www.omadanetworks.com/us/business-networking/omada-wifi-wall-plate/eap775-wall/#specifications)：Wi-Fi 7三频2.4/5/6GHz；1×2.5G上联，1×2.5G+3×1G下联；交换机PoE直供 | [B0G88FG4QH](https://www.amazon.com/dp/B0G88FG4QH) | $179.99/台，$359.98 |
 | 大厅吊顶AP | EAP772 | 1 | [规格](https://www.omadanetworks.com/us/business-networking/omada-wifi-ceiling-mount/eap772/#specifications)：Wi-Fi 7三频2.4/5/6GHz，1×2.5G上联，802.3at，最大25.4W；大厅交换机PoE直供 | [B0D2M26NYW](https://www.amazon.com/dp/B0D2M26NYW) | $169.99 |
 
@@ -33,7 +35,8 @@
 - 三台AP分别由中央、电竞房、大厅交换机供电，不采购独立注入器；AP PoE Out不启用。工作室两个10G口保持独立，不买SM5310-T。
 - 高速NAS及介质、UPS入住后再考虑。NAS要求自带10G SFP+，不另买NAS网卡；J3455的PCIe 2.0 x1升级2.5G可先核TX201空间、发货版本/驱动，尚未确定下单。
 - J3455、M1 Mac mini、两台PC、旧Apple TV 4K、米家激光投影仪及树莓派继续复用。HA规划在J3455独立HAOS VM；Omada使用Fusion内置控制器。
-- Apple HomeView桌面版、HomePod mini、壁挂安卓/iPad、智能灯/传感器/摄像头及网关不计入本表基础网络合计；相关采购状态保留在[设备台账](home-infrastructure-register.md)及[设备选型](device-selection-list.md)。
+- Apple HomeView桌面版、HomePod mini、壁挂安卓/iPad 不计入本表基础网络合计；相关采购状态保留在[设备台账](home-infrastructure-register.md)及[设备选型](device-selection-list.md)。
+- **绿米 Aqara 设备（2026-10-26 签字定稿，合计 ¥19,324，含 25% 服务费）为人民币独立采购，不并入本美元表**；M200/M1S 网关、H1M 开关、FP310/T1 传感器、C200 窗帘、S100 场景屏、E1 摄像机、T2Pro 射灯与灯带的完整清单见[绿米最终签字方案](aqara-final-quote-20261026.md)。
 
 三频美国SKU的6GHz当地使用条件沿用[专项研究](wifi7-6ghz-mainland-china-research.md)，不将美国销售规格作为中国大陆6GHz交付保证。到货核地区版、底盒附件、Fusion接管、PoE协商及冷启动；普通Fusion和交换机交流输入/插头按原装铭牌检查。
 
@@ -101,7 +104,7 @@
 |---|---|---:|---|---|---|
 | 主计算设备 | **Mac Studio M5 Ultra / 512GB统一内存 / 4TB SSD / 原生10GbE** | **1 台，采购目标已确认** | [Apple技术规格](https://www.apple.com/mac-studio/specs/)列512GB对应M5 Ultra 36核CPU/80核GPU，10GbE RJ45支持1/2.5/5/10G；模型、剪辑与开发。**HA主实例在J3455，不在Mac上** | 未核到目标配置的精确商品；优先[Apple配置页](https://www.apple.com/shop/buy-mac/mac-studio) | **目标配置待报价**；官网写512GB选项10月下旬提供，$5,499是M5 Ultra起价，不是本配置价格 |
 | 中央星型铜主干 | Cat6A实芯纯铜，具体品牌/长度待施工复尺 | **4条链路，米数待定** | 主卧/次卧各直达面板AP并供PoE；工作室/大厅各到交换机，当前均2.5G；合格Cat6A原生10GBASE-T完整通道可达100m，不等于任意端接均能达标；禁CCA | 待选，不用虚构商品链接 | 待复尺报价 |
-| 房内数据支线与跳线 | Cat6A，具体SKU/长度待定 | **按实际端口和端接计** | 已明确工作室AP、大厅吊顶AP、HALL-IOT-GW各1条本地支线；另计Mac的10G铜链路、PC/Mini/J3455/电视/影音及卧室AP下联分支；NAS不算铜网线 | 待选 | 待报价 |
+| 房内数据支线与跳线 | Cat6A，具体SKU/长度待定 | **按实际端口和端接计** | 已明确工作室AP、大厅吊顶AP各1条本地支线；**客餐厅吊顶新增 M200 网关 PoE 支线，建议布 2 根 Cat6A（1用1备），封板前完成**，HALL-IOT-GW 墙面口保留为备用；另计Mac的10G铜链路、PC/Mini/J3455/电视/影音及卧室AP下联分支；NAS不算铜网线 | 待选 | 待报价 |
 | Cat6A端接/配线与墙口 | 匹配实芯线及PoE的模块、配线架/支架、面板、现场端接插头 | 按最终端接表计 | **只有四主干两端都模块端接时，才是8模块+8跳线**；直达AP可采用合规MPTL现场插头，模块/跳线数量随方案变化。全部链路认证，屏蔽系统正确接地 | 待施工端接方案，非默认8套采购 | 待报价 |
 | 工作室近距离NAS互联 | **NAS原生10G SFP+光口；兼容SFP+短线（DAC或光纤按实机模块确认）** | **NAS实施时1条** | 用户已确认NAS放交换机附近，NAS自带光口，**不另购10G SFP+网卡**；核交换机与NAS两端接口/模块编码、线型、长度和弯曲半径。短距离优先评估兼容DAC；若使用光模块则另按两端模块与光纤核验，不埋墙 | 待NAS实物接口及介质确定后选商品 | 待报价 |
 | 房间设备箱 | 可维护、通风，尺寸待实物复尺 | **2个：工作室、大厅** | 放交换机、原装电源砖和配线；卧室无箱。Mac/NAS/J3455在箱外通风设备位，不塞小箱；不把通风柜当隔音柜 | 待尺寸确认；可本地采购 | 待报价 |
@@ -123,10 +126,10 @@
 | PC升级2.5G网卡 | 接口/型号待PC配置核验 | 最多2张，可分期 | 用户有升级意向，升级前两PC仍为1G；不因全屋2.5G自动升级 | 待选 | 待报价 |
 | 三房Siri/Thread终端 | **优先推荐HomePod mini 2**；代际/地区/颜色待用户确认 | 暂按3台，各房1台，不增数量 | [官方规格](https://www.apple.com/homepod-mini/specs/)：Wi-Fi 6E/802.11ax、Thread、蓝牙6、温湿度、Apple Home中枢；随箱20W适配器100–240V、9V/2.22A。10月30日起供货；大陆有普通中文Siri，美国Siri AI待后续更新，不视为大陆AI承诺 | 未核精确Amazon；[美国Apple](https://www.apple.com/shop/buy-homepod/homepod-mini) / [大陆Apple](https://www.apple.com.cn/homepod-mini/) | **美$149/台，3台$447；大陆¥1,099/台，3台¥3,297**；待确认计价 |
 | 壁挂控制屏（未定） | **优先复用已有杂牌安卓；备选二手iPad mini/便宜iPad** | 数量、点位待定 | 安卓先验证HA网页/客户端、kiosk、系统安全更新与长期供电；iPad再按实际iPadOS/HA支持选。支架、充电、电池、散热、可拆维护待定，不替代HA/Thread边界路由器 | 安卓已有；iPad仅备选 | 不计当前网络采购 |
-| Zigbee接入路径 | Aqara有线网关（如M3候选）**或**HA以太网协调器 | 同一批设备先按1条路径，不双买 | 接HALL-IOT-GW墙口，Zigbee设备不能同时配对两个网络；最终型号决定PoE/本地集成/Apple Home暴露能力。不自动另加Thread USB棒 | 待选择路径和区域SKU | 待报价 |
+| Zigbee接入路径 | **已定：Aqara M200（主，客餐厅吊顶PoE）＋M1S（主卧壁挂辅助）**；HA以太网协调器降为入住后演进备选 | 同批设备只配对1条Zigbee路径，不双买 | M200 支持 Matter Controller/Thread Border Router/Matter Bridge；M1S 不支持 Matter，其下设备对 Apple Home/HA 的暴露路径须到货实测。同一 Zigbee 设备不能同时配对两个网络。详见[签字方案](aqara-final-quote-20261026.md) | 已选型，未购 | 含于绿米合同 |
 | HA主机存储/备份 | HAOS VM使用的SSD/备份介质 | 先核已有资源，再决定增购 | J3455已有16GB/10TB，**10TB不是已确认的可用SSD**；建议初始VM 2vCPU/4GB/64GB SSD按资源复核。无需新买Pi/独立HA主机 | 待资源核验 | 待报价 |
-| Aqara照明/开关/传感器/窗帘及Thread节点 | 具体区域SKU/协议待定 | 按照明/家具/门窗图统计 | 四区域+两卫生间均预留；分清Zigbee、Matter over Thread、Wi-Fi，不按每房买一套网关，不重复买同功能候选；零火线与潮湿环境条件先确认 | 待图纸/选型 | 待数量 |
-| 摄像头/门铃/录像 | 型号/点位/录像存储待定 | 待定 | PoE走中央/大厅有余量端口，追加PoE预算与支线；不使用AP PoE Out，不默认卧室/卫生间安装；本地录像、HA与HKSV分别验收 | 待定 | 待报价 |
+| Aqara照明/开关/传感器/窗帘 | **已定稿（2026-10-26 签字）**：H1M零火三键×10、双键×1，FP310×2（两卫），T1人体×1、T1门窗×1（玄关），C200窗帘×2（阳台/主卧），T2Pro射灯×7，双色温灯带25m＋300W驱动＋灯槽25根 | 见签字BOM | 点位含玄关、厨房、客餐厅、阳台、过道、两卫、书房（电竞房）、主卧；**报价无次卧点位，交底时确认**。本批为绿米 Zigbee/常电方案，Matter over Thread 仅保留为未来类别，不按每房买网关。详见[签字方案](aqara-final-quote-20261026.md) | 已选型，未购 | 含于绿米合同 ¥19,324 |
+| 摄像头/门铃/录像 | **Aqara E1×1（客餐厅，配G3/E1吸顶支架，75开孔）已定稿** | 1 | **E1 为 Wi-Fi 摄像机，不走 PoE、不占交换机口**；顶部需预留电源。本地 AI 人脸识别含 7 天免费云存储；HA/HomeKit 兼容与录像策略到货验收。不默认卧室/卫生间安装 | 已选型，未购 | E1 ¥469＋支架 ¥42 |
 | 空调 | ORVIBO仅空调，型号/控制路径待定 | 待定 | 是否本地接入HA及桥接Apple Home需验证；不新增ORVIBO面板/照明系统 | 待定 | 待报价 |
 | 本地模型自由对话收音终端 | 型号/方案未选 | 待各房间语音设计 | Siri控制与本地模型对话是两条链路；不把HomePod麦克风直接当作通用AI输入，若需独立HA Assist等硬件再确认 | 待定 | 待报价 |
 | 已有媒体终端 | **Apple TV 4K（旧款）＋米家激光投影仪** | **各1台，已有；不新增采购** | 保持有线接入，可直连工作室ES210或按点位接EAP775-Wall的1G数据下联；实际接口/速率按设备核验。米家投影仅作为既有设备复用，不改变“不新增米家设备”的品牌范围 | 不采购 | **$0（复用已有设备）** |
@@ -144,7 +147,7 @@ Apple子系统中，**HomeView桌面版×1、$299已计入第1表**；三台mini
 - **不买**：第二台工作室交换机、两卧室交换机/设备箱/网络箱UPS、独立AP注入器、SM5310-T铜模块、当前未定NAS介质及额外每房预埋光纤。未来因摄像头而新增中央ES206等只留扩展研究，不默认采购。
 - **AP附件**：原装电源砖、已含安装套件不再单独计购；当前AP全部PoE供电，无另购AP市电适配器。电池传感器/普通灯具并不自动占PoE口。
 - **HomeView**：桌面版随箱电源/线材不重复购买；不买HomeView壁挂版或配套壁挂/PoE底座。平板/iPad及其安装/供电附件待选后另计，不因墙面安装意向自动增线或增PoE预算。
-- 不新增小米/米家、华为设备；已有米家激光投影仪复用。Aqara为主，ORVIBO仅空调。
+- 不新增小米/米家、华为设备；已有米家激光投影仪复用。Aqara为主，ORVIBO仅空调。**签字方案含服务商赠送小爱音箱 PRO×1（¥0，不产生采购额）；其仅按绿米网关下的语音控制点使用，不据此扩展任何米家设备。**
 
 ## 6. 报价证据、卖家和版本边界
 
@@ -171,7 +174,7 @@ Apple子系统中，**HomeView桌面版×1、$299已计入第1表**；三台mini
 - 美国发货SKU的Type A/B插头/电源线接口未逐台锁定；插头形状不等于电压。保留交换机原装电源砖，按实物补合规国标交流线并保留接地，不先猜C5/C7/C13；转接头不变压。
 - EAP775×3与EAP772×1均由各自交换机PoE供电，独立注入器数量0，PoE Out关闭。
 - 按AP官方上限×1.3保守规划：中央两775 **117W/200W（若采用推荐ES210）**，工作室一775 **58.5W/200W**，大厅772 **约33W/120W**；单口标准/预算足够。775的45W包含25W下游输出，不视为裸机实测，也不以45−25推定20W。
-- 摄像头/网关尚未确定功耗，不在余量内默认放入若干台；新增后重算端口与功率。UPS按整机实际交流输入测量，不能把PoE在交换机输入和AP两处重复加总。详见[网络拓扑PoE复核](network-topology.md#22-交换机-poe-与端口复核2026-10-15)。
+- **M200 是签字方案中唯一走 PoE 的绿米设备**：802.3af 等级，标称 48V⎓0.25A≈12W，按 ×1.3 预留约 15.6W，由大厅 ES206 客餐厅吊顶支线供电；加上大厅 772 约 33W，吊顶 PoE 负载合计约 **49W/120W**，余量充足。其余绿米设备（M1S/H1M/C200/S100 等市电或常电，FP310/T1 电池，E1 为 Wi-Fi 市电）均不占 PoE 口。新增其他 PoE 设备后再重算端口与功率。UPS按整机实际交流输入测量，不能把PoE在交换机输入和AP两处重复加总。详见[网络拓扑](network-topology.md)与[签字方案网络要点](aqara-final-quote-20261026.md)。
 
 ## 8. 本轮一致性检查结果
 
