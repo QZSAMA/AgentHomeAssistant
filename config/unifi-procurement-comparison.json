@@ -1,0 +1,25 @@
+{
+  "verified_at": "2026-10-30",
+  "currency": "USD",
+  "status": "已评估、不采用，仅保留研究记录；继续使用当前 Omada 3A 三频方案",
+  "decision_date": "2026-10-30",
+  "decision_reason": "用户明确认为成本过高，决定不使用 UniFi；本表设备不进入采购或施工清单",
+  "price_source": "Ubiquiti 美国官方商城；budget_unit_price 已计入页面显示的 Surcharge（若有），未计销售税、运费或进口费用",
+  "products": [
+    {"id":"gateway","model":"UCG-Max-NS","quantity":1,"base_unit_price":199,"budget_unit_price":219,"store_url":"https://store.ui.com/us/en/products/ucg-max-ns","spec_url":"https://techspecs.ui.com/unifi/cloud-gateways/ucg-max","note":"无存储版本；页面显示售罄，预计 2026-11-06 补货，非到货承诺"},
+    {"id":"central-hall-switch","model":"USW-Flex-2.5G-8-PoE","quantity":2,"base_unit_price":199,"budget_unit_price":219,"store_url":"https://store.ui.com/us/en/category/switching-utility/products/usw-flex-2-5g-8-poe","spec_url":"https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8-poe","note":"中央、大厅各一；AC 电源另列；10G RJ45/SFP+ 为 combo，不能同时使用"},
+    {"id":"master-switch","model":"USW-Flex-2.5G-8-PoE","quantity":1,"base_unit_price":199,"budget_unit_price":219,"store_url":"https://store.ui.com/us/en/category/switching-utility/products/usw-flex-2-5g-8-poe","spec_url":"https://techspecs.ui.com/unifi/switching/usw-flex-2-5g-8-poe","note":"研究中的主卧额外交换机；由中央 PoE++ 供电，46W 下游预算，接 22W 壁挂 AP 及有线终端；此布局随 UniFi 方案一并不采用"},
+    {"id":"flex-psu","model":"UACC-Adapter-AC-210W","quantity":2,"base_unit_price":79,"budget_unit_price":79,"store_url":"https://store.ui.com/us/en/products/uacc-adapter-ac-210w","note":"中央、大厅各一；各使 Flex 获得 196W 下游 PoE 预算；主卧通过 PoE++ 取电，无需第三只电源"},
+    {"id":"studio-switch","model":"USW-Pro-XG-8-PoE","quantity":1,"base_unit_price":499,"budget_unit_price":549,"store_url":"https://store.ui.com/us/en/category/switching-utility/products/usw-pro-xg-8-poe","spec_url":"https://techspecs.ui.com/unifi/switching/usw-pro-xg-8-poe","note":"8 个 10G RJ45 PoE++、2 个独立 10G SFP+，155W PoE；随箱 210W 电源；八个铜口全分配，第二个 SFP+ 加模块做中央上联"},
+    {"id":"studio-uplink-module","model":"UACC-CM-RJ45-MG","quantity":1,"base_unit_price":65,"budget_unit_price":65,"store_url":"https://store.ui.com/us/en/products/uacc-cm-rj45-mg","note":"用于电竞房交换机上联 Cat6A：SFP+ 主机侧 10G、铜侧协商 2.5G；Mac 使用原生 10G RJ45，NAS 保留另一个 SFP+"},
+    {"id":"wall-ap","model":"U7-Pro-Wall","quantity":2,"base_unit_price":199,"budget_unit_price":219,"store_url":"https://store.ui.com/us/en/products/u7-pro-wall","spec_url":"https://techspecs.ui.com/unifi/wifi/u7-pro-wall","note":"主卧、电竞房各一；三频 Wi-Fi 7，2.5G 单网口，PoE+，22W；没有有线下联口"},
+    {"id":"ceiling-ap","model":"U7-Pro","quantity":1,"base_unit_price":189,"budget_unit_price":208,"store_url":"https://store.ui.com/us/en/products/u7-pro","spec_url":"https://techspecs.ui.com/unifi/wifi/u7-pro","note":"大厅吊顶；三频 Wi-Fi 7，2.5G 上联，PoE+，21W"}
+  ],
+  "totals": {"base_price_total":2105,"budget_price_total":2294},
+  "variants": [
+    {"name":"主卧仅无线、不保留有线扩展","remove_product_ids":["master-switch"],"base_price_total":1906,"budget_price_total":2075,"note":"主卧 AP 改由中央直接 PoE 供电；不符合原先主卧有线扩展需求，非等效替换"},
+    {"name":"主路由改用 UCG-Fiber 无存储版","replace_id":"gateway","replacement_base_unit_price":279,"replacement_budget_unit_price":307,"base_price_total":2185,"budget_price_total":2382,"store_url":"https://store.ui.com/us/en/products/ucg-fiber","note":"保留本表其余设备和中央交换机；5Gbps 标称 IDS/IPS，现有需求并非必需"}
+  ],
+  "exclusions": ["销售税、运费、进口费用","Cat6A、短跳线、模块面板、机柜、施工及认证","未来 NAS 及 DAC/光模块/光纤","UPS","J3455 和 PC 的升级网卡","智能家居终端及未定协调器","可选订阅、延保、AP 装饰盖与齐平安装附件"],
+  "omada_reference": {"verified_at":"2026-10-20","amazon_total":1229.93,"official_total":1314.93,"note":"历史快照；此次未刷新，不是同时点报价。UniFi 主案增加了主卧交换机等部件，也不是完全相同结构。"}
+}
