@@ -1,10 +1,13 @@
-# 全屋规则分流验收与应急操作单
+# 历史：全屋规则分流验收与应急操作单
 
-> **需求已修订：以[最新故障隔离设计](../superpowers/specs/2026-11-05-home-rule-routing-availability.md)为准。** 本文C表和D节是原单网关试验/人工回退记录，不能证明“J3455故障时普通上网仍可用”。原全屋DHCP迁移暂停。优先试验定向 DNS + 合成地址段静态路由；见[官方功能调研](../fusion-domain-routing-capability-research.md)。以下所有设备检查均未实测。
+> **此单已归档，不用于现场操作；请使用[现行验收与应急单](home-device-rule-routing.md)。** 用户已批准[同一LAN按设备选用OpenWrt方案](../superpowers/specs/2026-11-05-home-device-rule-routing-design.md)。Fusion DHCP始终开启，OpenWrt DHCP/RA始终关闭；指定终端故障时手动切回普通网络。下列全屋DHCP迁移、全屋切回及定向DNS/合成地址段验收均为历史，不能照表执行。所有设备检查仍为 `not_run`。
+
+<details>
+<summary>历史检查项与旧应急步骤（现行不采用）</summary>
 
 文档核验已完成：Fusion 专用手册确认域名策略、目的网段静态下一跳及 Local DNS FORWARD；策略界面没有任意 LAN 下一跳字段。此状态仅表示资料已核验，**不将任何现场项目标为 `passed`**。
 
-| 新ID | 优先架构必须验证的内容 | 状态 |
+| 历史ID | 当时候选架构的检查项（现行不采用） | 状态 |
 |---|---|---|
 | A1 | Fusion具体硬件版、Omada OS及Network Application版本 | `not_run` |
 | A2 | 实机具有 Local DNS FORWARD 与静态 Next Hop；专用合成地址段可经 LAN 交给 VM，不能只证实 WAN 选线 | `not_run` |
@@ -78,7 +81,7 @@
 | P14 | 全屋人工回退到 Fusion，并实测恢复时间 | `not_run` |  |
 | P15 | 72h稳定性、性能、启动顺序和外部备份读回 | `not_run` |  |
 
-## D. 最小应急操作
+## D. 历史应急步骤：禁止用于现行方案
 
 ### D1. 管理入口
 
@@ -114,3 +117,5 @@
 - `passed`：现场有时间、命令/页面或脱敏截图证据，且限制条件已记录。
 - `failed`：现场复现失败，记录影响、回退动作和下一步；不得用“未发现问题”替换。
 - 任何真实凭据、节点地址、订阅链接、完整终端访问日志只放加密运维资料，不进入本文件或 Git。
+
+</details>

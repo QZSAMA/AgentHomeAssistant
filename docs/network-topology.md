@@ -4,7 +4,7 @@
 
 **核心位置补充（2026-10-20）**：弱电箱在**入户门左侧**，光猫、Fusion及中央ES206规划在该箱或附近通风核心柜，四条Cat6A由此汇聚；不是已确认全部设备能装入原箱。用户装修布置图与尺寸图见[原图与点位记录](floorplan-and-network-locations.md)，箱体、标高、管线路径与逐线长度仍待现场核验。
 
-**规则分流补充（2026-11-05，同日修订，尚未部署）**：J3455继续放电竞房箱外通风位，复用既有ES210接入口，计划在Proxmox新增OpenWrt完整VM。用户要求J3455故障时普通上网继续可用，允许指定网站暂时不可用。官方手册已确认Fusion域名策略、静态下一跳及Local DNS FORWARD；域名策略表单没有任意LAN下一跳字段。优先试验“指定域名定向DNS＋专用合成地址段静态路由→J3455”，Fusion保留网关、DHCP和普通DNS；组件已核、组合未测。原全屋网关/DHCP迁移暂停，不增加树莓派作为默认接替设备。见[官方功能调研](fusion-domain-routing-capability-research.md)、[故障隔离设计](superpowers/specs/2026-11-05-home-rule-routing-availability.md)及[验收单](validation/home-rule-routing.md)。普通Fusion无无线，AP由各交换机PoE供电；此候选方案不要求新增大厅回线。
+**规则分流批准版（2026-11-05，尚未部署）**：所有有线与无线设备保持同一家庭LAN/网段，不划分VLAN。Fusion保留主网关、唯一DHCP及独立普通DNS；J3455继续放电竞房箱外通风位，复用既有ES210接入口，在Proxmox新增OpenWrt完整VM，关闭该LAN的DHCP/RA。2.4GHz共用SSID内，智能家居自动走Fusion，指定手机/平板手动使用OpenWrt网关和规则DNS；日常5GHz/可用6GHz另用一个SSID，仍桥接同一LAN并自动走Fusion。J3455停机不改变普通设备路径，正在使用OpenWrt的终端需手动切日常SSID或恢复自动配置；双栈与恢复行为待实测。见[现行设计](superpowers/specs/2026-11-05-home-device-rule-routing-design.md)、[实施计划](superpowers/plans/2026-11-05-home-device-rule-routing.md)和[验收单](validation/home-device-rule-routing.md)。全屋定向DNS/合成地址段路由与全屋DHCP迁移均不是现行方案。普通Fusion无无线，AP由各交换机PoE供电；位置、布线和采购基线不变，无需新增大厅回线或备用树莓派。
 
 ```mermaid
 flowchart TD

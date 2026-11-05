@@ -1,8 +1,8 @@
-# 全屋规则分流与 J3455 旁路由设计
+# 历史：全屋规则分流与 J3455 旁路由设计
 
-> **同日需求修订，以[故障隔离与 Fusion 规则核验](2026-11-05-home-rule-routing-availability.md)为准。** 用户要求 J3455掉线时普通上网继续可用，允许指定网站暂时不可用。最新[官方手册调研](../../fusion-domain-routing-capability-research.md)已确认域名策略、静态下一跳及 Local DNS FORWARD；域名策略界面没有任意 LAN 下一跳字段。优先试验定向 DNS + 专用合成地址段静态路由，Fusion 保留默认网关、DHCP 和普通 DNS，组合未实测。本文下方“OpenWrt作为全屋网关和唯一DHCP”的旧主案只保留作历史试验参考，不再作为全屋实施决定；原全屋切换步骤暂停。
+> **已被[同一LAN按设备选用OpenWrt批准版](2026-11-05-home-device-rule-routing-design.md)取代，本文仅保留历史。** 当前全家同网段、不分VLAN；Fusion始终保留主网关、唯一DHCP和独立普通DNS，仅指定终端手动使用OpenWrt并在故障时手动切回。下文全屋网关/DHCP/DNS迁移不得执行；后续曾比较的定向DNS与合成地址段全屋路由也未采用。现场请使用[现行计划](../plans/2026-11-05-home-device-rule-routing.md)和[现行验收单](../../validation/home-device-rule-routing.md)。
 
-日期：2026-11-05。状态：**设计与实施建议；尚未部署、未做实机兼容和性能验收**。
+日期：2026-11-05。状态：**历史设计，已停止作为执行依据；尚未部署、未做实机兼容和性能验收**。以下“推荐”“本案”均指当时方案。
 
 配套：[实施计划](../plans/2026-11-05-home-rule-routing.md)、[验收与应急操作单](../../validation/home-rule-routing.md)、[现行物理拓扑](../../network-topology.md)、[基础设施台账](../../home-infrastructure-register.md)。本文使用中性名称记录设备与出口规则，真实节点地址、口令、订阅地址不入库。
 

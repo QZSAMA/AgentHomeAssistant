@@ -1,6 +1,8 @@
 # 全屋规则分流：公开案例与可靠性选择
 
-调研日期：2026-11-05。对象：Fusion 主网关、三台有线 AP、现有 J3455/Proxmox，要求所有联网设备纳入规则，并且 J3455 停机时普通上网继续可用。未连接或修改家庭设备。
+调研日期：2026-11-05。历史调研对象：Fusion 主网关、三台有线 AP、现有 J3455/Proxmox，当时要求所有联网设备纳入规则，并且 J3455 停机时普通上网继续可用。未连接或修改家庭设备。
+
+> **范围已收窄并获批准：** 现行采用[同一LAN内按设备手动选用OpenWrt](superpowers/specs/2026-11-05-home-device-rule-routing-design.md)，普通设备继续走Fusion，规则终端故障时手动切回。执行见[现行计划](superpowers/plans/2026-11-05-home-device-rule-routing.md)和[验收单](validation/home-device-rule-routing.md)。以下全屋组合与独立主网关建议仅作历史比较；采购与物理布线不变。
 
 ## 1. 结论与对上一份建议的限定
 

@@ -31,7 +31,7 @@
 
 </details>
 
-## 当前方案与图纸入口（2026-10-20）
+## 当前方案与图纸入口（2026-11-05 更新）
 
 | 文档 | 内容 |
 |---|---|
@@ -42,10 +42,11 @@
 | [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视、电竞房投影、Switch 双底座、PS5/PS TV Remote Play；两条约10m反向光纤 HDMI AOC 与复尺/施工要求 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
-| [Fusion官方功能调研](docs/fusion-domain-routing-capability-research.md) / [故障隔离设计](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) | 已核域名策略、静态下一跳及定向DNS；原厂域名策略没有任意LAN下一跳字段。优先试验定向DNS＋合成地址段静态路由，组合与故障隔离未实测 |
-| [最新：Fusion扩展与同SSID按设备分流](docs/fusion-third-party-and-device-routing.md) | 用户明确所有设备同一LAN、不划分VLAN。Fusion保留唯一DHCP及普通解析，指定终端可单独设置OpenWrt网关；日常5/6GHz走Fusion。PPSK/VLAN分网已排除，未部署 |
-| [规则分流社区案例与可靠性](docs/home-routing-community-and-reliability.md) | 找到其他主路由上的同类部署，未核验到Fusion完整案例；比较保留Fusion的小试与独立OpenWrt主网关，采购基线未变 |
-| [原VM设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) / [原实施计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [验收单](docs/validation/home-rule-routing.md) | 资料和隔离VM准备可复用；旧网关接管步骤须重写，全屋DHCP迁移暂停。Fusion保留网关及普通解析；实机 `not_run` |
+| [已批准：同一LAN按设备选用OpenWrt](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md) | 全家同网段、不划分VLAN；Fusion保留主网关、唯一DHCP和独立普通DNS。2.4GHz共用SSID内，智能家居自动配置，指定终端手动选用OpenWrt；日常5GHz/可用6GHz另一个SSID仍在同一LAN。故障时指定终端手动切回普通路径；未部署 |
+| [现行实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md) / [现行验收与应急单](docs/validation/home-device-rule-routing.md) | 盘点备份、隔离建VM、单终端试点、双栈与本地发现、故障及切回演练；不修改现有物理布线，全部现场检查 `not_run` |
+| [Fusion扩展与同SSID按设备分流调研](docs/fusion-third-party-and-device-routing.md) | 原厂扩展能力、手动网关、PPSK/VLAN历史比较及逐设备DHCP能力边界；当前采用方案A |
+| [Fusion官方功能调研](docs/fusion-domain-routing-capability-research.md) / [社区案例比较](docs/home-routing-community-and-reliability.md) | 历史研究证据；全屋定向DNS、合成地址段静态路由与独立主网关不属于本次批准范围 |
+| [历史全屋设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) / [故障隔离比较](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) / [旧计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [旧验收单](docs/validation/home-rule-routing.md) | 已被现行批准版取代；不执行全屋网关、DHCP或DNS迁移及其回退步骤 |
 | [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
 | [AP 有无 6GHz 选型与价格对比](docs/ap-6ghz-selection-price-comparison.md) | 三频暂定定稿、双频保留备选；同三AP/同交换机，Amazon相差$170，US V2风险另核 |
 | [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 四条2.5G主干、两面板一吊顶、次卧RJ45预留、两房间箱、电源与分阶段验收；NAS/UPS后置 |
@@ -154,7 +155,7 @@ UPS入住后再评估，装修先留位置、电源与通风；原至少1小时�
 | 原则 | 说明 |
 |------|------|
 | 主路由零改动 | 主路由器保持原厂固件，不做任何配置变更 |
-| 网络隔离 | 工作流量与家庭流量完全隔离，VPN 故障不影响家庭网络 |
+| 网络隔离 | 工作流量与家庭流量完全隔离，指定出口故障不影响家庭网络 |
 | 切换便捷 | 切换 WiFi 即可切换网络出口，无需额外操作 |
 | NAS 互通 | 工作网络通过 NAT 穿透访问主网络 NAS |
 | 设备发现 | 通过 avahi-daemon mDNS 中继实现跨子网 AirPlay/HomeKit |
@@ -247,16 +248,16 @@ config interface 'wg0'
     option proto 'wireguard'
     option private_key '<YOUR_CLIENT_PRIVATE_KEY>'
     option mtu '1420'
-    list addresses '10.x.x.x/24'     # VPN 分配的 IP
+    list addresses '10.x.x.x/24'     # 指定出口分配的 IP
     list dns '1.1.1.1'
 
 config wireguard_wg0
-    option description 'Company-VPN'
+    option description 'Work-Exit'
     option public_key '<SERVER_PUBLIC_KEY>'
     option preshared_key '<PRESHARED_KEY>'
-    option endpoint_host '<VPN_SERVER_IP>'
+    option endpoint_host '<EXIT_SERVER_IP>'
     option endpoint_port '51820'
-    list allowed_ips '0.0.0.0/0'       # 所有流量走 VPN
+    list allowed_ips '0.0.0.0/0'       # 所有流量走指定出口
     option route_allowed_ips '1'
     option persistent_keepalive '25'    # 保持 NAT 穿透状态
 ```
@@ -275,7 +276,7 @@ config zone
 
 config forwarding
     option src 'lan'
-    option dest 'wg'         # LAN 流量 → VPN 隧道
+    option dest 'wg'         # LAN 流量 → 指定出口
 ```
 
 **5. mDNS 中继 (avahi-daemon)**

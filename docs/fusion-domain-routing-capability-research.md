@@ -2,6 +2,8 @@
 
 核验日期：2026-11-05。对象：暂定的 **Omada Fusion 2.5G 普通版**。本文依据公开手册与发行说明；未连接、配置或测试家庭设备。
 
+> **现行决定：** 已批准[同一LAN按设备选用OpenWrt](superpowers/specs/2026-11-05-home-device-rule-routing-design.md)，执行见[新计划](superpowers/plans/2026-11-05-home-device-rule-routing.md)和[新验收单](validation/home-device-rule-routing.md)。本文功能证据保留；下文定向DNS与合成地址段全屋路由仅为历史候选，未采用、未部署。
+
 > **同日案例追查：** 已找到 RouterOS、爱快与梅林上的同类部署记录，但没有核验到 Fusion 的完整成功及宿主停机验收案例。本文组合属于保留 Fusion 时的试验候选；长期维护与独立主网关选择见[社区案例与可靠性比较](home-routing-community-and-reliability.md)。尚未改变采购基线。
 
 ## 1. 结论
@@ -66,7 +68,7 @@
 
 [Omada Controller V6.3 通用手册](https://support.omadanetworks.com/us/document/131915/)的印刷页 269–272 / PDF 页 280–283 也将静态下一跳与策略出口分开。其域名条件写作 `Domain Group`；本项目优先采用 Fusion 专用手册的 `Domain-Port Group` 表述，不能将通用控制器版本号或界面逐项当作 Fusion 实装事实。
 
-## 4. 优先试验方向：定向 DNS + 合成地址段静态路由
+## 4. 历史候选：定向 DNS + 合成地址段静态路由
 
 ### 4.1 为什么这条路线更贴合需求
 
