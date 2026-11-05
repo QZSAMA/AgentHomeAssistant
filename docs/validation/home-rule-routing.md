@@ -1,5 +1,17 @@
 # 全屋规则分流验收与应急操作单
 
+> **需求已修订：以[最新故障隔离设计](../superpowers/specs/2026-11-05-home-rule-routing-availability.md)为准。** 本文C表和D节是原单网关试验/人工回退记录，不能证明“J3455故障时普通上网仍可用”。原全屋DHCP迁移暂停，新增下列前置检查；全部未实测。
+
+| 新ID | 优先架构必须验证的内容 | 状态 |
+|---|---|---|
+| A1 | Fusion具体硬件版、Omada OS及Network Application版本 | `not_run` |
+| A2 | 网站域名可匹配且下一跳可选J3455所在LAN网关；不能只证实WAN选线 | `not_run` |
+| A3 | 普通网站一直直接走Fusion；转回Fusion的规则流量不循环 | `not_run` |
+| A4 | DHCP与普通DNS不依赖J3455；缓存不使普通网站间接依赖规则服务 | `not_run` |
+| A5 | 停规则服务、停VM、正常停宿主、拔J3455网线时普通上网仍可用 | `not_run` |
+| A6 | IPv6、CDN共用地址、应用独立解析不导致错误分流 | `not_run` |
+| A7 | 指定网站在J3455故障时可失败，符合用户已确认范围 | `not_run` |
+
 状态基线：`not_run`。日期：2026-11-05。本文是脱敏记录模板；不要填写真实节点、订阅地址、口令或完整访问历史。先看[设计](../superpowers/specs/2026-11-05-home-rule-routing-design.md)与[实施计划](../superpowers/plans/2026-11-05-home-rule-routing.md)。
 
 ## A. 实际参数表（部署前填写）

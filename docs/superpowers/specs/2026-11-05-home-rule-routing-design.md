@@ -1,5 +1,7 @@
 # 全屋规则分流与 J3455 旁路由设计
 
+> **同日需求修订，以[故障隔离与 Fusion 规则核验](2026-11-05-home-rule-routing-availability.md)为准。** 用户要求 J3455掉线时普通上网继续可用，允许指定网站暂时不可用。优先核验 Fusion仅把指定网站交给 J3455，普通流量、DHCP及DNS不依赖 J3455。本文下方“OpenWrt作为全屋网关和唯一DHCP”的旧主案只保留作试验参考，不再作为全屋实施决定；原全屋切换步骤暂停。Fusion域名匹配和LAN下一跳组合尚未核实，不把它写成已支持。
+
 日期：2026-11-05。状态：**设计与实施建议；尚未部署、未做实机兼容和性能验收**。
 
 配套：[实施计划](../plans/2026-11-05-home-rule-routing.md)、[验收与应急操作单](../../validation/home-rule-routing.md)、[现行物理拓扑](../../network-topology.md)、[基础设施台账](../../home-infrastructure-register.md)。本文使用中性名称记录设备与出口规则，真实节点地址、口令、订阅地址不入库。

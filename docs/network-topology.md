@@ -4,7 +4,7 @@
 
 **核心位置补充（2026-10-20）**：弱电箱在**入户门左侧**，光猫、Fusion及中央ES206规划在该箱或附近通风核心柜，四条Cat6A由此汇聚；不是已确认全部设备能装入原箱。用户装修布置图与尺寸图见[原图与点位记录](floorplan-and-network-locations.md)，箱体、标高、管线路径与逐线长度仍待现场核验。
 
-**规则分流补充（2026-11-05，尚未部署）**：用户已选择全屋旁路由方向。J3455继续放电竞房箱外通风位，复用既有ES210接入口；在Proxmox新增单VirtIO网卡的OpenWrt完整VM，由OpenClash/Mihomo处理规则，所有家庭终端计划把OpenWrt作为网关/DNS，Fusion仍为上游。该逻辑设计和切换/回退证据见[设计](superpowers/specs/2026-11-05-home-rule-routing-design.md)、[计划](superpowers/plans/2026-11-05-home-rule-routing.md)和[验收单](validation/home-rule-routing.md)。在现场盘点、IPv6核验、单设备试点和人工回退演练通过前，不关闭Fusion DHCP、不启动OpenWrt DHCP，也不把“所有设备覆盖”写成已完成事实。普通Fusion无无线，AP由各交换机PoE供电，因此没有为放置主路由新增“大厅去弱电箱回线”的需求。
+**规则分流补充（2026-11-05，同日修订，尚未部署）**：J3455继续放电竞房箱外通风位，复用既有ES210接入口，计划在Proxmox新增OpenWrt完整VM。用户要求J3455故障时普通上网继续可用，允许指定网站暂时不可用；因此优先核验Fusion仅将指定网站送往J3455、普通流量和DHCP/DNS保持独立的方案。Fusion的域名匹配与LAN下一跳组合尚未证实，不能仅由“支持策略路由”推定。原全屋网关/DHCP移往J3455的推广步骤暂停，不新增树莓派作为默认接替设备。见[最新故障隔离设计](superpowers/specs/2026-11-05-home-rule-routing-availability.md)、[计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。普通Fusion无无线，AP由各交换机PoE供电，不需为放置主路由新增大厅回线。
 
 ```mermaid
 flowchart TD
