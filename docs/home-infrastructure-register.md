@@ -131,6 +131,12 @@ EAP775-Wall×2均有1×2.5G上联、1×2.5G+3×1G数据下联；下联与Wi-Fi�
 
 ## 4. 网络架构
 
+### 4.0 全屋规则分流设计补充（2026-11-05，未部署）
+
+用户已确认所有联网设备均需纳入按网站规则选择出口的方案。计划在现有 J3455/Proxmox 上新增独立 OpenWrt x86-64 完整 VM（OpenClash 管理界面 + Mihomo 规则引擎），J3455 继续沿用电竞房 ES210 的现有端口，箱外通风放置，不重装宿主、不新增物理回线。Fusion 仍负责上游宽带、边界与 Omada 控制器；全屋终端在试点通过后由 OpenWrt 提供唯一 DHCP、默认网关和 DNS。当前只是设计，实际网段、PVE资源、固件、IPv6、静态设备和规则效果均待盘点/验收；详见[设计](superpowers/specs/2026-11-05-home-rule-routing-design.md)、[计划](superpowers/plans/2026-11-05-home-rule-routing.md)、[验收单](validation/home-rule-routing.md)。
+
+全屋方案意味着 J3455、OpenWrt VM、电竞房交换机或其上联停机可能影响全屋外网；本案只承诺经过演练的人工回退到 Fusion，不承诺同宿主自动容灾。主机停机期间本地二层访问、DNS、新租约和依赖 HA 的行为需逐项实测。
+
 ### 4.1 已定物理拓扑：3A三频（2026-10-20暂定定稿）
 
 光纤→光猫/ONT→普通Fusion 2.5G→中央ES206XPP-M2。中央四条Cat6A分别到主卧775、次卧RJ45、电竞房ES210XPP-M2、大厅ES206XPP-M2；工作室775和大厅772由当地交换机PoE供电。[完整可编辑拓扑与端口说明](network-topology.md)。
