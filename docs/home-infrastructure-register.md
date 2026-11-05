@@ -133,7 +133,7 @@ EAP775-Wall×2均有1×2.5G上联、1×2.5G+3×1G数据下联；下联与Wi-Fi�
 
 ### 4.0 全屋规则分流设计补充（2026-11-05，未部署）
 
-用户已确认所有联网设备均需纳入按网站规则选择出口的方案。计划在现有 J3455/Proxmox 上新增独立 OpenWrt x86-64 完整 VM（OpenClash 管理界面 + Mihomo 规则引擎），J3455沿用电竞房ES210现有端口，箱外通风，不重装宿主、不新增回线。**同日进一步明确：J3455故障时普通上网必须继续可用，允许指定网站暂时不可用。** 优先核验Fusion保持终端网关、DHCP及独立普通DNS，只将指定网站送往J3455。Fusion已公开支持策略路由，但域名匹配与LAN下一跳组合尚无足够证据；不是已确认能配置。原单VM全屋网关/唯一DHCP方案暂停推广，详见[最新故障隔离设计](superpowers/specs/2026-11-05-home-rule-routing-availability.md)、[原设计](superpowers/specs/2026-11-05-home-rule-routing-design.md)、[计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。
+用户已确认所有联网设备均需纳入按网站规则选择出口的方案。计划在现有 J3455/Proxmox 上新增独立 OpenWrt x86-64 完整 VM（OpenClash 管理界面 + Mihomo 规则引擎），J3455沿用电竞房ES210现有端口，箱外通风，不重装宿主、不新增回线。**同日进一步明确：J3455故障时普通上网必须继续可用，允许指定网站暂时不可用。** 已查Fusion专用手册：域名策略匹配、静态下一跳与Local DNS FORWARD均有依据，但域名策略表单没有任意LAN下一跳字段。优先试验“指定域名定向DNS＋专用合成地址段静态路由→J3455”，Fusion保留终端网关、DHCP及普通DNS。组件已核验，组合、故障隔离与全屋覆盖未实测；原全屋网关/唯一DHCP方案暂停推广。详见[官方功能调研](fusion-domain-routing-capability-research.md)、[故障隔离设计](superpowers/specs/2026-11-05-home-rule-routing-availability.md)、[原计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。
 
 原单VM全屋方案会使J3455或电竞房分支故障影响全屋外网，人工回退不满足新增要求。用户对树莓派稳定性提出顾虑，不把树莓派作为默认备用网关或唯一地址服务。仅指定网站引流成功时，普通上网不需因J3455故障切换路径；若原厂能力不支持，再比较独立网络设备方案，尚未变更采购。所有实机检查仍为 `not_run`。
 
@@ -234,7 +234,8 @@ J3455已知为16GB内存、10TB存储、千兆网口、Proxmox，已有独立黑
 
 | 日期 | 变更 |
 |------|------|
-| 2026-11-05（故障隔离要求修订） | 用户明确普通上网不能因J3455故障停用，指定网站可暂时不可用，并提出由Fusion按网站送往J3455的方向。新增[故障隔离与能力核验](superpowers/specs/2026-11-05-home-rule-routing-availability.md)；保留OpenWrt完整VM试验，暂停原全屋DHCP迁移。Fusion域名匹配/LAN下一跳尚未核实，不默认增加树莓派或宣称WAN故障切换能接替旁路由。未部署。 |
+| 2026-11-05（Fusion官方手册核验） | 已读Fusion REV1.0.1完整手册及对应固件说明：确认Domain-Port Group、静态Next Hop、Local DNS FORWARD；域名策略界面没有任意LAN下一跳字段。新增[调研报告](fusion-domain-routing-capability-research.md)，优先试验定向DNS＋合成地址段静态路由，保持Fusion普通路径与地址服务。同步拓扑和验收门槛；组合未实测、未改变家庭设备或采购。 |
+| 2026-11-05（故障隔离要求修订） | 用户明确普通上网不能因J3455故障停用，指定网站可暂时不可用，并提出由Fusion按网站送往J3455的方向。新增[故障隔离与能力核验](superpowers/specs/2026-11-05-home-rule-routing-availability.md)；保留OpenWrt完整VM试验，暂停原全屋DHCP迁移。当时域名匹配/LAN下一跳尚未核实，后续手册结论见上一条；不默认增加树莓派或宣称WAN故障切换能接替旁路由。未部署。 |
 | 2026-11-05（全屋规则分流设计） | 新增 J3455/Proxmox 上 OpenWrt 完整VM的全屋方案，覆盖地址服务、OpenClash/Mihomo、单臂转发、IPv6、本地发现、阶段实施、故障回退及 `not_run`验收表；用户确认全体联网终端纳入规则范围。沿用电竞房 ES210 既有接入口，不重装宿主、不加回线；全屋网关/DNS切换尚未执行。详见[设计](superpowers/specs/2026-11-05-home-rule-routing-design.md)、[计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。 |
 | 2026-10-26（绿米签字方案定稿） | 用户确认绿米全屋智能最终签字方案，合计**¥19,324**（产品¥15,459＋25%服务费¥3,865），新增[绿米最终签字方案](aqara-final-quote-20261026.md)完整BOM。M200×1为主网关（客餐厅吊顶PoE供电，Matter Controller+Thread BR+Matter Bridge，新增吊顶支线建议2根Cat6A、封板前完成，原HALL-IOT-GW墙面口转备用）；M1S×1为主卧辅助Zigbee网关（不支持Matter，下挂设备暴露路径到货实测）；S100妙控场景屏仅客餐厅1台；E1摄像机×1为Wi-Fi非PoE。H1M三键×10/双键×1、FP310×2（两卫）、T1人体/门窗各×1（玄关）、C200×2（阳台7m单层纱帘/主卧3m布帘电动）、T2Pro射灯×7、双色温灯带25m＋单只300W驱动（满载约500W，交底必核）、1515灯槽×25；小爱音箱PRO×1为赠品（¥0）。报价无次卧点位，交底确认。全部设备未购/未施工/未部署。 |
 | 2026-10-20（吊顶与埋线草案） | 用户确认大厅/入户过道有吊顶或局部吊顶；新增[点位与吊顶埋线规划](network-placement-and-cabling-plan.md)及原图标注，列C0/H0/S0、三AP、次卧墙口、网关预留与四主干/本地支线，保留3A硬件与预算。新增位置/高度/管路是建议，未获施工签认；材料米数、开孔和箱体尺寸待复尺，Excel尚未同步。 |

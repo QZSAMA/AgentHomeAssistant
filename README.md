@@ -42,8 +42,8 @@
 | [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视、电竞房投影、Switch 双底座、PS5/PS TV Remote Play；两条约10m反向光纤 HDMI AOC 与复尺/施工要求 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
-| [Fusion站点分流与故障隔离](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) / [原VM设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) | 最新要求：J3455故障时普通上网继续可用；优先核Fusion域名匹配与LAN下一跳，尚未证实，不采用树莓派默认接替方案 |
-| [规则分流实施计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [验收与应急单](docs/validation/home-rule-routing.md) | 隔离VM/单设备试验仍可准备；原全屋DHCP迁移暂停，先验证普通流量与J3455故障隔离；实机 `not_run` |
+| [Fusion官方功能调研](docs/fusion-domain-routing-capability-research.md) / [故障隔离设计](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) | 已核域名策略、静态下一跳及定向DNS；原厂域名策略没有任意LAN下一跳字段。优先试验定向DNS＋合成地址段静态路由，组合与故障隔离未实测 |
+| [原VM设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) / [原实施计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [验收单](docs/validation/home-rule-routing.md) | 资料和隔离VM准备可复用；旧网关接管步骤须重写，全屋DHCP迁移暂停。Fusion保留网关及普通解析；实机 `not_run` |
 | [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
 | [AP 有无 6GHz 选型与价格对比](docs/ap-6ghz-selection-price-comparison.md) | 三频暂定定稿、双频保留备选；同三AP/同交换机，Amazon相差$170，US V2风险另核 |
 | [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 四条2.5G主干、两面板一吊顶、次卧RJ45预留、两房间箱、电源与分阶段验收；NAS/UPS后置 |

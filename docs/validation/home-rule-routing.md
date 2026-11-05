@@ -1,16 +1,25 @@
 # 全屋规则分流验收与应急操作单
 
-> **需求已修订：以[最新故障隔离设计](../superpowers/specs/2026-11-05-home-rule-routing-availability.md)为准。** 本文C表和D节是原单网关试验/人工回退记录，不能证明“J3455故障时普通上网仍可用”。原全屋DHCP迁移暂停，新增下列前置检查；全部未实测。
+> **需求已修订：以[最新故障隔离设计](../superpowers/specs/2026-11-05-home-rule-routing-availability.md)为准。** 本文C表和D节是原单网关试验/人工回退记录，不能证明“J3455故障时普通上网仍可用”。原全屋DHCP迁移暂停。优先试验定向 DNS + 合成地址段静态路由；见[官方功能调研](../fusion-domain-routing-capability-research.md)。以下所有设备检查均未实测。
+
+文档核验已完成：Fusion 专用手册确认域名策略、目的网段静态下一跳及 Local DNS FORWARD；策略界面没有任意 LAN 下一跳字段。此状态仅表示资料已核验，**不将任何现场项目标为 `passed`**。
 
 | 新ID | 优先架构必须验证的内容 | 状态 |
 |---|---|---|
 | A1 | Fusion具体硬件版、Omada OS及Network Application版本 | `not_run` |
-| A2 | 网站域名可匹配且下一跳可选J3455所在LAN网关；不能只证实WAN选线 | `not_run` |
+| A2 | 实机具有 Local DNS FORWARD 与静态 Next Hop；专用合成地址段可经 LAN 交给 VM，不能只证实 WAN 选线 | `not_run` |
 | A3 | 普通网站一直直接走Fusion；转回Fusion的规则流量不循环 | `not_run` |
 | A4 | DHCP与普通DNS不依赖J3455；缓存不使普通网站间接依赖规则服务 | `not_run` |
 | A5 | 停规则服务、停VM、正常停宿主、拔J3455网线时普通上网仍可用 | `not_run` |
 | A6 | IPv6、CDN共用地址、应用独立解析不导致错误分流 | `not_run` |
 | A7 | 指定网站在J3455故障时可失败，符合用户已确认范围 | `not_run` |
+| A8 | FORWARD 的完整域名、子域、别名、CNAME 与作用 LAN 范围已核验；试验不误影响全屋 | `not_run` |
+| A9 | Fusion 正常转交合成地址响应；普通域名不进入合成地址段；与现有地址用途不冲突 | `not_run` |
+| A10 | Fusion 定向清单与引擎清单一致；DNS 不递归，节点启动解析不依赖自身，服务端口可达 | `not_run` |
+| A11 | 重启后 Fusion/终端/引擎缓存与映射正确；同 LAN 转发、回包及 ICMP redirect 行为已记录 | `not_run` |
+| A12 | 指定 DNS 上游停机或超时不拖累普通解析；同时测普通 DNS 缓存命中、未命中及新连接 | `not_run` |
+| A13 | AAAA、HTTPS/SVCB、应用自身 DNS 与硬编码 IP 的覆盖差异逐类记录；本地 IPv6/Thread 正常 | `not_run` |
+| A14 | 规则数量、更新、容量和撤销方式可维护；未将手工小样本通过等同全屋完整覆盖 | `not_run` |
 
 状态基线：`not_run`。日期：2026-11-05。本文是脱敏记录模板；不要填写真实节点、订阅地址、口令或完整访问历史。先看[设计](../superpowers/specs/2026-11-05-home-rule-routing-design.md)与[实施计划](../superpowers/plans/2026-11-05-home-rule-routing.md)。
 
