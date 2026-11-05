@@ -33,6 +33,8 @@ TL-7DR3630 的[国内官方产品页](https://www.tp-link.com.cn/product_3330.ht
 
 ## 1. 当前决策摘要
 
+> **2026-11-05 远程接入补充：** 用户认可通过家庭私有网络统一访问群晖、开发机、VS Code/Jupyter 等服务，按家庭没有公网入站 IPv4/IPv6 设计，排除美国节点作为中国家庭业务的常规中转。建议 Tailscale 直连优先、国内 Peer Relay 备用，J3455 独立接入 VM 与开发机直接接入组合；Fusion 保留主路由、唯一 DHCP 和普通 DNS，所有家庭设备保持同一 LAN。详见[设计](superpowers/specs/2026-11-05-home-remote-access-design.md)、[实施计划](superpowers/plans/2026-11-05-home-remote-access.md)和[验收单](validation/home-remote-access.md)。已完成方案编写，未购买中继、未部署或实测，不修改既有采购和施工基线。
+
 | 主题 | 当前记录 | 状态 |
 |------|----------|------|
 | 户型 | 约100㎡、一层长方形住宅；已收到装修布置图与尺寸标注图，布局见第2节 | 原图已归档；弱电箱在入户门左侧；完整电气点位、墙材及现场复尺待补 |
