@@ -43,6 +43,7 @@
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
 | [Fusion官方功能调研](docs/fusion-domain-routing-capability-research.md) / [故障隔离设计](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) | 已核域名策略、静态下一跳及定向DNS；原厂域名策略没有任意LAN下一跳字段。优先试验定向DNS＋合成地址段静态路由，组合与故障隔离未实测 |
+| [最新：Fusion扩展与同SSID按设备分流](docs/fusion-third-party-and-device-routing.md) | 用户改为按需使用：2.4GHz同SSID内智能家居走Fusion、指定终端走OpenWrt；日常5/6GHz走Fusion。比较终端手动网关与PPSK，具体实现未定；不再默认全屋接管 |
 | [规则分流社区案例与可靠性](docs/home-routing-community-and-reliability.md) | 找到其他主路由上的同类部署，未核验到Fusion完整案例；比较保留Fusion的小试与独立OpenWrt主网关，采购基线未变 |
 | [原VM设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) / [原实施计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [验收单](docs/validation/home-rule-routing.md) | 资料和隔离VM准备可复用；旧网关接管步骤须重写，全屋DHCP迁移暂停。Fusion保留网关及普通解析；实机 `not_run` |
 | [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |

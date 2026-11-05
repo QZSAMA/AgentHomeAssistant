@@ -133,6 +133,8 @@ EAP775-Wall×2均有1×2.5G上联、1×2.5G+3×1G数据下联；下联与Wi-Fi�
 
 ### 4.0 全屋规则分流设计补充（2026-11-05，未部署）
 
+**本轮最新接入范围：** 用户提出2.4GHz使用同一个SSID并按设备区分：智能家居走Fusion，指定手机/平板可使用J3455/OpenWrt；5GHz及可用6GHz日常网络走Fusion，终端按需启用客户端工具。这收窄了下文早先的全屋统一规则目标。已核验PPSK同SSID分配VLAN；逐设备DHCP网关覆盖尚未证实。初步建议少量终端手工指定网关，自动分组另比较PPSK；具体实现未定，Fusion/交换机/AP采购与布线不变。见[第三方能力与按设备接入比较](fusion-third-party-and-device-routing.md)。
+
 用户已确认所有联网设备均需纳入按网站规则选择出口的方案。计划在现有 J3455/Proxmox 上新增独立 OpenWrt x86-64 完整 VM（OpenClash 管理界面 + Mihomo 规则引擎），J3455沿用电竞房ES210现有端口，箱外通风，不重装宿主、不新增回线。**同日进一步明确：J3455故障时普通上网必须继续可用，允许指定网站暂时不可用。** 已查Fusion专用手册：域名策略匹配、静态下一跳与Local DNS FORWARD均有依据，但域名策略表单没有任意LAN下一跳字段。优先试验“指定域名定向DNS＋专用合成地址段静态路由→J3455”，Fusion保留终端网关、DHCP及普通DNS。组件已核验，组合、故障隔离与全屋覆盖未实测；原全屋网关/唯一DHCP方案暂停推广。详见[官方功能调研](fusion-domain-routing-capability-research.md)、[故障隔离设计](superpowers/specs/2026-11-05-home-rule-routing-availability.md)、[原计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。
 
 同日[社区案例追查](home-routing-community-and-reliability.md)：确认 RouterOS、爱快及梅林上的同类实现，未核验到 Fusion 完整组合与宿主停机验收。该组合仍是保留 Fusion 时的小试候选；新增比较“独立 OpenWrt 主网关，J3455 只承载存储与家居服务”，理由是减少共同故障依赖。用户尚未选择替代方案，Fusion、交换机、AP及采购基线不变；未新增设备或部署。
