@@ -20,6 +20,7 @@
 | A12 | 指定 DNS 上游停机或超时不拖累普通解析；同时测普通 DNS 缓存命中、未命中及新连接 | `not_run` |
 | A13 | AAAA、HTTPS/SVCB、应用自身 DNS 与硬编码 IP 的覆盖差异逐类记录；本地 IPv6/Thread 正常 | `not_run` |
 | A14 | 规则数量、更新、容量和撤销方式可维护；未将手工小样本通过等同全屋完整覆盖 | `not_run` |
+| A15 | 当前浏览器的本地网络访问检查不破坏预期功能；测试普通页面请求合成地址资源，不能仅验证主站打开 | `not_run` |
 
 状态基线：`not_run`。日期：2026-11-05。本文是脱敏记录模板；不要填写真实节点、订阅地址、口令或完整访问历史。先看[设计](../superpowers/specs/2026-11-05-home-rule-routing-design.md)与[实施计划](../superpowers/plans/2026-11-05-home-rule-routing.md)。
 

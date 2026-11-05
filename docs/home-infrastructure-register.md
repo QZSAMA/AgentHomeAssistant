@@ -135,6 +135,8 @@ EAP775-Wall×2均有1×2.5G上联、1×2.5G+3×1G数据下联；下联与Wi-Fi�
 
 用户已确认所有联网设备均需纳入按网站规则选择出口的方案。计划在现有 J3455/Proxmox 上新增独立 OpenWrt x86-64 完整 VM（OpenClash 管理界面 + Mihomo 规则引擎），J3455沿用电竞房ES210现有端口，箱外通风，不重装宿主、不新增回线。**同日进一步明确：J3455故障时普通上网必须继续可用，允许指定网站暂时不可用。** 已查Fusion专用手册：域名策略匹配、静态下一跳与Local DNS FORWARD均有依据，但域名策略表单没有任意LAN下一跳字段。优先试验“指定域名定向DNS＋专用合成地址段静态路由→J3455”，Fusion保留终端网关、DHCP及普通DNS。组件已核验，组合、故障隔离与全屋覆盖未实测；原全屋网关/唯一DHCP方案暂停推广。详见[官方功能调研](fusion-domain-routing-capability-research.md)、[故障隔离设计](superpowers/specs/2026-11-05-home-rule-routing-availability.md)、[原计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。
 
+同日[社区案例追查](home-routing-community-and-reliability.md)：确认 RouterOS、爱快及梅林上的同类实现，未核验到 Fusion 完整组合与宿主停机验收。该组合仍是保留 Fusion 时的小试候选；新增比较“独立 OpenWrt 主网关，J3455 只承载存储与家居服务”，理由是减少共同故障依赖。用户尚未选择替代方案，Fusion、交换机、AP及采购基线不变；未新增设备或部署。
+
 原单VM全屋方案会使J3455或电竞房分支故障影响全屋外网，人工回退不满足新增要求。用户对树莓派稳定性提出顾虑，不把树莓派作为默认备用网关或唯一地址服务。仅指定网站引流成功时，普通上网不需因J3455故障切换路径；若原厂能力不支持，再比较独立网络设备方案，尚未变更采购。所有实机检查仍为 `not_run`。
 
 ### 4.1 已定物理拓扑：3A三频（2026-10-20暂定定稿）
@@ -234,6 +236,7 @@ J3455已知为16GB内存、10TB存储、千兆网口、Proxmox，已有独立黑
 
 | 日期 | 变更 |
 |------|------|
+| 2026-11-05（社区案例与可靠性比较） | 已读取 DNS/合成地址/静态路由的公开部署与故障反馈，明确同类成功不等于 Fusion 适配或 J3455 停机验收。新增[比较报告](home-routing-community-and-reliability.md)，将 Fusion 组合限定为试验候选；独立 OpenWrt 主网关作为减少宿主依赖的替代方向待比较。补充浏览器访问检查验收项，未改采购基线或设备。 |
 | 2026-11-05（Fusion官方手册核验） | 已读Fusion REV1.0.1完整手册及对应固件说明：确认Domain-Port Group、静态Next Hop、Local DNS FORWARD；域名策略界面没有任意LAN下一跳字段。新增[调研报告](fusion-domain-routing-capability-research.md)，优先试验定向DNS＋合成地址段静态路由，保持Fusion普通路径与地址服务。同步拓扑和验收门槛；组合未实测、未改变家庭设备或采购。 |
 | 2026-11-05（故障隔离要求修订） | 用户明确普通上网不能因J3455故障停用，指定网站可暂时不可用，并提出由Fusion按网站送往J3455的方向。新增[故障隔离与能力核验](superpowers/specs/2026-11-05-home-rule-routing-availability.md)；保留OpenWrt完整VM试验，暂停原全屋DHCP迁移。当时域名匹配/LAN下一跳尚未核实，后续手册结论见上一条；不默认增加树莓派或宣称WAN故障切换能接替旁路由。未部署。 |
 | 2026-11-05（全屋规则分流设计） | 新增 J3455/Proxmox 上 OpenWrt 完整VM的全屋方案，覆盖地址服务、OpenClash/Mihomo、单臂转发、IPv6、本地发现、阶段实施、故障回退及 `not_run`验收表；用户确认全体联网终端纳入规则范围。沿用电竞房 ES210 既有接入口，不重装宿主、不加回线；全屋网关/DNS切换尚未执行。详见[设计](superpowers/specs/2026-11-05-home-rule-routing-design.md)、[计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。 |
