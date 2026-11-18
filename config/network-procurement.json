@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-10-20",
+  "updated_at": "2026-11-18",
   "currency": "USD",
   "active_plan": "3A-tri-band",
-  "active_plan_status": "当前暂定定稿；未购买、未部署",
+  "active_plan_status": "订单基线：7台已下单待到货验收；Fusion×1购买未确认；全部未部署",
   "alternative_plan": "3A-dual-band",
-  "alternative_plan_status": "保留的预算备选；未启用",
-  "price_basis": "美国新机单件页面价，不含税、运费、进口、辅材或施工；不计订阅、信用卡或捆绑优惠",
+  "alternative_plan_status": "历史预算备选，未启用；旧数量不作为当前采购口径",
+  "price_basis": "products价格为各自verified_at日期的历史公开页面价；orders为用户确认订单的折后金额，含税运口径单列，不混用",
   "products": [
     {
       "id": "fusion",
@@ -116,12 +116,150 @@
     }
   ],
   "plans": {
-    "3A-tri-band": {"fusion": 1, "es210xpp": 1, "es206xpp": 2, "eap775": 2, "eap772": 1},
-    "3A-dual-band": {"fusion": 1, "es210xpp": 1, "es206xpp": 2, "eap725": 2, "eap723": 1},
-    "3B-tri-band": {"fusion-poe": 1, "es210xpp": 1, "es206xpp": 1, "eap775": 2, "eap772": 1}
+    "3A-tri-band": {
+      "fusion": 1,
+      "es210xpp": 2,
+      "es206xpp": 1,
+      "eap775": 3,
+      "eap772": 1
+    },
+    "3A-dual-band": {
+      "fusion": 1,
+      "es210xpp": 1,
+      "es206xpp": 2,
+      "eap725": 2,
+      "eap723": 1
+    },
+    "3B-tri-band": {
+      "fusion-poe": 1,
+      "es210xpp": 1,
+      "es206xpp": 1,
+      "eap775": 2,
+      "eap772": 1
+    }
   },
   "history_price_snapshots": [
-    {"date": "2026-10-19", "plan": "3A-tri-band", "amazon_total": 1264.21, "official_total": 1314.93},
-    {"date": "2026-10-19", "plan": "3A-dual-band", "amazon_total": 1094.21, "official_total": 1139.93}
+    {
+      "date": "2026-10-19",
+      "plan": "3A-tri-band",
+      "amazon_total": 1264.21,
+      "official_total": 1314.93
+    },
+    {
+      "date": "2026-10-19",
+      "plan": "3A-dual-band",
+      "amazon_total": 1094.21,
+      "official_total": 1139.93
+    }
+  ],
+  "historical_plans": [
+    {
+      "recorded_at": "2026-10-20",
+      "superseded_at": "2026-11-18",
+      "plan": "3A-tri-band",
+      "quantities": {
+        "fusion": 1,
+        "es210xpp": 1,
+        "es206xpp": 2,
+        "eap775": 2,
+        "eap772": 1
+      }
+    }
+  ],
+  "plan_notes": {
+    "3A-tri-band": "当前订单与待购主路由的完整配置，共8台",
+    "3A-dual-band": "历史3AP数量，仅供比较",
+    "3B-tri-band": "历史互斥方案，未采用"
+  },
+  "procurement_status": {
+    "fusion": {
+      "planned_quantity": 1,
+      "confirmed_ordered_quantity": 0,
+      "status": "计划采购，购买未确认",
+      "locations": [
+        "中央核心位"
+      ]
+    },
+    "es206xpp": {
+      "planned_quantity": 1,
+      "confirmed_ordered_quantity": 1,
+      "status": "已下单，待到货验收",
+      "locations": [
+        "中央核心位"
+      ]
+    },
+    "es210xpp": {
+      "planned_quantity": 2,
+      "confirmed_ordered_quantity": 2,
+      "status": "已下单，待到货验收",
+      "locations": [
+        "电竞房",
+        "大厅"
+      ]
+    },
+    "eap775": {
+      "planned_quantity": 3,
+      "confirmed_ordered_quantity": 3,
+      "status": "已下单，待到货验收",
+      "locations": [
+        "主卧",
+        "次卧",
+        "电竞房"
+      ]
+    },
+    "eap772": {
+      "planned_quantity": 1,
+      "confirmed_ordered_quantity": 1,
+      "status": "已下单，待到货验收",
+      "locations": [
+        "大厅吊顶"
+      ]
+    }
+  },
+  "orders": [
+    {
+      "record_id": "omada-user-confirmed-20261118",
+      "user_confirmed_at": "2026-11-18",
+      "checkout_date": null,
+      "channel": "Omada Store",
+      "currency": "USD",
+      "status": "已下单，待到货验收；未安装/未部署",
+      "evidence": "用户提供订单确认截图；仓库仅记录脱敏型号、数量、金额，不保存原图、订单号、收件信息或优惠码",
+      "record_path": "docs/network-order-20261118.md",
+      "items": [
+        {
+          "product_id": "es206xpp",
+          "quantity": 1,
+          "discounted_unit_price": 102.0,
+          "line_subtotal": 102.0
+        },
+        {
+          "product_id": "es210xpp",
+          "quantity": 2,
+          "discounted_unit_price": 138.0,
+          "line_subtotal": 276.0
+        },
+        {
+          "product_id": "eap775",
+          "quantity": 3,
+          "discounted_unit_price": 114.0,
+          "line_subtotal": 342.0
+        },
+        {
+          "product_id": "eap772",
+          "quantity": 1,
+          "discounted_unit_price": 108.0,
+          "line_subtotal": 108.0
+        }
+      ],
+      "quantity_total": 7,
+      "subtotal": 828.0,
+      "shipping": 0.0,
+      "estimated_taxes": 73.49,
+      "order_total": 901.49,
+      "total_savings": 551.93,
+      "pre_discount_item_total": 1379.93,
+      "amount_note": "单价已含本单优惠；预计税费沿用截图标签；未列示转运/进口、辅材和施工，不含Fusion"
+    }
   ]
 }

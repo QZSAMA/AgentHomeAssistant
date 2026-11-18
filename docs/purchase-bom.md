@@ -1,8 +1,35 @@
 # 家庭基础设施采购 BOM 与未决清单
 
-更新日期：2026-10-26。**当前暂定定稿为3A三频**，双频方案保留预算备选。选型定稿表示本次设计采用，不表示设备已购买、部署或完成到货验收。
+更新日期：2026-11-18。**3A三频订单已确认：7台已下单、待到货验收，未安装/未部署；另有Fusion普通版×1计划采购、购买未确认。** 完整网络计划8台。详见[本次订单记录](network-order-20261118.md)。
 
-**2026-10-26 绿米签字方案定稿**：Aqara 全屋智能报价已经用户签字确认（两页合计产品 ¥15,459＋25% 服务费 ¥3,865＝**¥19,324**，设备均未购/未施工/未部署），完整 BOM 见[绿米最终签字方案](aqara-final-quote-20261026.md)。该笔绿米设备为人民币独立采购，不并入本表美元基础网络合计。
+绿米2026-10-26签字方案仍为独立人民币采购口径：产品¥15,459＋服务费¥3,865＝¥19,324，见[签字清单](aqara-final-quote-20261026.md)。本次Omada订单不改变其采购/交付状态。
+
+## 当前基础网络采购表
+
+| 角色/位置 | 型号 | 计划数量 | 已确认下单 | 状态 | 本单折后商品小计 USD |
+|---|---|---:|---:|---|---:|
+| 中央主路由/内置Omada控制器 | Fusion 2.5G普通版 | 1 | 0 | 计划采购，购买未确认；不在本单 | — |
+| 中央PoE交换机 | ES206XPP-M2 | 1 | 1 | 已下单，待到货验收 | $102.00 |
+| 电竞房PoE/本地10G交换机 | ES210XPP-M2 | 1 | 1 | 已下单，待到货验收 | $138.00 |
+| 大厅PoE交换机 | ES210XPP-M2 | 1 | 1 | 已下单，替代旧ES206选型 | $138.00 |
+| 主卧/次卧/电竞房面板AP | EAP775-Wall | 3 | 3 | 已下单，各房1台 | $342.00（$114/台） |
+| 大厅吊顶AP | EAP772 | 1 | 1 | 已下单，待到货验收 | $108.00 |
+| **合计** | **5种型号** | **8** | **7** | **全部未部署** | **$828.00** |
+
+本单运费 **$0**，页面列示预计税费 **$73.49**，订单总额 **$901.49**；商品优惠 **$551.93** 已计入折后单价，不能重复减。不是完整8台网络的总成本，Fusion、转运/进口、辅材与施工未计入。订单单价不作为可复用公开报价；不将历史Amazon/官方页面价写成成交价。
+
+| 型号 | 关键接口 | 美国购买入口（本次未重新核价） |
+|---|---|---|
+| Fusion 2.5G普通版 | 5×2.5G，无PoE/无SFP/无无线；主路由与Omada控制器 | [Amazon](https://www.amazon.com/dp/B0H4P7XX8G) · [Omada Store](https://store.omadanetworks.com/products/omada-all-in-one-gateway-fusion-2-5g) |
+| ES206XPP-M2 | 5×2.5G，其中4×PoE++，120W；1×10G SFP+ | [Amazon](https://www.amazon.com/dp/B0GKQ5SD2L) · [官方规格](https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es206xpp-m2/#specifications) |
+| ES210XPP-M2 | 8×2.5G PoE++，200W；独立10G RJ45和10G SFP+ | [Amazon](https://www.amazon.com/dp/B0HB17QTKX) · [官方规格](https://www.omadanetworks.com/us/business-networking/omada-switch-agile/es210xpp-m2/#specifications) |
+| EAP775-Wall | 三频Wi-Fi 7；2.5G上联；1×2.5G+3×1G数据下联，关闭PoE Out | [Amazon](https://www.amazon.com/dp/B0G88FG4QH) · [官方规格](https://www.omadanetworks.com/us/business-networking/omada-wifi-wall-plate/eap775-wall/#specifications) |
+| EAP772 | 三频Wi-Fi 7；1×2.5G上联，802.3at，最大25.4W | [Amazon](https://www.amazon.com/dp/B0D2M26NYW) · [官方规格](https://www.omadanetworks.com/us/business-networking/omada-wifi-ceiling-mount/eap772/#specifications) |
+
+完整商城链接、按日期保存的历史报价、现行数量及订单金额分别保存在[采购数据](../config/network-procurement.json)。大厅为AP、M200、电视、两台游戏机和FP400预留容量，详见[现行端口表](network-topology.md#当前端口与施工口径)。FP400版本/接口/供电未核实，不在本单和绿米签字清单中，不按原生PoE设备采购。
+
+<details>
+<summary>2026-10-20页面报价与双频比较（旧数量，非当前订单）</summary>
 
 ## 当前基础网络采购表
 
@@ -26,13 +53,16 @@
 | 两台面板AP | EAP725-Wall（要求US V2）×2 | [B0FB1W85FN](https://www.amazon.com/dp/B0FB1W85FN) | $134.99，V2报价待确认 |
 | 大厅吊顶AP | EAP723 ×1 | [B0DT4YP2GX](https://www.amazon.com/dp/B0DT4YP2GX) | $89.99 |
 
+
+</details>
+
 ## 装修与入住仍需落实的项目
 
-**2026-10-20图纸补充**：[装修布置图与尺寸标注图](floorplan-and-network-locations.md)已归档；弱电箱在入户门左侧，中央设备规划在该箱或附近通风核心柜，四条Cat6A由此汇聚。此次不改变上表型号/数量/价格；箱体、电源、实际路径与线缆米数待现场复尺，不直接按截图尺寸采购下料。本次位置更新先记入Markdown，尚未写回采购Excel，施工交底需同时附原图与点位记录。
+**2026-10-20图纸补充**：[装修布置图与尺寸标注图](floorplan-and-network-locations.md)已归档；弱电箱在入户门左侧，中央设备规划在该箱或附近通风核心柜，四条Cat6A由此汇聚。2026-11-18订单已更新上表型号、数量和状态；箱体、电源、实际路径与线缆米数待现场复尺，不直接按截图尺寸采购下料。本次位置更新先记入Markdown，尚未写回采购Excel，施工交底需同时附原图与点位记录。
 
-- 四条Cat6A实芯纯铜主干：主卧到面板AP，次卧到RJ45墙口，电竞房/大厅到当地交换机。次卧AP暂不采购，墙口默认关闭PoE；已有TL-7DR3630若启用则用自带市电、有线AP模式、独立管理。
-- 本地支线、模块/跳线、面板底盒×2及吊顶安装位×1、两房间设备箱、中央设备位、插座/接地、标签和链路认证按复尺报价。保留次卧未来安装空间，不按第三台面板AP采购安装件。不默认每房预埋光纤，保留可抽换管与牵引线。
-- 三台AP分别由中央、电竞房、大厅交换机供电，不采购独立注入器；AP PoE Out不启用。工作室两个10G口保持独立，不买SM5310-T。
+- 四条Cat6A实芯纯铜主干：主卧/次卧到各自面板AP，电竞房/大厅到当地ES210交换机。两卧室AP由中央ES206供PoE，旧路由器补盲退出当前接线。
+- 本地支线、模块/跳线、面板底盒×3及吊顶安装位×1、两房间设备箱、中央设备位、插座/接地、标签和链路认证按复尺报价。次卧按已下单的第三台775核安装件和底盒。不默认每房预埋光纤，保留可抽换管与牵引线。
+- 四台AP由中央（两卧室）、电竞房、大厅交换机供电，不采购独立注入器；AP PoE Out不启用。工作室两个10G口保持独立，不买SM5310-T。
 - 高速NAS及介质、UPS入住后再考虑。NAS要求自带10G SFP+，不另买NAS网卡；J3455的PCIe 2.0 x1升级2.5G可先核TX201空间、发货版本/驱动，尚未确定下单。
 - J3455、M1 Mac mini、两台PC、旧Apple TV 4K、米家激光投影仪及树莓派继续复用。HA规划在J3455独立HAOS VM；Omada使用Fusion内置控制器。
 - Apple HomeView桌面版、HomePod mini、壁挂安卓/iPad 不计入本表基础网络合计；相关采购状态保留在[设备台账](home-infrastructure-register.md)及[设备选型](device-selection-list.md)。
@@ -42,8 +72,8 @@
 
 ## 文件入口
 
-- [当前暂定定稿三频Excel](../outputs/network-value-20261019/基础网络采购与装修交底_第三版Omada成本优化.xlsx)
-- [保留的双频备选Excel](../outputs/network-dualband-20261019/基础网络采购与装修交底_双频WiFi7对照版.xlsx)
+- [2026-10-19三频历史Excel（旧数量，未写入本单）](../outputs/network-value-20261019/基础网络采购与装修交底_第三版Omada成本优化.xlsx)
+- [2026-10-19双频历史Excel（未采用）](../outputs/network-dualband-20261019/基础网络采购与装修交底_双频WiFi7对照版.xlsx)
 - [当前网络拓扑](network-topology.md)、[施工需求](renovation-wiring-requirements.md)、[方案比较](network-cost-optimization.md)
 
 <details>

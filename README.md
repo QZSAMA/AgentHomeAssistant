@@ -1,6 +1,8 @@
 # AgentHomeAssistant
 
-> **2026-10-20 当前暂定定稿：3A三频。** 普通Fusion×1、ES206XPP-M2×2（中央/大厅）、ES210XPP-M2×1（电竞房）、EAP775-Wall×2（主卧/电竞房）、EAP772×1（大厅吊顶）。次卧只保留Cat6A/RJ45。双频725×2+723×1保留预算备选。网络设备Amazon参考$1,229.93，双频$1,059.93（10/20页面价，不含税运与施工）。[当前BOM](docs/purchase-bom.md)、[最新拓扑](docs/network-topology.md)、[方案比较](docs/network-cost-optimization.md)、[链接核对记录](docs/network-link-audit.md)维护现行信息；以下旧日期的四AP/中央ES210与旧预算是历史方案。
+> **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 中央 ES206XPP-M2×1，电竞房/大厅 ES210XPP-M2 各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
+>
+> **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。四条2.5G主干、两房间设备箱及电竞房本地双10G保持。以[订单记录](docs/network-order-20261118.md)、[采购BOM](docs/purchase-bom.md)和[现行拓扑](docs/network-topology.md)为准；旧日期报价/工作簿仅作历史，不按其旧数量采购。
 
 <details>
 <summary>2026-10-19及以前的项目说明（历史，非当前采购/施工口径）</summary>
@@ -31,14 +33,15 @@
 
 </details>
 
-## 当前方案与图纸入口（2026-11-05 更新）
+## 当前方案与图纸入口（2026-11-18 更新）
 
 | 文档 | 内容 |
 |---|---|
 | [装修原图与网络设备位置](docs/floorplan-and-network-locations.md) | 两张用户装修原图、局部尺寸边界；弱电箱在入户门左侧，四条Cat6A汇聚起点及现场核验清单 |
 | [Apple HomeView / mini 2官方核验](docs/apple-home-devices-2026.md) | HomeView桌面版×1已确认、mini 2待选；官方规格/报价与地区限制，壁挂平板或iPad待选，不买HomeView壁挂底座 |
-| [采购BOM与未决清单](docs/purchase-bom.md) | 当前3A三频七台设备、六列采购清单、10/20核验的Amazon入口/单价、双频备选、装修辅材与后置设备 |
-| [全屋网络拓扑图](docs/network-topology.md) | 四条主干目标2.5G；主卧775、次卧RJ45预留、电竞房ES210/大厅ES206各一箱，电竞房775及大厅772交换机PoE直供；Mac/NAS本地10G |
+| [2026-11-18网络下单记录](docs/network-order-20261118.md) | Omada Store七台设备、折后商品$828/总额$901.49；位置、端口和到货验收，Fusion不在本单 |
+| [采购BOM与未决清单](docs/purchase-bom.md) | 完整计划8台，7台已下单待到货；Fusion购买未确认；订单金额、历史报价、辅材与后置设备 |
+| [全屋网络拓扑图](docs/network-topology.md) | 四条主干目标2.5G；主卧/次卧775、电竞房/大厅ES210各一箱，电竞房775及大厅772交换机PoE直供；Mac/NAS本地10G |
 | [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视、电竞房投影、Switch 双底座、PS5/PS TV Remote Play；两条约10m反向光纤 HDMI AOC 与复尺/施工要求 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
@@ -48,8 +51,8 @@
 | [Fusion官方功能调研](docs/fusion-domain-routing-capability-research.md) / [社区案例比较](docs/home-routing-community-and-reliability.md) | 历史研究证据；全屋定向DNS、合成地址段静态路由与独立主网关不属于本次批准范围 |
 | [历史全屋设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) / [故障隔离比较](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) / [旧计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [旧验收单](docs/validation/home-rule-routing.md) | 已被现行批准版取代；不执行全屋网关、DHCP或DNS迁移及其回退步骤 |
 | [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
-| [AP 有无 6GHz 选型与价格对比](docs/ap-6ghz-selection-price-comparison.md) | 三频暂定定稿、双频保留备选；同三AP/同交换机，Amazon相差$170，US V2风险另核 |
-| [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 四条2.5G主干、两面板一吊顶、次卧RJ45预留、两房间箱、电源与分阶段验收；NAS/UPS后置 |
+| [AP 有无 6GHz 选型与价格对比](docs/ap-6ghz-selection-price-comparison.md) | 历史频段/版本与报价比较，旧数量不作为当前订单或施工依据 |
+| [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 四条2.5G主干、三面板一吊顶、两房间箱、电源与分阶段验收；NAS/UPS后置 |
 | [Hermes × HA 隔离实验指南](examples/hermes-ha-lab/README.md) / [验收记录](docs/validation/hermes-ha-lab.md) | 当前软件入口：固定官方插件、独立 profile、虚拟实体、只读 REST 探测与预期断言；真实联调仍为 `not_run` |
 
 软件实验底座及只读断言已合入 `main`。可先运行 `python -m unittest discover -s tests/ha_lab -v` 复跑离线测试；这不安装 Hermes/HA、不连接真实家居，也不代表旧 Middleware 或真实集成已通过验收。准备隔离测试环境后，按实验指南逐项验证，不执行下方历史部署步骤。
@@ -58,7 +61,7 @@
 
 Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+兼容DAC短线，NAS自带SFP+且不买网卡；介质待入住后选型。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
 
-UPS入住后再评估，装修先留位置、电源与通风；原至少1小时仅为后续评估目标，不作入住前购买/验收条件。当前只有主卧AP计中央PoE，电竞房/大厅AP由本地交换机供电；AP下联电脑不随PoE保活。后续按实测负载、分散供电位置及安全关机要求选UPS，不通过密封机柜隔音。
+UPS入住后再评估，装修先留位置、电源与通风；原至少1小时仅为后续评估目标，不作入住前购买/验收条件。当前两卧室AP均计中央PoE，电竞房/大厅AP由本地交换机供电；AP下联电脑不随PoE保活。后续按实测负载、分散供电位置及安全关机要求选UPS，不通过密封机柜隔音。
 
 ## 早期项目状态（历史记录，非最新验收）
 

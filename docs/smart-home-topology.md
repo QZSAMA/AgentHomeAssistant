@@ -1,8 +1,8 @@
-# 全屋智能家居接入拓扑 v1.2
+# 全屋智能家居接入拓扑 v1.3
 
-> **2026-10-20 当前网络方案：3A三频，暂定定稿。** 普通Fusion ×1、中央及大厅ES206XPP-M2各1、电竞房ES210XPP-M2 ×1、主卧/电竞房EAP775-Wall ×2、大厅吊顶EAP772 ×1。双频725×2+723×1保留预算备选。次卧只施工Cat6A/RJ45，已有TL-7DR3630可选有线复用。四条2.5G主干、两房间设备箱、Mac/NAS本地双10G与交换机PoE直供保持。设备未购/未部署。
+> **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 中央 ES206XPP-M2×1，电竞房/大厅 ES210XPP-M2 各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
 >
-> 当前型号/数量/链接/预算见[采购BOM](purchase-bom.md)与[方案比较](network-cost-optimization.md)，商品链接已于2026-10-20逐项核对；[核对记录](network-link-audit.md)。下方带旧日期的三面板一吊顶、次卧AP或中央ES210建议仅用于追溯。
+> **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。四条2.5G主干、两房间设备箱及电竞房本地双10G保持。以[订单记录](network-order-20261118.md)、[采购BOM](purchase-bom.md)和[现行拓扑](network-topology.md)为准；旧日期报价/工作簿仅作历史，不按其旧数量采购。
 >
 > **2026-10-26 绿米签字方案定稿**：全屋智能采用绿米双网关路径（M200主·客餐厅吊顶PoE＋M1S辅·主卧壁挂），合计**¥19,324**，完整设备BOM见[绿米最终签字方案](aqara-final-quote-20261026.md)。S100场景屏仅客餐厅1台、E1摄像机为Wi-Fi非PoE；本批无Matter over Thread终端。设备均未购/未施工/未部署，M1S暴露路径待到货实测。
 
@@ -31,8 +31,8 @@
 
 - 全屋以 Aqara/绿米为主要选型方向，目标接入 Apple Home 和 Home Assistant（HA），**不新增小米/米家、华为设备；已有米家激光投影仪继续复用**；不是所有 Aqara 产品都使用同一种协议，也不是所有型号都能完整接入两个平台。
 - 住宅约 **100㎡**、一层矩形，已收到[装修布置图与尺寸标注图](floorplan-and-network-locations.md)；弱电箱在**入户门左侧**，核心网络规划在该箱或附近通风核心柜。完整电气点位/管线路径、墙材、柜体与覆盖仍须现场核验，截图不是施工放线依据。宽带计划 **1000Mbps 下载 / 30Mbps 上传**，局域网/本地自动化能力不由 WAN 标称速度保证。
-- 网络拓扑 **v1.2** 的基线已确定：四区域各一条Cat6A星型回中央；主卧Wall AP、次卧仅RJ45预留，电竞房/大厅各一台交换机。电竞房单台 **ES210XPP-M2**，不增加交换机；10G RJ45给Mac、10G SFP+给NAS。两台EAP775-Wall均有1×2.5G+3×1G数据下联，工作室Apple TV/投影可改接其中两个1G口；J3455、Mac、NAS和PC保持ES210直连。不使用AP PoE Out。
-- AP 形态已确认：主卧、工作室各暂定一台 **EAP775-Wall 三频 Wi-Fi 7 面板 AP**，大厅候选一台 **EAP772 Wi-Fi 7 吊顶（吸顶）AP**，共 2+1 台，次卧AP暂不购、2.5G 上联。面板装箱外墙面，大厅 AP 装顶面可见位置，不藏吊顶内部；地区频段/发货版本/供电验收见 [BOM](device-selection-list.md#64-按最新拓扑更新的候选购买清单)。三房mini优先推荐mini 2，代际待确认；大厅Apple HomeView已发布，Wi-Fi接法不变。两款官方列Wi-Fi 6E，但大陆6GHz不计保证；Thread仍独立于Wi-Fi，不能把美版频段规格当本户可用性。
+- 网络拓扑 **v1.3** 的基线已确定：四区域各一条Cat6A星型回中央；两卧室各一台Wall AP，电竞房/大厅各一台交换机。电竞房单台 **ES210XPP-M2**，不增加交换机；10G RJ45给Mac、10G SFP+给NAS。三台EAP775-Wall均有1×2.5G+3×1G数据下联，工作室Apple TV/投影可改接其中两个1G口；J3455、Mac、NAS和PC保持ES210直连。不使用AP PoE Out。
+- AP 形态已确认：主卧、次卧、工作室各已下单一台 **EAP775-Wall 三频 Wi-Fi 7 面板 AP**，大厅已下单一台 **EAP772 Wi-Fi 7 吊顶（吸顶）AP**，共3+1台，均待到货验收，2.5G上联。面板装箱外墙面，大厅 AP 装顶面可见位置，不藏吊顶内部；地区频段/发货版本/供电验收见 [BOM](device-selection-list.md#64-按最新拓扑更新的候选购买清单)。三房mini优先推荐mini 2，代际待确认；大厅Apple HomeView已发布，Wi-Fi接法不变。两款官方列Wi-Fi 6E，但大陆6GHz不计保证；Thread仍独立于Wi-Fi，不能把美版频段规格当本户可用性。
 - Wi-Fi 终端接 AP；Zigbee 设备接 Zigbee 网关/协调器；Matter over Thread 设备通过 Thread 网络和边界路由器进入家庭 LAN。**Matter 是应用层互通标准，Thread 与 Wi-Fi 才是这里的网络接入方式。**
 - Apple Home与HA属于控制层，不是串在交换机、AP与终端之间的网络转发设备。**HomeView非壁挂／桌面版×1已确认**，支持Wi-Fi/Thread及HomeKit/Matter，经大厅AP Wi-Fi接入，使用随箱电源；大陆服务/账户/配套设备和配网待验。壁挂另用平板电脑或iPad，具体型号/数量/点位/供电与网络方式待选，作为交互终端记录，不替代HA主机、家庭中枢或Thread边界路由器；不先增加网口/PoE或物理图节点。详见[Apple官方核验](apple-home-devices-2026.md)。
 - 用户同时需要 **HomePod/Siri 家居控制**与**各房间同 Mac 本地模型对话**，两类需求都保留，具体语音终端/接入方案未定。不能默认 HomePod 的麦克风能作为任意本地模型前端，HomeView/Siri AI也不等于Mac本地模型，官网未承诺开放原始麦克风流。
@@ -40,14 +40,14 @@
 
 ## 2. Wi-Fi、Zigbee、有线设备与控制层
 
-本图表示逻辑接入关系；主卧AP由中央交换机有线PoE直连，次卧只预留RJ45墙口，电竞房/大厅AP经各自房间交换机接入LAN。虚线表示无线连接、规划候选或控制/集成关系，边上文字区分。三房各预留一台HomePod mini（优先推荐mini 2，代际待确认），大厅已确认一台Apple HomeView桌面版（非壁挂，未购/未部署）。壁挂平板/iPad待选，尚未确定点位及网络方式，不按占位节点施工。三处交换机的PoE数量与瓦数核算见[当前网络拓扑](network-topology.md#当前端口与施工口径)。
+本图表示逻辑接入关系；两卧室AP各由中央交换机有线PoE直连，电竞房/大厅AP经各自房间交换机接入LAN。虚线表示无线连接、规划候选或控制/集成关系，边上文字区分。三房各预留一台HomePod mini（优先推荐mini 2，代际待确认），大厅已确认一台Apple HomeView桌面版（非壁挂，未购/未部署）。壁挂平板/iPad待选，尚未确定点位及网络方式，不按占位节点施工。三处交换机的PoE数量与瓦数核算见[当前网络拓扑](network-topology.md#当前端口与施工口径)。
 
 ```mermaid
 flowchart TB
-    LAN["家庭 LAN<br/>中央ES206XPP-M2（当前暂定定稿）<br/>+ 电竞房/大厅交换机<br/>主卧Wall AP / 次卧RJ45预留"]
+    LAN["家庭 LAN<br/>中央ES206XPP-M2（已下单）<br/>+ 电竞房/大厅交换机<br/>主卧/次卧Wall AP"]
 
     subgraph MASTER["主卧 · 规划"]
-        AP1["AP-MASTER · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP · 主卧墙面<br/>无房间箱/独立交换机"]
+        AP1["AP-MASTER · EAP775-Wall 已下单<br/>Wi-Fi 7 面板 AP · 主卧墙面<br/>无房间箱/独立交换机"]
         PC1["主卧电脑 / 有线设备"]
         HP1["HomePod mini<br/>优先推荐mini 2 · 待确认"]
         W1["主卧 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
@@ -57,19 +57,18 @@ flowchart TB
     end
 
     subgraph SECOND["次卧 · 规划"]
-        AP2["TRUNK-SECOND · RJ45墙口<br/>暂不购AP，默认关闭PoE<br/>可选已有TL-7DR3630有线AP"]
+        AP2["AP-SECOND · EAP775-Wall 已下单<br/>次卧墙面，中央2.5G+PoE<br/>无房间箱/独立交换机"]
         PC2["次卧电脑 / 有线设备"]
         HP2["HomePod mini<br/>优先推荐mini 2 · 待确认"]
         W2["次卧 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
-        AP4 -. "Wi-Fi覆盖，入住实测" .-> HP2
-        AP4 -. "Wi-Fi覆盖，入住实测" .-> W2
-        AP2 -->|"可选直接有线接入"| PC2
-        AP2 -. "覆盖不足时才启用" .-> OLD2["已有TL-7DR3630<br/>有线AP模式 / 自带市电 / 独立管理"]
+        AP2 -. "Wi-Fi，入住实测" .-> HP2
+        AP2 -. "Wi-Fi，入住实测" .-> W2
+        AP2 -->|"1×2.5G+3×1G数据下联，PoE Out关闭"| PC2
     end
 
     subgraph STUDIO["工作室 / 电竞房 · 规划"]
         SW3["ES210XPP-M2 ×1<br/>8×2.5G PoE++ / 200W<br/>中央上联 2.5G · 不增加交换机"]
-        AP3["AP-STUDIO · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP · 箱外墙面"]
+        AP3["AP-STUDIO · EAP775-Wall 已下单<br/>Wi-Fi 7 面板 AP · 箱外墙面"]
         HP3["HomePod mini<br/>优先推荐mini 2 · 待确认"]
         W3["工作室 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
         MAC["计划 Mac Studio，留工作室箱外<br/>512GB 统一内存 / 4TB SSD<br/>本地模型，10G RJ45 接房间交换机"]
@@ -89,8 +88,8 @@ flowchart TB
     end
 
     subgraph HALL["大厅 · 规划"]
-        SW4["ES206XPP-M2 ×1<br/>5×2.5G，其中4×PoE++ / 120W<br/>中央上联 2.5G"]
-        AP4["AP-HALL · EAP772 候选<br/>Wi-Fi 7 吊顶 AP · 顶面可见"]
+        SW4["ES210XPP-M2 ×1 · 已下单<br/>8×2.5G PoE++ / 200W<br/>另有10G RJ45与10G SFP+，上联2.5G"]
+        AP4["AP-HALL · EAP772 已下单<br/>Wi-Fi 7 吊顶 AP · 顶面可见"]
         FUTURE["Apple HomeView 桌面版 ×1<br/>型号已确认 · 未购 · Wi-Fi / Thread<br/>大陆服务 / 账户待验"]
         W4["大厅 Wi-Fi 设备<br/>具体灯具、传感器等逐型号确认"]
         M200["Aqara M200 主网关 · 已定未购<br/>客餐厅吊顶高位 · af PoE（≈12W）<br/>Matter Controller + Thread BR + Matter Bridge<br/>建议2根Cat6A（1用1备），封板前完成"]
@@ -98,14 +97,16 @@ flowchart TB
         TV4["大厅电视 · 有线"]
         SW4 -->|"2.5G + 802.3at PoE+；最大25.4W"| AP4
         SW4 -->|"吊顶支线 · af PoE + 有线数据<br/>建议2根Cat6A，1用1备"| M200
-        SW4 -->|"备用有线数据"| HALLGW
+        SW4 -. "备用墙口未跳接不占端口" .-> HALLGW
         SW4 -->|"有线"| TV4
+        SW4 -. "2个数据口预留" .-> GAME4["Switch / PS4或其他游戏机，按需"]
+        SW4 -. "仅预留Cat6A，接口/电源待核" .-> FP4["FP400候选，非已确认PoE设备"]
         AP4 -. "Wi-Fi · 用户意向" .-> FUTURE
         AP4 -. "Wi-Fi" .-> W4
     end
 
     LAN -->|"中央直达：一条 Cat6A / 2.5G + 匹配 PoE"| AP1
-    LAN -->|"中央直达：Cat6A / RJ45预留，默认关闭PoE"| AP2
+    LAN -->|"中央直达：Cat6A / 2.5G + 匹配PoE"| AP2
     LAN -->|"单条 Cat6A / 2.5G 主干"| SW3
     LAN -->|"单条 Cat6A / 2.5G 主干"| SW4
 
@@ -152,7 +153,7 @@ flowchart TB
 
 Zigbee 的覆盖目标是**全屋六个区域**，不是只覆盖大厅；网关与中继能力依实际设备确定，电池传感器通常不承担 Zigbee 路由扩展。两卫生间的 Wi-Fi 设备由覆盖实测合适的邻近 AP 服务，不预先锁定某一台 AP，也不默认增加卫生间 AP。
 
-**网关接入定稿（2026-10-26 绿米签字方案）**：已定 `Zigbee设备 → M200（主，客餐厅吊顶高位）/ M1S（主卧壁挂辅助）→ LAN → Apple Home/HA`。M200 由大厅 ES206XPP-M2 经新敷吊顶支线 802.3af PoE 供电（48V⎓0.25A≈12W，×1.3≈15.6W），建议布 **2 根 Cat6A（1用1备）、封板前完成**；原 `HALL-IOT-GW` 墙面口端接保留、转备用。M200 集成 Matter Controller + Thread Border Router + Matter Bridge；M1S 为纯 Zigbee 网关、**不支持 Matter**，其下挂设备暴露给 Apple Home/HA 的路径以 Aqara HomeKit/集成实测为准。Aqara 网关不能当作 ZHA/Zigbee2MQTT 可直接控制的通用协调器；`Zigbee设备 → 以太网协调器 → ZHA/Zigbee2MQTT → HA` 降为入住后演进备选，与绿米网关路径对同一设备二选一，不额外采购。使用 DHCP 保留地址、受控 LAN 访问，并将网关纳入重连测试；百兆以太网足够 Zigbee 控制。
+**网关接入定稿（2026-10-26 绿米签字方案）**：已定 `Zigbee设备 → M200（主，客餐厅吊顶高位）/ M1S（主卧壁挂辅助）→ LAN → Apple Home/HA`。M200 由大厅 ES210XPP-M2（2026-11-18订单更新）经新敷吊顶支线 802.3af PoE 供电（48V⎓0.25A≈12W，×1.3≈15.6W），建议布 **2 根 Cat6A（1用1备）、封板前完成**；原 `HALL-IOT-GW` 墙面口端接保留、转备用。M200 集成 Matter Controller + Thread Border Router + Matter Bridge；M1S 为纯 Zigbee 网关、**不支持 Matter**，其下挂设备暴露给 Apple Home/HA 的路径以 Aqara HomeKit/集成实测为准。Aqara 网关不能当作 ZHA/Zigbee2MQTT 可直接控制的通用协调器；`Zigbee设备 → 以太网协调器 → ZHA/Zigbee2MQTT → HA` 降为入住后演进备选，与绿米网关路径对同一设备二选一，不额外采购。使用 DHCP 保留地址、受控 LAN 访问，并将网关纳入重连测试；百兆以太网足够 Zigbee 控制。
 
 Thread走受支持的HomePod mini等Thread边界路由器接入LAN，再由HA的Matter集成控制，按实际型号与配网测试确认；不是所有Thread设备都可用一个Zigbee协调器接入，也不默认需要另一只USB棒。
 
@@ -185,14 +186,14 @@ flowchart TB
     MESH -. "可用边界出口" .-> HP2["次卧 HomePod mini<br/>Thread 边界路由器"]
     MESH -. "可用边界出口" .-> HP3["工作室 HomePod mini<br/>Thread 边界路由器"]
 
-    HP1 -. "Wi-Fi" .-> AP1["AP-MASTER · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP"]
-    HP2 -. "Wi-Fi" .-> AP2["AP-SECOND · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP"]
-    HP3 -. "Wi-Fi" .-> AP3["AP-STUDIO · EAP775-Wall 暂定<br/>Wi-Fi 7 面板 AP"]
+    HP1 -. "Wi-Fi" .-> AP1["AP-MASTER · EAP775-Wall 已下单<br/>Wi-Fi 7 面板 AP"]
+    HP2 -. "Wi-Fi" .-> AP2["AP-SECOND · EAP775-Wall 已下单<br/>Wi-Fi 7 面板 AP"]
+    HP3 -. "Wi-Fi" .-> AP3["AP-STUDIO · EAP775-Wall 已下单<br/>Wi-Fi 7 面板 AP"]
     AP1 -->|"一条 Cat6A / 2.5G，中央 PoE 直供"| LAN["家庭 LAN"]
     AP2 -->|"一条 Cat6A / 2.5G，中央 PoE 直供"| LAN
     AP3 -->|"有线，经工作室交换机"| LAN
 
-    HUB["Apple HomeView 桌面版 ×1 · 未购<br/>Thread已核，配网 / 大陆服务待验"] -. "Wi-Fi · 原计划不变" .-> AP4["AP-HALL · EAP772 候选<br/>Wi-Fi 7 吊顶 AP"]
+    HUB["Apple HomeView 桌面版 ×1 · 未购<br/>Thread已核，配网 / 大陆服务待验"] -. "Wi-Fi · 原计划不变" .-> AP4["AP-HALL · EAP772 已下单<br/>Wi-Fi 7 吊顶 AP"]
     MESH -. "额外边界出口候选；非串联" .-> HUB
     AP4 -->|"有线，经大厅交换机"| LAN
 ```
@@ -205,7 +206,7 @@ flowchart TB
 ## 4. 设备箱、供电与验收边界
 
 1. 保持四条中央 **2.5G** 主干；仅电竞房/大厅各一房间箱/交换机。电竞房单台ES210XPP-M2、不增加第二台，10G RJ45给Mac、10G SFP+给NAS。完整直连表可占满8个2.5G口；Apple TV/投影可改接工作室EAP775-Wall的1G数据下联，释放两个ES210端口。J3455/HA、Mac、NAS和PC保持交换机直连。
-2. 主卧Wall AP经中央PoE直供；次卧仅RJ45预留、默认关闭PoE。工作室EAP775-Wall由ES210XPP-M2、大厅EAP772由大厅ES206XPP-M2供电；两台面板AP下联可传数据，不使用PoE Out。M200 为唯一 PoE 供电的绿米设备（吊顶 af 支线，建议2根Cat6A，封板前完成）；签字方案的 E1 摄像机与 S100 场景屏均为 Wi-Fi/市电，不占 PoE 口。任何接在AP下联的设备都会随AP重启、故障或断电而离线，因此关键服务保持交换机直连。
+2. 两卧室Wall AP经中央ES206 PoE直供；工作室775与大厅772各由当地ES210供电。三台面板AP下联可传数据，不使用PoE Out。M200 为唯一 PoE 供电的绿米设备（吊顶 af 支线，建议2根Cat6A，封板前完成）；签字方案的 E1 摄像机与 S100 场景屏均为 Wi-Fi/市电，不占 PoE 口。任何接在AP下联的设备都会随AP重启、故障或断电而离线，因此关键服务保持交换机直连。
 3. **UPS入住后再评估，不列入住前必购或强制验收**；原NAS、Mac和全屋网络至少1小时仅为后续评估目标。装修先为入户核心位、电竞房/大厅本地交换机、Mac/J3455及未来NAS留供电、承重和通风空间。后续中央UPS只计当前主卧AP的中央PoE负载，电竞房/大厅AP计各自本地供电；两卧室无独立网络箱UPS点。按三处实测功耗/峰值/策略/电池曲线核算，不能宣称已达成。HomePod、Aqara网关、HA等控制节点按停电时所需功能另核，AP有电不代表控制层可用。
 4. 首期优先验证同一可信网络中的发现、配网、控制和离线自动化；之后再隔离访客、摄像头或 IoT。跨 VLAN 要另验收 IPv6、mDNS/Bonjour、组播和访问规则，不能以“能上网”代替智能家居联通验收。
 5. 最终逐设备登记型号、区域版本、协议、供电、所在区域、所属网关/Thread 网络、Apple Home/HA 集成方式及离线测试结果。摄像头点位和隐私边界单独确认，不默认在卧室或卫生间部署。
