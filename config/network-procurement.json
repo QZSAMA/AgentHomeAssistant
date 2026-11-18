@@ -261,5 +261,32 @@
       "pre_discount_item_total": 1379.93,
       "amount_note": "单价已含本单优惠；预计税费沿用截图标签；未列示转运/进口、辅材和施工，不含Fusion"
     }
-  ]
+  ],
+  "wan_access": {
+    "decided_at": "2026-11-18",
+    "location": "武汉",
+    "isp": "中国电信",
+    "downstream_mbps_user_reported": 1000,
+    "upstream_mbps_previous_planning_target": 30,
+    "measured_rates_confirmed": false,
+    "pon_protocol_assumption": "XG-PON",
+    "pon_protocol_verified": false,
+    "existing_ont_model": null,
+    "active_method": "运营商现有光猫Internet桥接 → Fusion 2.5G普通版PPPoE",
+    "implementation_status": "已决定，未实施/验收",
+    "ont_handoff_speed": "待核现有光猫；按实机1G或2.5G协商",
+    "fusion_purchase_status": "计划采购，购买未确认；不在已确认7台订单内",
+    "current_plan_path": "docs/wan-bridge-plan.md",
+    "backup_research_path": "docs/ont-replacement-backup-research.md",
+    "source_register_path": "docs/research/ont-replacement-20261118/sources.json",
+    "backup_status": "仅研究保留，未选定/未购买/未部署",
+    "new_ont_planned_quantity": 0,
+    "pon_stick_planned_quantity": 0,
+    "media_converter_planned_quantity": 0,
+    "notes": [
+      "WAN业务VLAN按实际交付核验，不改变家庭同一LAN方案",
+      "IPTV/固话需求待核，保留需要的附属业务",
+      "采购数据不保存PPPoE密码、LOID/PLOAM、SN/MAC或光猫配置"
+    ]
+  }
 }

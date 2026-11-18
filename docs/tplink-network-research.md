@@ -1,5 +1,7 @@
 # TP-Link 全屋多千兆网络：产品调研与候选采购清单
 
+> **光猫接入决定（2026-11-18）**：武汉电信 1,000 Mbps，当前采用运营商光猫 Internet 桥接 → Fusion 2.5G 普通版 PPPoE 拨号，尚未实施/验收。XG-PON 仅为备用研究假设，实际制式/原光猫型号待核；旧规划上行 30 Mbps 未实测。见[当前接入与验收](wan-bridge-plan.md)、[替换设备/案例/视频备用研究](ont-replacement-backup-research.md)。本轮不采购新光猫、猫棒或 MC420L；Omada 已下单 7 台、另待购 Fusion 的状态与同一家庭 LAN 方案不变。
+
 > **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 中央 ES206XPP-M2×1，电竞房/大厅 ES210XPP-M2 各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
 >
 > **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。四条2.5G主干、两房间设备箱及电竞房本地双10G保持。以[订单记录](network-order-20261118.md)、[采购BOM](purchase-bom.md)和[现行拓扑](network-topology.md)为准；旧日期报价/工作簿仅作历史，不按其旧数量采购。
@@ -19,6 +21,10 @@
 > **v1.2用户已确认：四条主干2.5G，两卧室仅Wall AP，电竞房/大厅各一箱一交换机。** 电竞房继续单台ES210XPP-M2，不增加交换机；Mac原生RJ45/NAS SFP+本地10G。EAP775-Wall另有1×2.5G+3×1G下联，Apple TV/投影可改接两个1G口；J3455/HA、Mac、NAS和PC保持ES210直连，不使用AP PoE Out。
 
 </details>
+
+## 2026-11-18 WAN补充核验
+
+[独立报告](ont-replacement-backup-research.md)重新核对Fusion官方PPPoE/接口规格、MC420L硬件版本与2.5G模式，以及第三方ONU候选、案例和视频。**执行方案仍为原运营商光猫桥接**，Fusion没有SFP，普通converter不能完成PON注册；MC420L与任意猫棒兼容尚无保证。Nokia XG-040G-MD为新发现的社区候选，国内PRX126固件fork已停止维护，均不恢复为当前采购。正式步骤见[桥接交付](wan-bridge-plan.md)。
 
 ## 1. 结论与稳定性边界
 

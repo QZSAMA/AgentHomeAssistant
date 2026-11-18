@@ -1,8 +1,11 @@
 # AgentHomeAssistant - Code Wiki
 
+> **光猫接入决定（2026-11-18）**：武汉电信 1,000 Mbps，当前采用运营商光猫 Internet 桥接 → Fusion 2.5G 普通版 PPPoE 拨号，尚未实施/验收。XG-PON 仅为备用研究假设，实际制式/原光猫型号待核；旧规划上行 30 Mbps 未实测。见[当前接入与验收](docs/wan-bridge-plan.md)、[替换设备/案例/视频备用研究](docs/ont-replacement-backup-research.md)。本轮不采购新光猫、猫棒或 MC420L；Omada 已下单 7 台、另待购 Fusion 的状态与同一家庭 LAN 方案不变。
+> 当前网络订单为中央 ES206×1、电竞房/大厅 ES210×2、EAP775-Wall×3、EAP772×1，7台已下单待到货验收，商品 $828、总额 $901.49；Fusion 不在本单。见[订单](docs/network-order-20261118.md)和[现行拓扑](docs/network-topology.md)。
+
 > **2026-11-18智能配件增补**：绿米19,324元签字清单保持不变，额外通过Aqara折扣新品渠道询价，先看完整建议再定预算。[设备增补Excel](outputs/aqara-supplement-20261118/全屋智能新增设备清单.xlsx)列31条区域/原因/数量/建议级别；[详细计划](docs/aqara-supplement-plan-20261118.md)记录三干王模式控制和家电计量要求，[全屋查漏](docs/smart-home-supplement-audit-20261118.md)记录复用与暂缓。次卧照明不加、窗户仅检测，两卫FP310复用；欧瑞博范围更新为空调、新风、地暖、热水器。新增建议未下单、未实施。
 
-> **2026-10-20 当前暂定定稿：3A三频。** 普通Fusion×1、ES206XPP-M2×2（中央/大厅）、ES210XPP-M2×1（电竞房）、EAP775-Wall×2（主卧/电竞房）、EAP772×1（大厅吊顶）。次卧只保留Cat6A/RJ45。双频725×2+723×1保留预算备选。网络设备Amazon参考$1,229.93，双频$1,059.93（10/20页面价，不含税运与施工）。[当前BOM](docs/purchase-bom.md)、[最新拓扑](docs/network-topology.md)、[方案比较](docs/network-cost-optimization.md)、[链接核对记录](docs/network-link-audit.md)维护现行信息；以下旧日期的四AP/中央ES210与旧预算是历史方案。
+> **2026-10-20 历史方案：已由2026-11-18订单更新。** 普通Fusion×1、ES206XPP-M2×2（中央/大厅）、ES210XPP-M2×1（电竞房）、EAP775-Wall×2（主卧/电竞房）、EAP772×1（大厅吊顶）。次卧只保留Cat6A/RJ45。双频725×2+723×1保留预算备选。网络设备Amazon参考$1,229.93，双频$1,059.93（10/20页面价，不含税运与施工）。[当前BOM](docs/purchase-bom.md)、[最新拓扑](docs/network-topology.md)、[方案比较](docs/network-cost-optimization.md)、[链接核对记录](docs/network-link-audit.md)维护现行信息；以下旧日期的四AP/中央ES210与旧预算是历史方案。
 
 <details>
 <summary>2026-10-19及以前架构说明（历史，不用于当前采购/施工）</summary>

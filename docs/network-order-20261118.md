@@ -34,6 +34,10 @@
 - 已批准的同一家庭 LAN、Fusion 唯一 DHCP/普通 DNS、指定终端手动选用 J3455 OpenWrt 的逻辑方案不变，尚未部署。
 - Aqara 签字清单、Mac、NAS、UPS、Apple 终端不属于本订单。大厅 FP400 仍为候选，具体版本、电源参数、原生 PoE/以太网能力未核实；不改动合同内两卫 FP310×2。
 
+## 光猫接入决定（同日补充，非订单项目）
+
+当前采用[运营商光猫Internet桥接，由Fusion拨号](wan-bridge-plan.md)。武汉电信1,000Mbps已明确，XG-PON仍待实机核验；[替换光猫研究与视频](ont-replacement-backup-research.md)仅作备份。本订单不含光猫、猫棒或MC420L，不改变7台数量、$901.49总额或Fusion购买未确认状态。
+
 ## 网口与到货验收
 
 | 位置 | 分配 | 剩余容量 |

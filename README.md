@@ -1,5 +1,7 @@
 # AgentHomeAssistant
 
+> **光猫接入决定（2026-11-18）**：武汉电信 1,000 Mbps，当前采用运营商光猫 Internet 桥接 → Fusion 2.5G 普通版 PPPoE 拨号，尚未实施/验收。XG-PON 仅为备用研究假设，实际制式/原光猫型号待核；旧规划上行 30 Mbps 未实测。见[当前接入与验收](docs/wan-bridge-plan.md)、[替换设备/案例/视频备用研究](docs/ont-replacement-backup-research.md)。本轮不采购新光猫、猫棒或 MC420L；Omada 已下单 7 台、另待购 Fusion 的状态与同一家庭 LAN 方案不变。
+
 > **2026-11-18智能配件增补**：绿米19,324元签字清单保持不变，额外通过Aqara折扣新品渠道询价，先看完整建议再定预算。[设备增补Excel](outputs/aqara-supplement-20261118/全屋智能新增设备清单.xlsx)列31条区域/原因/数量/建议级别；[详细计划](docs/aqara-supplement-plan-20261118.md)记录三干王模式控制和家电计量要求，[全屋查漏](docs/smart-home-supplement-audit-20261118.md)记录复用与暂缓。次卧照明不加、窗户仅检测，两卫FP310复用；欧瑞博范围更新为空调、新风、地暖、热水器。新增建议未下单、未实施。
 
 > **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 中央 ES206XPP-M2×1，电竞房/大厅 ES210XPP-M2 各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
@@ -41,6 +43,8 @@
 |---|---|
 | [装修原图与网络设备位置](docs/floorplan-and-network-locations.md) | 两张用户装修原图、局部尺寸边界；弱电箱在入户门左侧，四条Cat6A汇聚起点及现场核验清单 |
 | [Apple HomeView / mini 2官方核验](docs/apple-home-devices-2026.md) | HomeView桌面版×1已确认、mini 2待选；官方规格/报价与地区限制，壁挂平板或iPad待选，不买HomeView壁挂底座 |
+| [当前宽带桥接方案](docs/wan-bridge-plan.md) | 武汉电信、原光猫Internet桥接、Fusion PPPoE；参数与逐项验收，尚未实施 |
+| [光猫替换备用研究](docs/ont-replacement-backup-research.md) | 中兴、VSOL、Nokia XG-040G-MD、PRX126猫棒与MC420L；32条分级来源含8条视频，暂不采购 |
 | [2026-11-18网络下单记录](docs/network-order-20261118.md) | Omada Store七台设备、折后商品$828/总额$901.49；位置、端口和到货验收，Fusion不在本单 |
 | [采购BOM与未决清单](docs/purchase-bom.md) | 完整计划8台，7台已下单待到货；Fusion购买未确认；订单金额、历史报价、辅材与后置设备 |
 | [全屋网络拓扑图](docs/network-topology.md) | 四条主干目标2.5G；主卧/次卧775、电竞房/大厅ES210各一箱，电竞房775及大厅772交换机PoE直供；Mac/NAS本地10G |
@@ -59,7 +63,7 @@
 
 软件实验底座及只读断言已合入 `main`。可先运行 `python -m unittest discover -s tests/ha_lab -v` 复跑离线测试；这不安装 Hermes/HA、不连接真实家居，也不代表旧 Middleware 或真实集成已通过验收。准备隔离测试环境后，按实验指南逐项验证，不执行下方历史部署步骤。
 
-房屋约 **100㎡、单层**，已收到并归档[装修布置图与尺寸标注图](docs/floorplan-and-network-locations.md)。**弱电箱在入户门左侧**，光猫、Fusion和中央交换机规划在该箱或附近通风核心柜，四条Cat6A由此汇聚。大厅/入户过道已确认有吊顶或局部吊顶，新增[设备点位与埋线草案](docs/network-placement-and-cabling-plan.md)及标注图；箱体、完整电气点位、实际管线路径与逐线长度仍待现场签认，Excel尚未写回该草案。计划宽带 **1000Mbps 下载 / 30Mbps 上传**。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接电竞房交换机、箱外摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
+房屋约 **100㎡、单层**，已收到并归档[装修布置图与尺寸标注图](docs/floorplan-and-network-locations.md)。**弱电箱在入户门左侧**，光猫、Fusion和中央交换机规划在该箱或附近通风核心柜，四条Cat6A由此汇聚。大厅/入户过道已确认有吊顶或局部吊顶，新增[设备点位与埋线草案](docs/network-placement-and-cabling-plan.md)及标注图；箱体、完整电气点位、实际管线路径与逐线长度仍待现场签认，Excel尚未写回该草案。宽带已明确为**武汉电信 1000Mbps**；上行30Mbps沿用旧规划、未实测，当前采用[原光猫桥接 + Fusion拨号](docs/wan-bridge-plan.md)，实际PON制式待核。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接电竞房交换机、箱外摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
 
 Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+兼容DAC短线，NAS自带SFP+且不买网卡；介质待入住后选型。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
 
