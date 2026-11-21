@@ -1,0 +1,36 @@
+{
+  "devices": [
+    {
+      "id": "living-main",
+      "name": "客厅主灯",
+      "roomId": "living",
+      "position": [3.4, 2.55, 5.25],
+      "entityId": null,
+      "provenance": "模拟点位，待电气图确认"
+    },
+    {
+      "id": "dining-pendant",
+      "name": "餐厅吊灯",
+      "roomId": "dining",
+      "position": [8.154909, 2.2, 5.716454],
+      "entityId": null,
+      "provenance": "模拟点位，待电气图确认"
+    },
+    {
+      "id": "studio-main",
+      "name": "电竞房主灯",
+      "roomId": "studio",
+      "position": [3.38, 2.55, 8.45],
+      "entityId": null,
+      "provenance": "模拟点位，待电气图确认"
+    },
+    {
+      "id": "studio-desk",
+      "name": "电竞房桌面灯",
+      "roomId": "studio",
+      "position": [2.35, 1.2, 9.3],
+      "entityId": null,
+      "provenance": "模拟点位，待电气图确认"
+    }
+  ]
+}

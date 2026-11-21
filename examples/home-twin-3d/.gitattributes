@@ -1,0 +1,7 @@
+# Export validation records SHA-256 of the exact source bytes.
+# Preserve their line endings across Windows and Unix checkouts.
+data/house.json -text whitespace=cr-at-eol
+data/devices.json -text
+data/design-style.json -text
+# SOURCES.md records hashes of these verbatim upstream notices.
+vendor/licenses/*.txt -text

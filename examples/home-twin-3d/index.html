@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>武汉印 · 3D 空间控制</title>
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="武汉印，返回首页"><span class="brand-symbol" aria-hidden="true">印</span><strong>武汉印</strong><span class="brand-divider"></span><span class="brand-sub">HOME / 130</span></a>
+    <span class="header-title">设计师效果 · V0.2</span>
+    <span class="demo-badge"><i></i> 模拟体验 <span>· 未连接设备</span></span>
+  </header>
+  <main class="workspace">
+    <section class="stage" aria-label="可交互户型">
+      <div class="stage-heading"><div><p class="overline">YOUR HOME, IN VIEW</p><h1 id="view-title">全屋视图<span>01</span></h1></div><button id="lighting-mode" class="quiet-button" aria-pressed="false"><span aria-hidden="true">◐</span> <span id="lighting-mode-label">夜景</span></button></div>
+      <nav class="views" aria-label="视角"><button data-view="overview" aria-pressed="true">全屋</button><button data-view="top" aria-pressed="false">俯视</button><button data-view="living" aria-pressed="false">客餐厅</button><button data-view="studio" aria-pressed="false">电竞房</button><button data-view="bedroom" aria-pressed="false">次卧</button><button id="reset-camera" title="恢复全屋视角" aria-label="恢复全屋视角">↺</button></nav>
+      <div id="viewport"><canvas id="scene" tabindex="0" aria-label="户型三维视图，拖动旋转；方向键旋转，加减键缩放。灯具也可从设备列表操作。"></canvas><div id="room-labels" aria-hidden="true"></div><div id="lamp-labels"></div><div id="loading" role="status"><span class="loader"></span>正在构建你的家…</div><div id="error" role="alert" hidden></div></div>
+      <div class="stage-bottom"><div class="display-options"><label><input type="checkbox" id="designer-mode" checked><span>设计师配色</span></label><label><input type="checkbox" id="cutaway" checked><span>剖切显示</span></label><label><input type="checkbox" id="cad-overlay"><span>CAD 线稿</span></label><label><input type="checkbox" id="room-label-toggle" checked><span>房间名称</span></label></div><p class="gesture">拖动旋转 · 滚轮缩放 · 点击灯点开关</p></div>
+      <div class="drawing-info"><span><i></i> 基于你的 DWG 轮廓</span><span>横向标注 <b>11.33 m</b></span><button id="source-open">图纸与建模说明 ↗</button></div>
+    </section>
+    <aside class="inspector" aria-label="灯光控制">
+      <div class="panel-intro"><div><p class="overline">LIGHT & LIVING</p><h2>灯光</h2></div><span class="light-counter"><strong id="on-count">—</strong><span>/ 4 已开启</span></span></div>
+      <div class="scene-controls"><p class="section-label">一键场景</p><div class="scene-buttons"><button data-scene="home" aria-pressed="true"><span aria-hidden="true">⌂</span>回家</button><button data-scene="movie" aria-pressed="false"><span aria-hidden="true">▻</span>观影</button><button data-scene="away" aria-pressed="false"><span aria-hidden="true">↗</span>离家</button></div><p id="scene-description" class="scene-description">客餐厅与电竞房灯光开启</p></div>
+      <section class="device-section"><div class="section-heading"><p class="section-label">设备</p><span id="current-scene">回家场景</span></div><div id="device-list"></div></section>
+      <section class="dimmer-section" aria-label="选中灯具调光"><div class="section-heading"><div><p class="section-label">正在调节</p><h3 id="selected-name">客厅主灯</h3></div><output id="brightness-value" for="brightness">100<span>%</span></output></div><label class="sr-only" for="brightness">选中灯具亮度</label><input id="brightness" type="range" min="0" max="100" step="1" value="100"><div class="range-caption"><span>关闭</span><span>明亮</span></div></section>
+      <div class="simulation-note"><span class="small-dot"></span><p>灯位与开关效果为模拟。<br>接入 Home Assistant 后可控制真实设备。</p></div>
+      <div class="panel-footer"><button id="design-open">设计师效果参考 <span>↗</span></button><a href="./vendor/neonplan/preview/wuhan.html?lang=zh&style=cozy&nopro" target="_blank" rel="noopener">NeonPlan 原生预览 <span>↗</span></a><a id="neonplan-link" href="./exports/wuhan-neonplan-backup.json" download>下载 NeonPlan 户型 <span>↓</span></a><button id="export-mapping">导出设备映射 <span>↓</span></button><button id="reset-state">重置体验 <span>↺</span></button></div>
+    </aside>
+  </main>
+  <dialog id="source-dialog" aria-labelledby="source-title"><div class="dialog-heading"><div><p class="overline">SOURCE & ASSUMPTIONS</p><h2 id="source-title">图纸与建模说明</h2></div><button id="source-close" aria-label="关闭说明">×</button></div><div class="source-layout"><img src="./data/source-plan.png" alt="从武汉印130最新版 DWG 提取的平面，横向内部尺寸链标注11.33米"><div><p>来源：武汉印130最新版.dwg</p><p>墙线与门窗位置来自 CAD；房间分区经过人工解读。家具简化显示。内部横向尺寸链 11.33 m，外轮廓最宽约 11.83 m。</p><ul id="assumptions"><li>墙高暂按 2.65 m，需以实际层高确认。</li><li>灯位为交互样例，未绑定真实控制回路。</li></ul><p class="source-footnote">此页为独立交互预览。剖切仅改变显示效果；小样用于核对布局和交互，不作为施工图。</p><a href="./data/geometry-notes.md" target="_blank" rel="noopener">查看几何提取记录 ↗</a><a href="./exports/README.md" target="_blank" rel="noopener">查看 NeonPlan 导入步骤 ↗</a><a id="upstream-link" href="./vendor/neonplan/preview/wuhan.html?lang=zh&style=cozy&nopro" target="_blank" rel="noopener">打开 NeonPlan 官方运行时预览 ↗</a></div></div></dialog>
+  <dialog id="design-dialog" aria-labelledby="design-title"><div class="dialog-heading"><div><p class="overline">DESIGNER REFERENCE</p><h2 id="design-title">设计师全景参考</h2></div><button id="design-close" aria-label="关闭设计参考">×</button></div><img class="reference-image" src="./references/designer/initial.png" alt="设计师客厅效果：蓝色沙发、暖木人字拼地板、彩块地毯与透明圆茶几"><p class="design-caption">按全景重建材质与简化外观；保留 CAD 平面与沙发朝向，次卧床贴窗侧和北墙。装饰尺寸为示意，并非设计师原始三维工程。</p><a class="reference-link" href="https://vr.justeasy.cn/view/179416y8s9w6pc82-1794271703.html" target="_blank" rel="noopener">打开设计师完整全景 ↗</a></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module">import('./app.mjs').catch(error=>{document.getElementById('loading').hidden=true;const el=document.getElementById('error');el.hidden=false;el.textContent='模型加载失败。请用 start.cmd 启动，并确认浏览器启用了 WebGL。'+error.message;});</script>
+</body>
+</html>

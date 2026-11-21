@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8776/vendor/neonplan/preview/wuhan.html?lang=zh&style=cozy&nopro",
+  "browser": "Chromium via isolated agent-browser session neonplan-verify",
+  "officialPanelLoaded": true,
+  "official3dViewLoaded": true,
+  "rooms": 9,
+  "openings": 10,
+  "simulatedLights": 4,
+  "steps": [
+    "Loaded the local native backup in the official v4.0.0 preview",
+    "Clicked each of the four visible simulation buttons: all four states changed off -> on with brightness 200",
+    "Observed and saved the official 3D rendering with lights on",
+    "Clicked the same four buttons again: all four states returned to off",
+    "Saved lights-off screenshot and closed the isolated browser session"
+  ],
+  "screenshots": ["neonplan-preview-off.png", "neonplan-preview-on.png"],
+  "actualHomeAssistantConnected": false,
+  "realDevicesControlled": false
+}

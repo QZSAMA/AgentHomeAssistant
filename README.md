@@ -1,5 +1,7 @@
 # AgentHomeAssistant
 
+> **2026-11-21 三维户型小样**：[home-twin-3d 使用说明](examples/home-twin-3d/README.md)。已实现 CAD 户型旋转查看、设计师参考配色、次卧床靠窗靠墙、四盏模拟灯开关/调光及场景切换，并提供 NeonPlan 原生导入备份。运行 `python examples/home-twin-3d/serve.py` 后访问 http://127.0.0.1:8776/。当前没有连接真实 Home Assistant；[交付核验](examples/home-twin-3d/docs/delivery-check.md)记录完成范围与限制。
+
 > **光猫接入决定（2026-11-18）**：武汉电信 1,000 Mbps，当前采用运营商光猫 Internet 桥接 → Fusion 2.5G 普通版 PPPoE 拨号，尚未实施/验收。XG-PON 仅为备用研究假设，实际制式/原光猫型号待核；旧规划上行 30 Mbps 未实测。见[当前接入与验收](docs/wan-bridge-plan.md)、[替换设备/案例/视频备用研究](docs/ont-replacement-backup-research.md)。本轮不采购新光猫、猫棒或 MC420L；Omada 已下单 7 台、另待购 Fusion 的状态与同一家庭 LAN 方案不变。
 
 > **2026-11-21智能配件更新**：原绿米19,324元签字单不变。[设备增补Excel](outputs/aqara-supplement-20261118/全屋智能新增设备清单.xlsx)已补型号、官方/购买链接及核验状态，保留31条记录（独立门铃已取消、电竞房独立温湿度计暂不买），备选不叠加数量。两卫改选奥普米家版，完整SKU待定，拟经HA Xiaomi Home联动；米家不等于直连Aqara。门锁要求可视猫眼，当前官网较早猫眼款仅待核候选。见[型号核验](docs/aqara-model-verification-20261121.md)、[详细计划](docs/aqara-supplement-plan-20261118.md)与[全屋查漏](docs/smart-home-supplement-audit-20261118.md)。次卧照明不加、窗户仅检测，两卫FP310复用；欧瑞博仍覆盖空调/新风/地暖/热水器。未下单，实际库存待核。

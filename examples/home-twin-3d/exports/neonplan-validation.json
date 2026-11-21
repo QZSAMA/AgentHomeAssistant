@@ -1,0 +1,148 @@
+{
+  "upstream": {
+    "tag": "v4.0.0",
+    "commit": "8a0fecd90c4eb565c8af8e2fcac01346125f069f"
+  },
+  "sourceHouseSha256": "6cbf90a7fe15c43fa359dbf9d2233e6f261b280193c6097c3563515335c285d8",
+  "sourceDevicesSha256": "5ab1edc98a161afd995f66853e72942f68b9523755ca5c1476e6e5179e6a39f4",
+  "sourceDesignStyleSha256": "f3b8e6d99db6b63da915f34900257723d6e26b88ce7b0c66d20d2035bc1bb748",
+  "referenceStyleApplied": true,
+  "officialImporter": "readSimple -> buildPlan",
+  "importerStatsBeforeSemanticAdaptation": {
+    "floors": 1,
+    "rooms": 9,
+    "doors": 4,
+    "windows": 4,
+    "walls": 2,
+    "furniture": 23
+  },
+  "importerWarningsBeforeSemanticAdaptation": [
+    {
+      "code": "openings_dropped",
+      "floor": "武汉印 · 住宅层",
+      "n": 2
+    }
+  ],
+  "adaptation": "Room polygons are semantic floor zones: all room boundary walls disabled; surveyed walls and aperture host walls retained explicitly. No HA entity IDs assigned.",
+  "officialParseExportPassed": true,
+  "sourceUnits": "m",
+  "originShiftMetres": [
+    0.12,
+    0.12
+  ],
+  "roomCount": 9,
+  "sourcePhysicalWallSegments": 32,
+  "openingHostWalls": 10,
+  "generatedRoomBoundaryWalls": 0,
+  "renderedFreeWallSegments": 42,
+  "adjacentRoomPairs": 3,
+  "geometryWarnings": [],
+  "unhostedOpenings": [],
+  "openings": [
+    {
+      "sourceId": "entry-door",
+      "nativeId": "opening_entry-door",
+      "host": "opening_host_0",
+      "width": 1.07,
+      "center": [
+        10.004999999999999,
+        8.215
+      ]
+    },
+    {
+      "sourceId": "studio-door",
+      "nativeId": "opening_studio-door",
+      "host": "opening_host_1",
+      "width": 0.998,
+      "center": [
+        4.925,
+        7.596
+      ]
+    },
+    {
+      "sourceId": "guest-bath-door",
+      "nativeId": "opening_guest-bath-door",
+      "host": "opening_host_2",
+      "width": 0.8,
+      "center": [
+        5.415,
+        8.15
+      ]
+    },
+    {
+      "sourceId": "bedroom-door",
+      "nativeId": "opening_bedroom-door",
+      "host": "opening_host_3",
+      "width": 0.76,
+      "center": [
+        7.685,
+        2.715
+      ]
+    },
+    {
+      "sourceId": "master-west-window",
+      "nativeId": "opening_master-west-window",
+      "host": "opening_host_4",
+      "width": 3.095,
+      "center": [
+        0,
+        1.6625
+      ]
+    },
+    {
+      "sourceId": "living-west-window",
+      "nativeId": "opening_living-west-window",
+      "host": "opening_host_5",
+      "width": 4.695,
+      "center": [
+        0.025,
+        6.657500000000001
+      ]
+    },
+    {
+      "sourceId": "bath-north-window",
+      "nativeId": "opening_bath-north-window",
+      "host": "opening_host_6",
+      "width": 0.7,
+      "center": [
+        6.665,
+        0
+      ]
+    },
+    {
+      "sourceId": "bedroom-east-window",
+      "nativeId": "opening_bedroom-east-window",
+      "host": "opening_host_7",
+      "width": 1.75,
+      "center": [
+        11.57,
+        1.605
+      ]
+    },
+    {
+      "sourceId": "kitchen-east-window",
+      "nativeId": "opening_kitchen-east-window",
+      "host": "opening_host_8",
+      "width": 0.86,
+      "center": [
+        11.59,
+        4.59
+      ]
+    },
+    {
+      "sourceId": "guest-bath-south-window",
+      "nativeId": "opening_guest-bath-south-window",
+      "host": "opening_host_9",
+      "width": 0.87,
+      "center": [
+        5.494999999999999,
+        9.93
+      ]
+    }
+  ],
+  "furnitureCount": 30,
+  "lampPlaceholderCount": 4,
+  "realEntityBindings": 0,
+  "officialBackendSchemaPassed": true,
+  "backendSchema": "NeonPlan v4.0.0 schema.py BUILDING_SCHEMA; voluptuous 0.15.2"
+}

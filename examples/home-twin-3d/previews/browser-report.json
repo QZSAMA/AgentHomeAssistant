@@ -1,0 +1,36 @@
+{
+  "base_url": "http://127.0.0.1:8776",
+  "checks": [
+    "desktop loads as an explicitly simulated 3D home",
+    "switches, keyboard dimming, zero brightness, and remembered brightness",
+    "home, movie, away scenes and night display",
+    "camera presets, wall cutaway, CAD overlay, and room labels",
+    "projected lamp buttons toggle and select the matching device",
+    "canvas drag and keyboard camera controls do not toggle devices",
+    "source dialog opens and closes by button and Escape",
+    "designer reference dialog uses a local image and closes with button and Escape",
+    "selection and simulated brightness persist after reload",
+    "three designer-mode rebuild cycles preserve state, selection, dimming, and working single lamp handlers",
+    "designer living, studio, bedroom, and full-wall views render without errors",
+    "downloaded mapping declares disconnected simulation and no bound entities",
+    "all five mobile camera buttons fit and designer mode remains operable",
+    "390×844 mobile layout has no horizontal overflow and remains operable",
+    "no page errors, external requests, or failed required resources"
+  ],
+  "screenshots": [
+    "desktop.png",
+    "night.png",
+    "top.png",
+    "designer-living.png",
+    "designer-studio.png",
+    "designer-bedroom.png",
+    "designer-full-walls.png",
+    "desktop.png",
+    "mobile.png"
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "external_requests": [],
+  "failed_requests": [],
+  "status": "passed"
+}

@@ -1,0 +1,1639 @@
+{
+  "format": "neonplan3d",
+  "version": 1,
+  "exported_at": "2026-11-21T04:50:36.250Z",
+  "building": {
+    "version": 1,
+    "floors": [
+      {
+        "id": "floor_wuhan",
+        "name": "武汉印 · 住宅层",
+        "elevation": 0,
+        "height": 2.65,
+        "cut_height": 1.15,
+        "rooms": [
+          {
+            "id": "room_master",
+            "name": "主卧",
+            "area_id": null,
+            "points": [
+              [
+                0.395,
+                0.21
+              ],
+              [
+                5.265,
+                0.21
+              ],
+              [
+                5.265,
+                1.277
+              ],
+              [
+                6.045,
+                2.26
+              ],
+              [
+                6.545,
+                2.26
+              ],
+              [
+                6.545,
+                3.21
+              ],
+              [
+                0.395,
+                3.21
+              ]
+            ],
+            "floor_material": "oak",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_bathroom",
+            "name": "主卫",
+            "area_id": null,
+            "points": [
+              [
+                5.375,
+                0.21
+              ],
+              [
+                7.625,
+                0.21
+              ],
+              [
+                7.625,
+                2.14
+              ],
+              [
+                6.099,
+                2.14
+              ],
+              [
+                5.375,
+                1.22
+              ]
+            ],
+            "floor_material": "tiles",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_bedroom",
+            "name": "次卧",
+            "area_id": null,
+            "points": [
+              [
+                7.745,
+                0.21
+              ],
+              [
+                11.45,
+                0.21
+              ],
+              [
+                11.45,
+                3.21
+              ],
+              [
+                7.745,
+                3.21
+              ]
+            ],
+            "floor_material": "oak",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_living",
+            "name": "客厅",
+            "area_id": null,
+            "points": [
+              [
+                0.395,
+                3.465
+              ],
+              [
+                6.545,
+                3.465
+              ],
+              [
+                6.545,
+                6.78
+              ],
+              [
+                4.985,
+                6.895
+              ],
+              [
+                1.535,
+                6.895
+              ],
+              [
+                1.535,
+                9.765
+              ],
+              [
+                0.395,
+                9.765
+              ]
+            ],
+            "floor_material": "oak",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_dining",
+            "name": "餐厅",
+            "area_id": null,
+            "points": [
+              [
+                6.545,
+                3.465
+              ],
+              [
+                8.96,
+                3.465
+              ],
+              [
+                8.96,
+                5.79
+              ],
+              [
+                10.71,
+                5.79
+              ],
+              [
+                10.71,
+                6.6
+              ],
+              [
+                7.075,
+                6.6
+              ],
+              [
+                7.075,
+                6.895
+              ],
+              [
+                6.545,
+                6.895
+              ]
+            ],
+            "floor_material": "oak",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_studio",
+            "name": "电竞房",
+            "area_id": null,
+            "points": [
+              [
+                1.655,
+                7.015
+              ],
+              [
+                4.865,
+                7.015
+              ],
+              [
+                4.865,
+                9.765
+              ],
+              [
+                1.655,
+                9.765
+              ]
+            ],
+            "floor_material": "oak",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_kitchen",
+            "name": "厨房",
+            "area_id": null,
+            "points": [
+              [
+                9.07,
+                3.44
+              ],
+              [
+                11.47,
+                3.44
+              ],
+              [
+                11.47,
+                5.68
+              ],
+              [
+                9.07,
+                5.68
+              ]
+            ],
+            "floor_material": "tiles",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_guest-bath",
+            "name": "客卫",
+            "area_id": null,
+            "points": [
+              [
+                4.97,
+                8.205
+              ],
+              [
+                6.855,
+                8.205
+              ],
+              [
+                6.855,
+                9.81
+              ],
+              [
+                4.97,
+                9.81
+              ]
+            ],
+            "floor_material": "tiles",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          },
+          {
+            "id": "room_entry",
+            "name": "玄关",
+            "area_id": null,
+            "points": [
+              [
+                7.075,
+                6.6
+              ],
+              [
+                11.47,
+                6.6
+              ],
+              [
+                11.47,
+                8.095
+              ],
+              [
+                7.075,
+                8.095
+              ]
+            ],
+            "floor_material": "oak",
+            "panel": [],
+            "wall_heights": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "wall_color": "#eee5d6"
+          }
+        ],
+        "openings": [
+          {
+            "id": "opening_entry-door",
+            "room_id": "room_entry",
+            "edge": 0,
+            "wall": "opening_host_0",
+            "offset": 0.555,
+            "width": 1.07,
+            "type": "door",
+            "sill": 0,
+            "height": 2.1,
+            "hinge": "left",
+            "leaves": 1,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_studio-door",
+            "room_id": "room_guest-bath",
+            "edge": 0,
+            "wall": "opening_host_1",
+            "offset": 0.519,
+            "width": 0.998,
+            "type": "door",
+            "sill": 0,
+            "height": 2.1,
+            "hinge": "left",
+            "leaves": 1,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_guest-bath-door",
+            "room_id": "room_guest-bath",
+            "edge": 0,
+            "wall": "opening_host_2",
+            "offset": 0.42,
+            "width": 0.8,
+            "type": "door",
+            "sill": 0,
+            "height": 2.1,
+            "hinge": "left",
+            "leaves": 1,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_bedroom-door",
+            "room_id": "room_bathroom",
+            "edge": 0,
+            "wall": "opening_host_3",
+            "offset": 0.4,
+            "width": 0.76,
+            "type": "door",
+            "sill": 0,
+            "height": 2.1,
+            "hinge": "left",
+            "leaves": 1,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_master-west-window",
+            "room_id": "room_master",
+            "edge": 0,
+            "wall": "opening_host_4",
+            "offset": 1.5675,
+            "width": 3.095,
+            "type": "window",
+            "sill": 0.75,
+            "height": 1.65,
+            "hinge": "left",
+            "leaves": 2,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_living-west-window",
+            "room_id": "room_living",
+            "edge": 0,
+            "wall": "opening_host_5",
+            "offset": 2.3675,
+            "width": 4.695,
+            "type": "window",
+            "sill": 0.75,
+            "height": 1.65,
+            "hinge": "left",
+            "leaves": 2,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_bath-north-window",
+            "room_id": "room_bathroom",
+            "edge": 0,
+            "wall": "opening_host_6",
+            "offset": 0.37,
+            "width": 0.7,
+            "type": "window",
+            "sill": 1.3,
+            "height": 1.1,
+            "hinge": "left",
+            "leaves": 1,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_bedroom-east-window",
+            "room_id": "room_bedroom",
+            "edge": 0,
+            "wall": "opening_host_7",
+            "offset": 0.895,
+            "width": 1.75,
+            "type": "window",
+            "sill": 0.75,
+            "height": 1.65,
+            "hinge": "left",
+            "leaves": 2,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_kitchen-east-window",
+            "room_id": "room_kitchen",
+            "edge": 0,
+            "wall": "opening_host_8",
+            "offset": 0.45,
+            "width": 0.86,
+            "type": "window",
+            "sill": 1.2,
+            "height": 1.1,
+            "hinge": "left",
+            "leaves": 1,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          },
+          {
+            "id": "opening_guest-bath-south-window",
+            "room_id": "room_guest-bath",
+            "edge": 0,
+            "wall": "opening_host_9",
+            "offset": 0.455,
+            "width": 0.87,
+            "type": "window",
+            "sill": 1.3,
+            "height": 1.1,
+            "hinge": "left",
+            "leaves": 1,
+            "swing": "in",
+            "cover": null,
+            "contact": null,
+            "contact2": null,
+            "tilt": null
+          }
+        ],
+        "furniture": [
+          {
+            "id": "furn_living-sofa",
+            "type": "sofa",
+            "x": 3.284,
+            "z": 6.441,
+            "rotation": 0,
+            "w": 2.09,
+            "d": 0.732,
+            "h": 0.78,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "fabric": "#4d7e91",
+              "wood": "#86603e"
+            }
+          },
+          {
+            "id": "furn_living-coffee",
+            "type": "table_round",
+            "x": 3.26,
+            "z": 5.43,
+            "rotation": 0,
+            "w": 1.15,
+            "d": 0.6,
+            "h": 0.35,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#aeb6b2"
+            }
+          },
+          {
+            "id": "furn_living-media",
+            "type": "sideboard",
+            "x": 3.03,
+            "z": 3.66,
+            "rotation": 0,
+            "w": 3,
+            "d": 0.3,
+            "h": 0.45,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#292620"
+            }
+          },
+          {
+            "id": "furn_dining-table",
+            "type": "table",
+            "x": 8.035,
+            "z": 5.596,
+            "rotation": 0,
+            "w": 1.8,
+            "d": 0.8,
+            "h": 0.75,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#b58a5e"
+            }
+          },
+          {
+            "id": "furn_dining-chair-1",
+            "type": "chair",
+            "x": 7.63,
+            "z": 4.98,
+            "rotation": 0,
+            "w": 0.46,
+            "d": 0.48,
+            "h": 0.82,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#a67c52",
+              "fabric": "#d9d6c9"
+            }
+          },
+          {
+            "id": "furn_dining-chair-2",
+            "type": "chair",
+            "x": 8.33,
+            "z": 4.98,
+            "rotation": 0,
+            "w": 0.46,
+            "d": 0.48,
+            "h": 0.82,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#a67c52",
+              "fabric": "#d9d6c9"
+            }
+          },
+          {
+            "id": "furn_dining-chair-3",
+            "type": "chair",
+            "x": 7.63,
+            "z": 6.21,
+            "rotation": 180,
+            "w": 0.46,
+            "d": 0.48,
+            "h": 0.82,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#a67c52",
+              "fabric": "#d9d6c9"
+            }
+          },
+          {
+            "id": "furn_dining-chair-4",
+            "type": "chair",
+            "x": 8.33,
+            "z": 6.21,
+            "rotation": 180,
+            "w": 0.46,
+            "d": 0.48,
+            "h": 0.82,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#a67c52",
+              "fabric": "#d9d6c9"
+            }
+          },
+          {
+            "id": "furn_studio-bar",
+            "type": "island",
+            "x": 3.26,
+            "z": 9.365,
+            "rotation": 0,
+            "w": 3.21,
+            "d": 0.8,
+            "h": 0.92,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#ac7547"
+            }
+          },
+          {
+            "id": "furn_studio-seat-1",
+            "type": "chair",
+            "x": 2.45,
+            "z": 8.64,
+            "rotation": 0,
+            "w": 0.48,
+            "d": 0.48,
+            "h": 0.85,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "fabric": "#2d5687",
+              "wood": "#45423a"
+            }
+          },
+          {
+            "id": "furn_studio-seat-2",
+            "type": "chair",
+            "x": 4.02,
+            "z": 8.64,
+            "rotation": 0,
+            "w": 0.48,
+            "d": 0.48,
+            "h": 0.85,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "fabric": "#2d5687",
+              "wood": "#45423a"
+            }
+          },
+          {
+            "id": "furn_studio-storage",
+            "type": "sideboard",
+            "x": 1.982,
+            "z": 7.266,
+            "rotation": 0,
+            "w": 0.654,
+            "d": 0.502,
+            "h": 2.2,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#a7774c"
+            }
+          },
+          {
+            "id": "furn_master-bed",
+            "type": "bed",
+            "x": 1.93,
+            "z": 1.36,
+            "rotation": 0,
+            "w": 1.8,
+            "d": 2,
+            "h": 0.52,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#9b633a",
+              "fabric": "#b6c7c5",
+              "front": "#eee8d9"
+            }
+          },
+          {
+            "id": "furn_master-wardrobe",
+            "type": "wardrobe",
+            "x": 4.19,
+            "z": 1.08,
+            "rotation": 0,
+            "w": 0.6,
+            "d": 2.2,
+            "h": 2.4,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "furn_bedroom-bed",
+            "type": "bed",
+            "x": 10.7,
+            "z": 1.21,
+            "rotation": 0,
+            "w": 1.5,
+            "d": 2,
+            "h": 0.52,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#b58a5e",
+              "fabric": "#e9e4d7"
+            }
+          },
+          {
+            "id": "furn_bedroom-wardrobe",
+            "type": "wardrobe",
+            "x": 8.045,
+            "z": 1.48,
+            "rotation": 0,
+            "w": 0.6,
+            "d": 1.9,
+            "h": 2.4,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "furn_kitchen-north",
+            "type": "kitchen",
+            "x": 10.28,
+            "z": 3.74,
+            "rotation": 0,
+            "w": 2.4,
+            "d": 0.6,
+            "h": 0.9,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#edece5"
+            }
+          },
+          {
+            "id": "furn_kitchen-east",
+            "type": "kitchen",
+            "x": 11.17,
+            "z": 4.78,
+            "rotation": 0,
+            "w": 0.6,
+            "d": 1.45,
+            "h": 0.9,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#edece5"
+            }
+          },
+          {
+            "id": "furn_kitchen-south",
+            "type": "kitchen",
+            "x": 9.99,
+            "z": 5.38,
+            "rotation": 0,
+            "w": 1.8,
+            "d": 0.6,
+            "h": 0.9,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#edece5"
+            }
+          },
+          {
+            "id": "furn_dining-sideboard",
+            "type": "sideboard",
+            "x": 7.73,
+            "z": 3.74,
+            "rotation": 0,
+            "w": 2.2,
+            "d": 0.6,
+            "h": 0.9,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#b58a5e"
+            }
+          },
+          {
+            "id": "furn_entry-cabinet",
+            "type": "sideboard",
+            "x": 8.33,
+            "z": 7.76,
+            "rotation": 0,
+            "w": 2,
+            "d": 0.6,
+            "h": 1,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "wood": "#b58a5e"
+            }
+          },
+          {
+            "id": "furn_guest-wc",
+            "type": "wc",
+            "x": 5.43,
+            "z": 9.38,
+            "rotation": 0,
+            "w": 0.4,
+            "d": 0.68,
+            "h": 0.55,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "furn_master-wc",
+            "type": "wc",
+            "x": 5.86,
+            "z": 0.68,
+            "rotation": 0,
+            "w": 0.4,
+            "d": 0.68,
+            "h": 0.55,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "lamp_living-main",
+            "name": "客厅主灯（示意点位，待绑定）",
+            "type": "lamp_ceiling",
+            "x": 3.28,
+            "z": 5.13,
+            "w": 0.4,
+            "d": 0.4,
+            "h": 0.08,
+            "rotation": 0,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "lamp_dining-pendant",
+            "name": "餐厅吊灯（示意点位，待绑定）",
+            "type": "lamp_pendant",
+            "x": 8.034909,
+            "z": 5.596454,
+            "w": 0.4,
+            "d": 0.4,
+            "h": 0.45,
+            "rotation": 0,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "lamp_studio-main",
+            "name": "电竞房主灯（示意点位，待绑定）",
+            "type": "lamp_ceiling",
+            "x": 3.26,
+            "z": 8.33,
+            "w": 0.4,
+            "d": 0.4,
+            "h": 0.08,
+            "rotation": 0,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "lamp_studio-desk",
+            "name": "电竞房桌面灯（示意点位，待绑定）",
+            "type": "lamp_table",
+            "x": 2.23,
+            "z": 9.18,
+            "w": 0.22,
+            "d": 0.22,
+            "h": 0.35,
+            "rotation": 0,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "mount_y": 0.85
+          },
+          {
+            "id": "decor_living-rug",
+            "name": "living-rug",
+            "type": "rug",
+            "x": 3.23,
+            "z": 5.48,
+            "w": 3.1,
+            "d": 2.5,
+            "h": 0.025,
+            "rotation": 0,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "fabric": "#ede9df"
+            }
+          },
+          {
+            "id": "decor_living-red-lamp",
+            "name": "living-red-lamp",
+            "type": "lamp_floor",
+            "x": 0.93,
+            "z": 5.73,
+            "w": 0.35,
+            "d": 0.35,
+            "h": 1.75,
+            "rotation": 0,
+            "variant": null,
+            "entity": null,
+            "power": null
+          },
+          {
+            "id": "decor_living-blue-chair",
+            "name": "living-blue-chair",
+            "type": "armchair",
+            "x": 1.13,
+            "z": 4.53,
+            "w": 0.75,
+            "d": 0.8,
+            "h": 0.83,
+            "rotation": 342.811266,
+            "variant": null,
+            "entity": null,
+            "power": null,
+            "finish": {
+              "fabric": "#4d7e91",
+              "wood": "#b58a5e"
+            }
+          }
+        ],
+        "placements": [],
+        "background": null,
+        "outdoor": [],
+        "walls": [
+          {
+            "id": "cad_wall_0",
+            "a": [
+              0,
+              0.045
+            ],
+            "b": [
+              6.315,
+              0.045
+            ],
+            "thickness": 0.33,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_1",
+            "a": [
+              7.015,
+              0.045
+            ],
+            "b": [
+              11.57,
+              0.045
+            ],
+            "thickness": 0.33,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_2",
+            "a": [
+              0,
+              0
+            ],
+            "b": [
+              0,
+              0.115
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_3",
+            "a": [
+              0.1375,
+              3.21
+            ],
+            "b": [
+              0.1375,
+              4.31
+            ],
+            "thickness": 0.515,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_4",
+            "a": [
+              0.025,
+              9.005
+            ],
+            "b": [
+              0.025,
+              9.9075
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_5",
+            "a": [
+              0.025,
+              9.9075
+            ],
+            "b": [
+              5.06,
+              9.9075
+            ],
+            "thickness": 0.285,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_6",
+            "a": [
+              5.93,
+              9.93
+            ],
+            "b": [
+              6.975,
+              9.93
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_7",
+            "a": [
+              6.975,
+              8.215
+            ],
+            "b": [
+              6.975,
+              9.93
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_8",
+            "a": [
+              6.975,
+              8.215
+            ],
+            "b": [
+              9.47,
+              8.215
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_9",
+            "a": [
+              10.54,
+              8.215
+            ],
+            "b": [
+              11.59,
+              8.215
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_10",
+            "a": [
+              11.57,
+              0.045
+            ],
+            "b": [
+              11.57,
+              0.73
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_11",
+            "a": [
+              11.59,
+              2.48
+            ],
+            "b": [
+              11.59,
+              4.16
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_12",
+            "a": [
+              11.59,
+              5.02
+            ],
+            "b": [
+              11.59,
+              8.215
+            ],
+            "thickness": 0.24,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_13",
+            "a": [
+              0.395,
+              3.3375
+            ],
+            "b": [
+              5.315,
+              3.3375
+            ],
+            "thickness": 0.255,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_14",
+            "a": [
+              5.315,
+              3.11
+            ],
+            "b": [
+              5.315,
+              3.3375
+            ],
+            "thickness": 0.1,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_15",
+            "a": [
+              5.32,
+              0.21
+            ],
+            "b": [
+              5.32,
+              1.248
+            ],
+            "thickness": 0.11,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_16",
+            "a": [
+              6.099,
+              2.2
+            ],
+            "b": [
+              7.685,
+              2.2
+            ],
+            "thickness": 0.12,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_17",
+            "a": [
+              7.685,
+              0.21
+            ],
+            "b": [
+              7.685,
+              2.335
+            ],
+            "thickness": 0.12,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_18",
+            "a": [
+              7.69,
+              3.095
+            ],
+            "b": [
+              7.69,
+              3.325
+            ],
+            "thickness": 0.11,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_19",
+            "a": [
+              6.545,
+              3.3175
+            ],
+            "b": [
+              7.455,
+              3.3175
+            ],
+            "thickness": 0.215,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_20",
+            "a": [
+              7.455,
+              3.3375
+            ],
+            "b": [
+              11.57,
+              3.3375
+            ],
+            "thickness": 0.255,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_21",
+            "a": [
+              9.015,
+              3.44
+            ],
+            "b": [
+              9.015,
+              4.11
+            ],
+            "thickness": 0.11,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_22",
+            "a": [
+              9.02,
+              5.735
+            ],
+            "b": [
+              10.76,
+              5.735
+            ],
+            "thickness": 0.11,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_23",
+            "a": [
+              10.76,
+              5.735
+            ],
+            "b": [
+              10.76,
+              6.55
+            ],
+            "thickness": 0.1,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_24",
+            "a": [
+              10.76,
+              6.55
+            ],
+            "b": [
+              11.59,
+              6.55
+            ],
+            "thickness": 0.1,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_25",
+            "a": [
+              1.595,
+              6.955
+            ],
+            "b": [
+              1.595,
+              9.765
+            ],
+            "thickness": 0.12,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_26",
+            "a": [
+              1.595,
+              6.955
+            ],
+            "b": [
+              4.925,
+              6.955
+            ],
+            "thickness": 0.12,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_27",
+            "a": [
+              4.925,
+              6.955
+            ],
+            "b": [
+              4.925,
+              7.097
+            ],
+            "thickness": 0.12,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_28",
+            "a": [
+              4.9175,
+              8.15
+            ],
+            "b": [
+              4.9175,
+              9.765
+            ],
+            "thickness": 0.105,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_29",
+            "a": [
+              4.865,
+              8.15
+            ],
+            "b": [
+              5.015,
+              8.15
+            ],
+            "thickness": 0.11,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_30",
+            "a": [
+              5.815,
+              8.15
+            ],
+            "b": [
+              6.855,
+              8.15
+            ],
+            "thickness": 0.11,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "cad_wall_31",
+            "a": [
+              6.965,
+              6.895
+            ],
+            "b": [
+              6.965,
+              8.095
+            ],
+            "thickness": 0.22,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_0",
+            "a": [
+              9.45,
+              8.215
+            ],
+            "b": [
+              10.56,
+              8.215
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_1",
+            "a": [
+              4.925,
+              7.077
+            ],
+            "b": [
+              4.925,
+              8.115
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_2",
+            "a": [
+              4.995,
+              8.15
+            ],
+            "b": [
+              5.835,
+              8.15
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_3",
+            "a": [
+              7.685,
+              2.315
+            ],
+            "b": [
+              7.685,
+              3.115
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_4",
+            "a": [
+              0,
+              0.095
+            ],
+            "b": [
+              0,
+              3.23
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_5",
+            "a": [
+              0.025,
+              4.29
+            ],
+            "b": [
+              0.025,
+              9.025
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_6",
+            "a": [
+              6.295,
+              0
+            ],
+            "b": [
+              7.035,
+              0
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_7",
+            "a": [
+              11.57,
+              0.71
+            ],
+            "b": [
+              11.57,
+              2.5
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_8",
+            "a": [
+              11.59,
+              4.14
+            ],
+            "b": [
+              11.59,
+              5.04
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          },
+          {
+            "id": "opening_host_9",
+            "a": [
+              5.04,
+              9.93
+            ],
+            "b": [
+              5.95,
+              9.93
+            ],
+            "thickness": 0.2,
+            "height": 2.65,
+            "color": "#eee5d6"
+          }
+        ],
+        "ha_floor": null
+      }
+    ],
+    "settings": {
+      "wall_exterior": 0.255,
+      "wall_interior": 0.11,
+      "grid": 0.05,
+      "north": 0,
+      "roof": {
+        "type": "none",
+        "pitch": 35,
+        "overhang": 0.4
+      },
+      "facade_color": "#eee5d6",
+      "style_day": "cozy",
+      "style_evening": "evening",
+      "style_night": "evening"
+    },
+    "energy": {
+      "meter": null,
+      "grid": null,
+      "grid_invert": false,
+      "solar": null,
+      "battery": null,
+      "battery_invert": false,
+      "battery_soc": null,
+      "consumption": null,
+      "tariff": null
+    },
+    "presence": []
+  }
+}

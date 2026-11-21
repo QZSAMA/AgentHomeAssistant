@@ -1,0 +1,505 @@
+{
+  "applied": true,
+  "rooms": [
+    {
+      "sourceId": "master",
+      "nativeId": "room_master",
+      "floor": "oak",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "bathroom",
+      "nativeId": "room_bathroom",
+      "floor": "tiles",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "bedroom",
+      "nativeId": "room_bedroom",
+      "floor": "oak",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "living",
+      "nativeId": "room_living",
+      "floor": "oak",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "dining",
+      "nativeId": "room_dining",
+      "floor": "oak",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "studio",
+      "nativeId": "room_studio",
+      "floor": "oak",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "kitchen",
+      "nativeId": "room_kitchen",
+      "floor": "tiles",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "guest-bath",
+      "nativeId": "room_guest-bath",
+      "floor": "tiles",
+      "wallColor": "#eee5d6"
+    },
+    {
+      "sourceId": "entry",
+      "nativeId": "room_entry",
+      "floor": "oak",
+      "wallColor": "#eee5d6"
+    }
+  ],
+  "walls": [
+    {
+      "sourceId": "outer-nw",
+      "nativeId": "cad_wall_0",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-ne",
+      "nativeId": "cad_wall_1",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-west-top",
+      "nativeId": "cad_wall_2",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-west-middle",
+      "nativeId": "cad_wall_3",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-west-bottom",
+      "nativeId": "cad_wall_4",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-south-west",
+      "nativeId": "cad_wall_5",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-south-east",
+      "nativeId": "cad_wall_6",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-return",
+      "nativeId": "cad_wall_7",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "entry-left",
+      "nativeId": "cad_wall_8",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "entry-right",
+      "nativeId": "cad_wall_9",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-east-top",
+      "nativeId": "cad_wall_10",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-east-middle",
+      "nativeId": "cad_wall_11",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "outer-east-bottom",
+      "nativeId": "cad_wall_12",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "master-south",
+      "nativeId": "cad_wall_13",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "master-door-jamb",
+      "nativeId": "cad_wall_14",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "bath-west",
+      "nativeId": "cad_wall_15",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "bath-south",
+      "nativeId": "cad_wall_16",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "bedroom-west",
+      "nativeId": "cad_wall_17",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "bedroom-door-jamb",
+      "nativeId": "cad_wall_18",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "bedroom-south-left",
+      "nativeId": "cad_wall_19",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "bedroom-south-right",
+      "nativeId": "cad_wall_20",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "kitchen-nw-stub",
+      "nativeId": "cad_wall_21",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "kitchen-south",
+      "nativeId": "cad_wall_22",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "kitchen-shaft-west",
+      "nativeId": "cad_wall_23",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "kitchen-shaft-south",
+      "nativeId": "cad_wall_24",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "studio-west",
+      "nativeId": "cad_wall_25",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "studio-north",
+      "nativeId": "cad_wall_26",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "studio-east-jamb",
+      "nativeId": "cad_wall_27",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "studio-east",
+      "nativeId": "cad_wall_28",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "guest-bath-nw",
+      "nativeId": "cad_wall_29",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "guest-bath-ne",
+      "nativeId": "cad_wall_30",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "vanity-east",
+      "nativeId": "cad_wall_31",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_0",
+      "nativeId": "opening_host_0",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_1",
+      "nativeId": "opening_host_1",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_2",
+      "nativeId": "opening_host_2",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_3",
+      "nativeId": "opening_host_3",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_4",
+      "nativeId": "opening_host_4",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_5",
+      "nativeId": "opening_host_5",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_6",
+      "nativeId": "opening_host_6",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_7",
+      "nativeId": "opening_host_7",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_8",
+      "nativeId": "opening_host_8",
+      "color": "#eee5d6"
+    },
+    {
+      "sourceId": "opening_host_9",
+      "nativeId": "opening_host_9",
+      "color": "#eee5d6"
+    }
+  ],
+  "furniture": [
+    {
+      "sourceId": "living-sofa",
+      "nativeId": "furn_living-sofa",
+      "type": "sofa",
+      "finish": {
+        "fabric": "#4d7e91",
+        "wood": "#86603e"
+      }
+    },
+    {
+      "sourceId": "living-coffee",
+      "nativeId": "furn_living-coffee",
+      "type": "table_round",
+      "finish": {
+        "wood": "#aeb6b2"
+      }
+    },
+    {
+      "sourceId": "living-media",
+      "nativeId": "furn_living-media",
+      "type": "sideboard",
+      "finish": {
+        "wood": "#292620"
+      }
+    },
+    {
+      "sourceId": "dining-table",
+      "nativeId": "furn_dining-table",
+      "type": "table",
+      "finish": {
+        "wood": "#b58a5e"
+      }
+    },
+    {
+      "sourceId": "dining-chair-1",
+      "nativeId": "furn_dining-chair-1",
+      "type": "chair",
+      "finish": {
+        "wood": "#a67c52",
+        "fabric": "#d9d6c9"
+      }
+    },
+    {
+      "sourceId": "dining-chair-2",
+      "nativeId": "furn_dining-chair-2",
+      "type": "chair",
+      "finish": {
+        "wood": "#a67c52",
+        "fabric": "#d9d6c9"
+      }
+    },
+    {
+      "sourceId": "dining-chair-3",
+      "nativeId": "furn_dining-chair-3",
+      "type": "chair",
+      "finish": {
+        "wood": "#a67c52",
+        "fabric": "#d9d6c9"
+      }
+    },
+    {
+      "sourceId": "dining-chair-4",
+      "nativeId": "furn_dining-chair-4",
+      "type": "chair",
+      "finish": {
+        "wood": "#a67c52",
+        "fabric": "#d9d6c9"
+      }
+    },
+    {
+      "sourceId": "studio-bar",
+      "nativeId": "furn_studio-bar",
+      "type": "island",
+      "finish": {
+        "wood": "#ac7547"
+      }
+    },
+    {
+      "sourceId": "studio-seat-1",
+      "nativeId": "furn_studio-seat-1",
+      "type": "chair",
+      "finish": {
+        "fabric": "#2d5687",
+        "wood": "#45423a"
+      }
+    },
+    {
+      "sourceId": "studio-seat-2",
+      "nativeId": "furn_studio-seat-2",
+      "type": "chair",
+      "finish": {
+        "fabric": "#2d5687",
+        "wood": "#45423a"
+      }
+    },
+    {
+      "sourceId": "studio-storage",
+      "nativeId": "furn_studio-storage",
+      "type": "sideboard",
+      "finish": {
+        "wood": "#a7774c"
+      }
+    },
+    {
+      "sourceId": "master-bed",
+      "nativeId": "furn_master-bed",
+      "type": "bed",
+      "finish": {
+        "wood": "#9b633a",
+        "fabric": "#b6c7c5",
+        "front": "#eee8d9"
+      }
+    },
+    {
+      "sourceId": "master-wardrobe",
+      "nativeId": "furn_master-wardrobe",
+      "type": "wardrobe",
+      "finish": {}
+    },
+    {
+      "sourceId": "bedroom-bed",
+      "nativeId": "furn_bedroom-bed",
+      "type": "bed",
+      "finish": {
+        "wood": "#b58a5e",
+        "fabric": "#e9e4d7"
+      }
+    },
+    {
+      "sourceId": "bedroom-wardrobe",
+      "nativeId": "furn_bedroom-wardrobe",
+      "type": "wardrobe",
+      "finish": {}
+    },
+    {
+      "sourceId": "kitchen-north",
+      "nativeId": "furn_kitchen-north",
+      "type": "kitchen",
+      "finish": {
+        "wood": "#edece5"
+      }
+    },
+    {
+      "sourceId": "kitchen-east",
+      "nativeId": "furn_kitchen-east",
+      "type": "kitchen",
+      "finish": {
+        "wood": "#edece5"
+      }
+    },
+    {
+      "sourceId": "kitchen-south",
+      "nativeId": "furn_kitchen-south",
+      "type": "kitchen",
+      "finish": {
+        "wood": "#edece5"
+      }
+    },
+    {
+      "sourceId": "dining-sideboard",
+      "nativeId": "furn_dining-sideboard",
+      "type": "sideboard",
+      "finish": {
+        "wood": "#b58a5e"
+      }
+    },
+    {
+      "sourceId": "entry-cabinet",
+      "nativeId": "furn_entry-cabinet",
+      "type": "sideboard",
+      "finish": {
+        "wood": "#b58a5e"
+      }
+    }
+  ],
+  "decorAdded": [
+    {
+      "id": "living-rug",
+      "nativeId": "decor_living-rug",
+      "type": "rug",
+      "entity": null
+    },
+    {
+      "id": "living-red-lamp",
+      "nativeId": "decor_living-red-lamp",
+      "type": "lamp_floor",
+      "entity": null
+    },
+    {
+      "id": "living-blue-chair",
+      "nativeId": "decor_living-blue-chair",
+      "type": "armchair",
+      "entity": null
+    }
+  ],
+  "decorSkipped": [
+    {
+      "id": "studio-monitors",
+      "type": "monitors"
+    },
+    {
+      "id": "studio-triangle-lights",
+      "type": "studio-panels"
+    }
+  ],
+  "approximations": [
+    "living: herringbone -> native oak; 原生使用固定木地板纹理，不能显示人字拼。",
+    "dining: herringbone -> native oak; 原生使用固定木地板纹理，不能显示人字拼。",
+    "studio: herringbone -> native oak; 原生使用固定木地板纹理，不能显示人字拼。",
+    "entry: herringbone -> native oak; 原生使用固定木地板纹理，不能显示人字拼。",
+    "studio-north: wood-framed-glass -> 保留原CAD墙及高度；原生未近似添加整玻璃或新开口，半墙木框玻璃仅在独立预览表达。",
+    "living-sofa: pillowColor 独立靠垫色不能映射；原生靠垫随fabric色变亮。",
+    "living-coffee: round-glass -> 原生table_round不透明圆桌；保留中心及包围尺寸，无法携带透明玻璃材质。",
+    "living-media: sideboard.finish.front 无有效内置颜色角色，未伪写为已生效。",
+    "studio-bar: island.finish.front 无有效内置颜色角色，未伪写为已生效。",
+    "master-bed: headboardFabric 无独立软包角色；床头保留木色，fabric按linenColor表达床品。",
+    "master-wardrobe: wardrobe.finish.wood 无有效内置颜色角色，未伪写为已生效。",
+    "master-wardrobe: wardrobe.finish.front 无有效内置颜色角色，未伪写为已生效。",
+    "bedroom-bed: 次卧全景未完整加载；床品暂示意，非完整设计师复原。",
+    "bedroom-wardrobe: 次卧全景未完整加载；床品暂示意，非完整设计师复原。",
+    "bedroom-wardrobe: wardrobe.finish.wood 无有效内置颜色角色，未伪写为已生效。",
+    "bedroom-wardrobe: wardrobe.finish.front 无有效内置颜色角色，未伪写为已生效。",
+    "kitchen-north: counterColor 映射到原生wood台面角色；下柜暖木色无独立有效角色，保留原生默认柜体。",
+    "kitchen-north: upperCabinets 尚无明确尺寸/高度，原生未新增猜测吊柜。",
+    "kitchen-east: counterColor 映射到原生wood台面角色；下柜暖木色无独立有效角色，保留原生默认柜体。",
+    "kitchen-south: counterColor 映射到原生wood台面角色；下柜暖木色无独立有效角色，保留原生默认柜体。",
+    "dining-sideboard: sideboard.finish.front 无有效内置颜色角色，未伪写为已生效。",
+    "entry-cabinet: sideboard.finish.front 无有效内置颜色角色，未伪写为已生效。",
+    "living-rug: 彩块地毯近似为单色fabric地毯，原生未携带彩块图案。",
+    "living-red-lamp: 原生落地灯保留类型/位置，不支持红色壳体；未把壳体色误作灯光颜色。",
+    "studio-monitors: monitors 无准确原生模型，本次不添加猜测位置或替代结构。",
+    "studio-triangle-lights: studio-panels 无准确原生模型，本次不添加猜测位置或替代结构。"
+  ]
+}

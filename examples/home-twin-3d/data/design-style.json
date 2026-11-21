@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "name": "设计师效果参考",
+  "source": {
+    "url": "https://vr.justeasy.cn/view/179416y8s9w6pc82-1794271703.html",
+    "title": "方林集团毛锐",
+    "type": "krpano-panoramic-tour",
+    "reviewed": "2026-11-21",
+    "method": "依据用户提供的全景画面重建材质与简化外形；未取得原始三维工程。"
+  },
+  "palette": {
+    "wall": "#eee5d6",
+    "oak": "#b58a5e",
+    "floorWood": "#c8a67b",
+    "blueFabric": "#4d7e91",
+    "greenFabric": "#697336",
+    "redAccent": "#bd3024",
+    "yellowAccent": "#dbab31",
+    "cobalt": "#2559a1",
+    "darkWood": "#292620",
+    "white": "#ede9df",
+    "metal": "#a8aba5"
+  },
+  "roomStyles": {
+    "living": {"floor": "herringbone", "neonplanFloorMaterial": "oak", "wallColor": "#eee5d6", "evidence": "initial.png / studio-02.png"},
+    "dining": {"floor": "herringbone", "neonplanFloorMaterial": "oak", "wallColor": "#eee5d6", "evidence": "客厅全景中的餐区连续地面"},
+    "studio": {"floor": "herringbone", "neonplanFloorMaterial": "oak", "wallColor": "#eee5d6", "evidence": "studio-01.png / studio-02.png"},
+    "entry": {"floor": "herringbone", "neonplanFloorMaterial": "oak", "wallColor": "#eee5d6", "evidence": "客厅全景中可见连续玄关地面"},
+    "master": {"floor": "wood", "neonplanFloorMaterial": "oak", "wallColor": "#eee5d6", "evidence": "master-bedroom-01.png：暖木床架与奶油墙；地板铺法暂近似"},
+    "bedroom": {"floor": "wood", "neonplanFloorMaterial": "oak", "wallColor": "#eee5d6", "evidence": "次卧全景加载不完整；地板暂沿用暖木，与客厅人字纹区分，不宣称精确复原"},
+    "kitchen": {"floor": "tile", "neonplanFloorMaterial": "tiles", "wallColor": "#eee5d6", "evidence": "kitchen-01.png：浅米白砖与暖木下柜；地面铺法近似"},
+    "bathroom": {"floor": "tile", "neonplanFloorMaterial": "tiles", "wallColor": "#eee5d6", "evidence": "湿区砖材示意，尚未按完整卫浴全景逐项重建"},
+    "guest-bath": {"floor": "tile", "neonplanFloorMaterial": "tiles", "wallColor": "#eee5d6", "evidence": "湿区砖材示意，尚未按完整卫浴全景逐项重建"}
+  },
+  "furnitureStyles": {
+    "living-sofa": {"finish": {"fabric": "#4d7e91", "wood": "#86603e"}, "pillowColor": "#697336", "evidence": "蓝色布艺三人沙发与橄榄绿靠垫；按用户最新意见保留原朝向"},
+    "living-coffee": {"shape": "round-glass", "finish": {"wood": "#aeb6b2"}, "evidence": "透明圆桌面与透明支撑；不改变茶几中心位置"},
+    "living-media": {"finish": {"wood": "#292620", "front": "#292620"}, "evidence": "电视下深色低地台，表面分缝"},
+    "dining-sideboard": {"finish": {"wood": "#b58a5e", "front": "#ede9df"}, "evidence": "白色柜门、木色开放格"},
+    "dining-table": {"finish": {"wood": "#b58a5e"}, "evidence": "暖木色桌面"},
+    "dining-chair-1": {"finish": {"wood": "#a67c52", "fabric": "#d9d6c9"}},
+    "dining-chair-2": {"finish": {"wood": "#a67c52", "fabric": "#d9d6c9"}},
+    "dining-chair-3": {"finish": {"wood": "#a67c52", "fabric": "#d9d6c9"}},
+    "dining-chair-4": {"finish": {"wood": "#a67c52", "fabric": "#d9d6c9"}},
+    "studio-bar": {"finish": {"wood": "#ac7547", "front": "#234b76"}, "evidence": "studio-01.png：双人长木桌与蓝色下柜；保留现有吧台平面"},
+    "studio-seat-1": {"finish": {"fabric": "#2d5687", "wood": "#45423a"}},
+    "studio-seat-2": {"finish": {"fabric": "#2d5687", "wood": "#45423a"}},
+    "studio-storage": {"finish": {"wood": "#a7774c"}},
+    "master-bed": {"finish": {"wood": "#9b633a", "fabric": "#bc8432", "front": "#eee8d9"}, "headboardFabric": "#b88630", "linenColor": "#b6c7c5", "evidence": "master-bedroom-01.png：木床头、橙黄软包、浅蓝床品"},
+    "master-wardrobe": {"finish": {"wood": "#a7774c", "front": "#ede9df"}, "evidence": "master-bedroom-01.png：白柜门与木框"},
+    "bedroom-wardrobe": {"finish": {"wood": "#ba9368", "front": "#ede9df"}, "evidence": "次卧已加载视角可见暖白柜门；其他细节未完整核对"},
+    "bedroom-bed": {"finish": {"wood": "#b58a5e", "fabric": "#ded6c1"}, "linenColor": "#e9e4d7", "evidence": "床位按用户要求靠窗靠墙；床品暂示意，待完整次卧全景核对"},
+    "kitchen-north": {"finish": {"wood": "#a97545"}, "counterColor": "#edece5", "upperCabinets": true, "evidence": "kitchen-01.png：暖木下柜、白色上柜、浅色细纹台面"},
+    "kitchen-east": {"finish": {"wood": "#a97545"}, "counterColor": "#edece5", "evidence": "kitchen-01.png 暖木柜体"},
+    "kitchen-south": {"finish": {"wood": "#a97545"}, "counterColor": "#edece5", "evidence": "厨房柜体统一配色，原平面保留"},
+    "entry-cabinet": {"finish": {"wood": "#b58a5e", "front": "#697150"}, "evidence": "entry-01.png：深橄榄绿矮柜、暖木桌面"}
+  },
+  "wallStyles": {
+    "studio-north": {"kind": "wood-framed-glass", "baseHeight": 0.92, "glassTop": 2.35, "frameColor": "#a4774c", "evidence": "initial.png / studio-02.png 明确显示半墙上木框玻璃；平面墙线位置不变，高度为示意"}
+  },
+  "decor": [
+    {"id": "living-rug", "type": "rug", "x": 3.35, "z": 5.6, "width": 3.1, "depth": 2.5, "height": 0.025, "rotation": 0, "roomId": "living", "provenance": "设计师全景可见浅底彩色块地毯；尺寸和位置为适配现有CAD的示意"},
+    {"id": "living-red-lamp", "type": "floor-lamp", "x": 1.05, "z": 5.85, "width": 0.35, "depth": 0.35, "height": 1.75, "rotation": 0, "color": "#bd3024", "roomId": "living", "provenance": "设计师全景中的红色折臂落地灯；展示道具，未新增控制实体"},
+    {"id": "living-blue-chair", "type": "accent-chair", "x": 1.25, "z": 4.65, "width": 0.75, "depth": 0.8, "height": 0.83, "rotation": -0.3, "color": "#4d7e91", "roomId": "living", "provenance": "设计师全景中的蓝色休闲椅；示意位置"},
+    {"id": "studio-monitors", "type": "monitors", "x": 3.38, "z": 9.57, "width": 2.3, "depth": 0.28, "height": 0.92, "rotation": 0, "roomId": "studio", "provenance": "studio-01.png 双人电脑桌；屏幕为本地程序绘制，不复制图片内容"},
+    {"id": "studio-triangle-lights", "type": "studio-panels", "x": 3.38, "z": 9.86, "width": 2.0, "depth": 0.035, "height": 1.85, "rotation": 0, "roomId": "studio", "provenance": "studio-01.png 白/粉三角灯板；尺寸排列示意，不视为已购设备"}
+  ],
+  "limitations": [
+    "全景图用于材质和外观参考，不提供可直接导入的完整三维模型。",
+    "保留现有 CAD 平面结构与沙发朝向；次卧床按用户要求靠东窗侧和北墙。",
+    "木框玻璃隔断仅替换现有隔断线上的显示做法，未移动墙线或改变外部门窗。",
+    "材质色值、家具高度、装饰尺寸是图像参考近似，不是设计师原始模型参数。",
+    "NeonPlan 原生材质能力有限，人字木纹、透明圆桌和彩块地毯在原生预览中采用近似表达。"
+  ]
+}
