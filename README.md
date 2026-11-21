@@ -37,7 +37,7 @@
 
 </details>
 
-## 当前方案与图纸入口（2026-11-18 更新）
+## 当前方案与图纸入口（2026-11-21 更新）
 
 | 文档 | 内容 |
 |---|---|
@@ -50,6 +50,7 @@
 | [全屋网络拓扑图](docs/network-topology.md) | 四条主干目标2.5G；主卧/次卧775、电竞房/大厅ES210各一箱，电竞房775及大厅772交换机PoE直供；Mac/NAS本地10G |
 | [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视、电竞房投影、Switch 双底座、PS5/PS TV Remote Play；两条约10m反向光纤 HDMI AOC 与复尺/施工要求 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
+| [楼宇对讲与门禁接入调研](docs/building-intercom-integration-research.md) | 原厂接口、Ring Video、Nuki、隔离干接点的能力比较；闲时监看与一次开门分开验收。现有室内机型号未知，未选型/采购/部署 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
 | [已批准：同一LAN按设备选用OpenWrt](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md) | 全家同网段、不划分VLAN；Fusion保留主网关、唯一DHCP和独立普通DNS。2.4GHz共用SSID内，智能家居自动配置，指定终端手动选用OpenWrt；日常5GHz/可用6GHz另一个SSID仍在同一LAN。故障时指定终端手动切回普通路径；未部署 |
 | [现行实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md) / [现行验收与应急单](docs/validation/home-device-rule-routing.md) | 盘点备份、隔离建VM、单终端试点、双栈与本地发现、故障及切回演练；不修改现有物理布线，全部现场检查 `not_run` |
