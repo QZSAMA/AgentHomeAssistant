@@ -41,6 +41,7 @@
 
 | 文档 | 内容 |
 |---|---|
+| [11月22日水电定位讨论稿](docs/electrical-network-positioning-draft-20261121.md) | 按原家具图分26组建议开关/插座/网口位置，含高度参考、主卧多控、四主干与本地支线、现场签认表；仅草案，待现场量尺 |
 | [装修原图与网络设备位置](docs/floorplan-and-network-locations.md) | 两张用户装修原图、局部尺寸边界；弱电箱在入户门左侧，四条Cat6A汇聚起点及现场核验清单 |
 | [Apple HomeView / mini 2官方核验](docs/apple-home-devices-2026.md) | HomeView桌面版×1已确认、mini 2待选；官方规格/报价与地区限制，壁挂平板或iPad待选，不买HomeView壁挂底座 |
 | [当前宽带桥接方案](docs/wan-bridge-plan.md) | 武汉电信、原光猫Internet桥接、Fusion PPPoE；参数与逐项验收，尚未实施 |
