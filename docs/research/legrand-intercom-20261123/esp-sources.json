@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "investigation_date": "2026-11-23",
+  "device_label": "S6819161",
+  "scope": "Public-source research only; no real-device wiring, captures, flashing or unlocking.",
+  "device_compatibility": "unverified",
+  "projects": [
+    {
+      "repository": "https://github.com/AzonInc/Doorman",
+      "checked_commit": "fdec5c030e77bb8e0219d745cc0282139c96836c",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/AzonInc/Doorman/blob/fdec5c030e77bb8e0219d745cc0282139c96836c/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "Working implementation and installation docs for selected TC:BUS systems; parallel connection.",
+      "limits": "TCS:IP excluded by compatibility docs; no S6819161 or media forwarding proof.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/peteh/doorman",
+      "checked_commit": null,
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "ESP32/ESP8266 MQTT bridge predecessor with bus hardware.",
+      "limits": "Protocol-specific; no S6819161 compatibility proof.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/Elektroarzt/simplebus2-mqtt-bridge",
+      "checked_commit": "91da254ace70bfe06a8f9693ca3307150f9e3f6c",
+      "read_files": [
+        "README.md",
+        "software/docs/SETUP-GUIDE.md"
+      ],
+      "file_links": [
+        "https://github.com/Elektroarzt/simplebus2-mqtt-bridge/blob/91da254ace70bfe06a8f9693ca3307150f9e3f6c/README.md",
+        "https://github.com/Elektroarzt/simplebus2-mqtt-bridge/blob/91da254ace70bfe06a8f9693ca3307150f9e3f6c/software/docs/SETUP-GUIDE.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "ESP32-C3 with dedicated analogue front end for Simplebus2 controls and events.",
+      "limits": "No documented original audio/video forwarding; not a bare GPIO connection.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/plusvic/simplebus2-intercom",
+      "checked_commit": "d3a0fd15acb94dc279f4a11ddfe211b590f1c61a",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/plusvic/simplebus2-intercom/blob/d3a0fd15acb94dc279f4a11ddfe211b590f1c61a/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "Original protocol research distinguishes control messages from camera/video activation.",
+      "limits": "A camera activation command is not a video stream.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/thamow/Smart-Doorbell",
+      "checked_commit": "1bf2ba5126db6f40b7fc047c489d31e6edf74d5d",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/thamow/Smart-Doorbell/blob/1bf2ba5126db6f40b7fc047c489d31e6edf74d5d/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "Siedle HTS 811-0 call sensing and button simulation with optocouplers.",
+      "limits": "Author explicitly says newly published circuit was not tested; older working hardware differs.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/darkobg79/smart-intercom-esphome",
+      "checked_commit": "f4131b2e54fa215dc3463b1b6d8bc6ddb933b351",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/darkobg79/smart-intercom-esphome/blob/f4131b2e54fa215dc3463b1b6d8bc6ddb933b351/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "Urmet 4+n analogue intercom ESPHome example.",
+      "limits": "Camera images in automation examples do not establish original video acquisition.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/slyoldfox/c300x-controller",
+      "checked_commit": "7440012e940a7fc11d918e6a4ef4fdacfb8bac1f",
+      "read_files": [
+        "README.md",
+        "lib/apis/door-unlock.js",
+        "lib/mqtt.js",
+        "lib/rtsp-server.js"
+      ],
+      "file_links": [
+        "https://github.com/slyoldfox/c300x-controller/blob/7440012e940a7fc11d918e6a4ef4fdacfb8bac1f/README.md",
+        "https://github.com/slyoldfox/c300x-controller/blob/7440012e940a7fc11d918e6a4ef4fdacfb8bac1f/lib/apis/door-unlock.js",
+        "https://github.com/slyoldfox/c300x-controller/blob/7440012e940a7fc11d918e6a4ef4fdacfb8bac1f/lib/mqtt.js",
+        "https://github.com/slyoldfox/c300x-controller/blob/7440012e940a7fc11d918e6a4ef4fdacfb8bac1f/lib/rtsp-server.js"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "Real code for original BTicino Linux indoor unit, events/control and SIP/RTSP media.",
+      "limits": "Model/firmware-specific software modification, not an ESP splitter; media behavior differs by RTSP path and existing call state.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/luyumenq/shidean-980-deceiver",
+      "checked_commit": "e861c72bad28fa9853fdee080fd5c4fd975ef855",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/luyumenq/shidean-980-deceiver/blob/e861c72bad28fa9853fdee080fd5c4fd975ef855/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "README describes retaining the original handset and binding Mi Home for calls/unlock.",
+      "limits": "Recursive tree contains only README.md (667 bytes); no circuit, firmware, BOM, ESP model or video implementation.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/Gluxur/guition-jc8012p4a1c-intercom",
+      "checked_commit": "7e3f20c7dea6a65eff94be33476de9a31d4cb13d",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/Gluxur/guition-jc8012p4a1c-intercom/blob/7e3f20c7dea6a65eff94be33476de9a31d4cb13d/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "ESP32-P4/C6 video terminal consumes known go2rtc MJPEG/WebRTC media; author reports one daily-use installation.",
+      "limits": "Requires existing accessible media source and audio backchannel; not a proprietary intercom decoder.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/n-IA-hane/esphome-voip-stack",
+      "checked_commit": "7722bcf45765ab55e35307846c1b26e2c4ec413e",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/n-IA-hane/esphome-voip-stack/blob/7722bcf45765ab55e35307846c1b26e2c4ec413e/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "SIP/SDP/RTP implementation and supported ESP media profiles.",
+      "limits": "Known protocol endpoints; no S6819161 bus or Ethernet protocol compatibility proof.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "repository": "https://github.com/XiaoMi/ha_xiaomi_home",
+      "checked_commit": "75b3acb6325a3a8d295688b13904737d6738a6a5",
+      "read_files": [
+        "README.md"
+      ],
+      "file_links": [
+        "https://github.com/XiaoMi/ha_xiaomi_home/blob/75b3acb6325a3a8d295688b13904737d6738a6a5/README.md"
+      ],
+      "evidence_type": "repository_documentation_and_selected_source",
+      "verified": "Official integration imports Xiaomi IoT devices into Home Assistant.",
+      "limits": "Does not establish reverse registration of arbitrary ESP or HA devices/video into Mi Home.",
+      "checked_date": "2026-11-23"
+    }
+  ],
+  "web_documents": [
+    {
+      "title": "Doorman installation",
+      "url": "https://doorman.azon.ai/guide/getting-started",
+      "evidence": "Parallel connection, original unit retained, power/loading caveats.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "Doorman compatibility",
+      "url": "https://doorman.azon.ai/guide/hardware-compatibility",
+      "evidence": "Selected TC:BUS devices; explicit TCS:IP exclusion.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "ESPHome Ethernet",
+      "url": "https://esphome.io/components/ethernet/",
+      "evidence": "ESP32 Ethernet plus Wi-Fi is currently supported with configured priorities; WISP is distinct.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "ESPHome multi-interface",
+      "url": "https://esphome.io/components/network/#multi-interface-support",
+      "evidence": "Network interface priority and multi-interface behavior.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "Espressif wireless_nic 1.1.0",
+      "url": "https://components.espressif.com/components/espressif/iot_bridge/versions/1.1.0/examples/wireless_nic?language=en",
+      "evidence": "Example uses NAT on the Wi-Fi Station interface.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "Espressif wired_nic 1.1.0",
+      "url": "https://components.espressif.com/components/espressif/iot_bridge/versions/1.1.0/examples/wired_nic",
+      "evidence": "Example uses NAT; not proof of intercom mirroring or protocol support.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "ESP-IDF Ethernet API",
+      "url": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_eth.html",
+      "evidence": "Promiscuous mode and input path hooks; receive throughput constraints.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "WIZnet W5500",
+      "url": "https://docs.wiznet.io/Product/Chip/Ethernet/W5500",
+      "evidence": "MAC/PHY, SPI and buffer specifications; not whole-system throughput assurance.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "Wireshark Ethernet capture",
+      "url": "https://wiki.wireshark.org/CaptureSetup/Ethernet",
+      "evidence": "Switched unicast requires suitable capture topology; SPAN/TAP/inline bridge and limitations.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "Linux wireless 4-address",
+      "url": "https://wireless.docs.kernel.org/en/latest/en/users/documentation/iw.html#using-4-address-for-ap-and-client-mode",
+      "evidence": "Transparent bridging behind a station requires compatible AP and STA 4-address support.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "Linux Ethernet bridge",
+      "url": "https://docs.kernel.org/networking/bridge.html",
+      "evidence": "Layer-2 forwarding model.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "RTSP 2.0",
+      "url": "https://www.rfc-editor.org/rfc/rfc7826.html",
+      "evidence": "Media session control and transport are different concerns.",
+      "checked_date": "2026-11-23"
+    },
+    {
+      "title": "Wireshark RTP",
+      "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChTelRTP.html",
+      "evidence": "RTP stream analysis and playback depend on identification and codec support.",
+      "checked_date": "2026-11-23"
+    }
+  ]
+}

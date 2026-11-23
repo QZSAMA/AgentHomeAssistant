@@ -251,6 +251,7 @@ J3455已知为16GB内存、10TB存储、千兆网口、Proxmox，已有独立黑
 
 | 日期 | 变更 |
 |------|------|
+| 2026-11-23（ESP旁路深入研究） | 新增[ESP总线桥接／以太网监听研究](legrand-esp-intercom-bridge-research.md)：核查真实项目、电路和视频边界；视得安980项目只有README，不能当作米家可复现方案。S6819161协议未知，确认标准以太网与供电后才评估镜像／TAP；不直接桥接楼宇网和家庭LAN，未采购／接线／抓包／部署。 |
 | 2026-11-23（罗格朗实物与手册） | 新增[识别与完整手册检索记录](legrand-intercom-identification-and-manuals.md)：照片确认Legrand、S6819161、LE13416AA A3；记录两组红黑线＋RJ45但不推定供电。归档凯乐IP68目录及凯蕴98页参考手册，明确均未确认适用本机；米家与HA／Apple Home分别核验。无采购／接线／部署。 |
 | 2026-11-21（楼宇对讲研究） | 新增[楼宇对讲接入研究](building-intercom-integration-research.md)：原厂IP/升级接口优先，Ring Video、Nuki和Aqara/Shelly干接点仅条件候选；区分闲时视频、一次开门、对讲和状态反馈，记录Nuki动作语义。室内机型号未知，未采购/部署；新增现场验收及可选本地支线预留，不改既有网络订单和绿米签字单。 |
 | 2026-11-18（光猫桥接主案与替换备用） | 用户确定原运营商光猫Internet桥接、Fusion PPPoE；明确武汉电信1000Mbps，XG-PON为待核假设、上行30Mbps为旧规划。新增[当前方案/验收](wan-bridge-plan.md)及[备用研究](ont-replacement-backup-research.md)：中兴、VSOL、Nokia XG-040G-MD、PRX126猫棒/MC420L，32条分级来源含8条视频。替代设备不采购，未操作现场网络，不改7台订单/8台完整计划。 |
