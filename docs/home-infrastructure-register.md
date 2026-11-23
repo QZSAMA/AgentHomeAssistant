@@ -54,7 +54,7 @@ TL-7DR3630 的[国内官方产品页](https://www.tp-link.com.cn/product_3330.ht
 | 语音目标 | Siri/Apple Home基础控制与本地模型自由对话都做 | 需求已确认，入口/集成方案未定 |
 | 速率 | 四条中央至区域主干目标2.5G；电竞房同一ES210XPP-M2内Mac为10G RJ45、未来高速NAS为10G SFP+；AP回程2.5G，三台775各有下联1×2.5G+3×1G；现有1G/100M终端按自身接口协商 | “全局2.5G”不表示每台现有设备/每个AP下联已升级，待链路验收 |
 | 自动化平台 | Home Assistant 与 Apple Home 并行；HA 可通过 HomeKit Bridge 暴露兼容实体，Matter 设备按多管理员能力接入 | 集成方案待 PoC；不将 HA 当作通用 Matter 输出桥 |
-| 楼宇对讲/门禁 | 用户希望闲时查看楼下画面、一次性远程开楼道门，接入 HA / Apple Home | 用户目前不知道室内机型号；原厂接口优先，适配器/干接点为条件候选。画面和开门分开验证，未选型/采购/部署；[调研](building-intercom-integration-research.md) |
+| 楼宇对讲/门禁 | 用户希望闲时查看楼下画面、一次性远程开楼道门；原HA／Apple Home目标与后续米家兼容分别核验 | Legrand、背标S6819161、简页LE13416AA A3；2026-11-23补两组红黑线＋RJ45，电压／用途未知。本机专用手册及公开型号映射未取得，凯乐／凯蕴资料仅参考；未选型/采购/部署。见[实物与手册核验](legrand-intercom-identification-and-manuals.md)、[接入调研](building-intercom-integration-research.md) |
 | 智能设备范围 | **签字方案覆盖玄关、厨房、客餐厅、阳台、过道、书房、主卧及两卫（无次卧点位）**；以 Aqara Zigbee/常电设备为交付主体，Matter over Thread 仅留为未来类别 | **2026-10-26 型号/数量已签字确认：H1M开关×11、FP310×2、T1人体/门窗各×1、C200×2、M200/M1S/S100/E1各×1、T2Pro×7、灯带25m＋300W驱动＋灯槽×25；未购/未施工/未部署** |
 | 本地模型 | Flash planner 常驻，其余模型按需或队列运行 | 设计基线，待实机验证 |
 
@@ -236,7 +236,7 @@ J3455已知为16GB内存、10TB存储、千兆网口、Proxmox，已有独立黑
 | P1 | 绿米签字设备逐型号确认 HomeKit/Matter/HA 接入（型号数量已定、未购） | 型号、固件、集成测试记录；重点实测M1S下挂设备暴露Apple Home/HA的桥接路径、E1与S100实体接入 | 型号已签字，未购/未部署 |
 | P1 | 欧瑞博空调、新风、地暖、热水器四类逐型号核验；不扩展为欧瑞博全屋照明/开关方案 | 控制接口、状态反馈及HA/Apple Home验证结果 | 品牌方向已确定，具体SKU待定 |
 | P1 | HA HomeKit Bridge、Matter、mDNS 和 HomePod 配网验收 | 端到端测试记录 | 待部署 |
-| P1 | 楼宇对讲：核室内机型号、闲时监看/开门及原厂接口，再定接法 | 正面/铭牌、原机功能记录、本户接口与精确兼容性；视频、一次开门、Apple Home映射、断网恢复分别验收，见[调研验收表](building-intercom-integration-research.md) | 型号未知；研究已记录，现场全部 `not_run`；不预购继电器或视频转接器 |
+| P1 | 楼宇对讲：核S6819161对应型号／手册、两组红黑线及RJ45用途，再验闲时功能和原厂接口 | 本机设置型号／固件与专用手册、线路两端与供电、原机功能；视频、一次开门、米家／HA／Apple Home及断网恢复分别核验，见[实物调查](legrand-intercom-identification-and-manuals.md) | 品牌与背标已记录；专用手册／协议未确认，现场全部 `not_run`；不预购继电器或视频转接器 |
 | P1 | 签字方案设备到货核验：Zigbee（H1M/C200/T2Pro/FP310/T1）、Wi-Fi（E1/S100）、M200 Thread/Matter能力；本批无Thread终端 | 型号/协议核验、M200配对与Matter桥接、M1S暴露实测、Apple Home/HA多管理员或桥接测试；次卧照明按2026-11-18决定本期不增 | 型号已签字确认，交付状态待更新；到货核验待执行 |
 | P1 | Mac Studio 模型 PoC | 每模型运行日志、峰值内存、许可证记录 | 待购买 |
 | P2 | 建立备份、更新、重启和服务审计策略 | 运维记录和恢复演练 | 待设计 |
@@ -251,6 +251,7 @@ J3455已知为16GB内存、10TB存储、千兆网口、Proxmox，已有独立黑
 
 | 日期 | 变更 |
 |------|------|
+| 2026-11-23（罗格朗实物与手册） | 新增[识别与完整手册检索记录](legrand-intercom-identification-and-manuals.md)：照片确认Legrand、S6819161、LE13416AA A3；记录两组红黑线＋RJ45但不推定供电。归档凯乐IP68目录及凯蕴98页参考手册，明确均未确认适用本机；米家与HA／Apple Home分别核验。无采购／接线／部署。 |
 | 2026-11-21（楼宇对讲研究） | 新增[楼宇对讲接入研究](building-intercom-integration-research.md)：原厂IP/升级接口优先，Ring Video、Nuki和Aqara/Shelly干接点仅条件候选；区分闲时视频、一次开门、对讲和状态反馈，记录Nuki动作语义。室内机型号未知，未采购/部署；新增现场验收及可选本地支线预留，不改既有网络订单和绿米签字单。 |
 | 2026-11-18（光猫桥接主案与替换备用） | 用户确定原运营商光猫Internet桥接、Fusion PPPoE；明确武汉电信1000Mbps，XG-PON为待核假设、上行30Mbps为旧规划。新增[当前方案/验收](wan-bridge-plan.md)及[备用研究](ont-replacement-backup-research.md)：中兴、VSOL、Nokia XG-040G-MD、PRX126猫棒/MC420L，32条分级来源含8条视频。替代设备不采购，未操作现场网络，不改7台订单/8台完整计划。 |
 | 2026-11-21（型号与奥普更新） | 两卫选择奥普米家版，完整型号待定，拟经HA Xiaomi Home而非直接Aqara接入；作为有限品牌例外。门锁限定猫眼，独立门铃取消。核对Aqara当前目录、规格和购买入口，灯带优先T2，增加桌面屏/旋钮候选；电竞房FP310复用温湿度。更新Excel及[核验记录](aqara-model-verification-20261121.md)，库存未确认、未下单。 |

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "reviewed_date": "2026-11-23",
+  "device_label": "S6819161",
+  "exact_device_manual_status": "not_obtained",
+  "files": [
+    {
+      "title": "凯乐数字系列楼宇对讲系统产品目录",
+      "url": "https://www.legrand.com.cn/sites/default/files/en/downloads/pdfs/8350/legrand_colore_ip68_cdp_catalog.pdf",
+      "version": "LVDPD68201803",
+      "applicability": "Series catalogue only; S6819161 mapping unverified.",
+      "path": "references/Kaile-IP68-catalog.pdf",
+      "bytes": 5588072,
+      "pages": 23,
+      "sha256": "f8cc2e2b77221dbed70daaa6de6b0d6f8e80e127781839388f48850c4d79752b",
+      "acquired_date": "2026-11-21",
+      "reviewed_date": "2026-11-23",
+      "source_type": "manufacturer_document"
+    },
+    {
+      "title": "凯蕴系列IU操作说明书",
+      "url": "https://www.legrand.com.cn/ecatalogue/cn/downloads/attachment/download/product_id/11225/?manual=4",
+      "product_page": "https://www.legrand.com.cn/ecatalogue/cn/video-door-phone/1122/697062.html",
+      "archive_member": "Technical Documents/9734_凯蕴系列IU操作说明书.pdf",
+      "version": "Version_0.2 / 45-07-R3610100 / 2020-02-27",
+      "applicable_models": [
+        "697062",
+        "697061",
+        "697042",
+        "697041",
+        "697162",
+        "697161",
+        "697142",
+        "697141"
+      ],
+      "applicability": "Reference only; S6819161 is not listed and hardware/menu differences exist. Not a wiring guide for this unit.",
+      "path": "references/Kaiyun-IU-operation-manual.pdf",
+      "bytes": 28431259,
+      "pages": 98,
+      "sha256": "369164960a77d33d96e1ff6adea6fc9e1fea8798b172416fb436895b59d966ae",
+      "acquired_date": "2026-11-21",
+      "reviewed_date": "2026-11-23",
+      "source_type": "manufacturer_document"
+    },
+    {
+      "path": "evidence/ports-crop.png",
+      "source_type": "user_photo_crop",
+      "provided_date": "2026-11-21",
+      "reviewed_date": "2026-11-23",
+      "transformation": "Crop and resize only; no reconstruction of illegible labels. No MAC/serial labels included.",
+      "bytes": 879552,
+      "sha256": "cefd430c7d3fadaae5da7f07f46bbf1fdc6211f1ee9621ad17e0a3804ad9cf82"
+    }
+  ]
+}
