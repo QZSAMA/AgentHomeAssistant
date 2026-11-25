@@ -55,6 +55,7 @@
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [楼宇对讲与门禁接入调研](docs/building-intercom-integration-research.md)／[罗格朗型号与手册核验](docs/legrand-intercom-identification-and-manuals.md) | 已确认Legrand、背标S6819161；两组红黑线＋RJ45用途待核。归档凯乐目录与凯蕴98页参考手册，本机专用手册未取得；视频、开门及米家／HA兼容未验收 |
 | [ESP门禁桥接与视频调查](docs/legrand-esp-intercom-bridge-research.md) | 核查Doorman、Simplebus2、按键改造、BTicino及ESP32-P4案例；区分事件／控制与音视频。S6819161先核线制，再条件性只读镜像／TAP调查，未接线或采购 |
+| [S6819161调查方案续篇（11月25日）](docs/legrand-s6819161-investigation-plan.md) | 新增国内罗格朗第三方终端线索、ESP米家BLE实验边界、安装商核对单及逐场景镜像调查；本机手册、远控与视频均未确认 |
 | [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
 | [已批准：同一LAN按设备选用OpenWrt](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md) | 全家同网段、不划分VLAN；Fusion保留主网关、唯一DHCP和独立普通DNS。2.4GHz共用SSID内，智能家居自动配置，指定终端手动选用OpenWrt；日常5GHz/可用6GHz另一个SSID仍在同一LAN。故障时指定终端手动切回普通路径；未部署 |
 | [现行实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md) / [现行验收与应急单](docs/validation/home-device-rule-routing.md) | 盘点备份、隔离建VM、单终端试点、双栈与本地发现、故障及切回演练；不修改现有物理布线，全部现场检查 `not_run` |

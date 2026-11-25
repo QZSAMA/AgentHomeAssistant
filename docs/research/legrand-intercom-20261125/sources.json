@@ -1,0 +1,131 @@
+{
+  "reviewed_on": "2026-11-25",
+  "timezone": "Asia/Shanghai",
+  "scope": "Public-source continuation for Legrand S6819161; no physical access, packet capture, firmware execution or door operation.",
+  "device_compatibility": "unconfirmed",
+  "sources": [
+    {
+      "id": "jinmao-legrand-terminal",
+      "kind": "community_engineering_documentation",
+      "url": "https://github.com/dengdongqi/JmExplainPicture/blob/6beed8dd8ea722e0178294e0d666da61e100144e/README.md#L65-L72",
+      "commit": "6beed8dd8ea722e0178294e0d666da61e100144e",
+      "read": ["README.md Legrand section, lines 65-72", "repository tree", "setting.txt"],
+      "evidence": "LAN communication, address-book synchronization from Legrand server to third-party server, household binding of a third-party terminal.",
+      "limits": "No S6819161/IP68 model mapping, SDK, app source or APK. Does not establish coexistence with original panel or transparent bridging. Credentials present upstream were not reproduced or used. SDK licensing in other vendor sections is not Legrand evidence."
+    },
+    {
+      "id": "miot-ble-community-experiment",
+      "kind": "community_code_and_author_test_claims",
+      "url": "https://github.com/haohaozi328-arch/miot-ble-sdk/tree/1edf86d18a6a39ef876de02d178a66ba8c61bf14",
+      "commit": "1edf86d18a6a39ef876de02d178a66ba8c61bf14",
+      "read": ["esp32/door_adv/README.md", "esp32/outlet_adv/README.md", "esp32/outlet_adv/main/app_main.c", "docs/clean-app-matrix.md"],
+      "evidence": "Author reports ESP32-C3 simulated door sensor binding and gateway-mediated state reporting. Outlet README explicitly limits control to phone GATT, not gateway. Source handles properties, not a relay output.",
+      "limits": "Not independently reproduced; not official Xiaomi product certification; no Legrand protocol, remote unlock, physical door-state verification, video or intercom audio. Detailed outlet test record includes PC property-table tests, not successful relay actuation."
+    },
+    {
+      "id": "xiaomi-platform-preparation",
+      "kind": "official_documentation",
+      "url": "https://iot.mi.com/v2/new/doc/introduction/preparation/access-preparation",
+      "page_updated_on": "2025-07-10",
+      "read_method": "browser-rendered page; raw HTML is a JavaScript app shell",
+      "evidence": "Enterprise developer preparation, trademark/brand documentation, module/SDK direct integration, cloud-to-cloud access limited to invited partners.",
+      "limits": "Describes official platform onboarding, not proof that every community BLE experiment is impossible."
+    },
+    {
+      "id": "xiaomi-home-ha",
+      "kind": "official_project_documentation",
+      "url": "https://github.com/XiaoMi/ha_xiaomi_home",
+      "read": ["README.md integration direction and FAQ"],
+      "evidence": "Imports Xiaomi IoT devices into HA; FAQ lists virtual devices among unsupported device types.",
+      "limits": "Does not provide arbitrary HA-to-Mi-Home device registration. The FAQ is scoped to this integration."
+    },
+    {
+      "id": "legrand-catalog-search",
+      "kind": "official_catalog_query",
+      "urls": [
+        "https://www.legrand.com.cn/ecatalogue/cn/catalogsearch/result/?q=681916",
+        "https://www.legrand.com.cn/ecatalogue/cn/catalogsearch/result/?q=6819",
+        "https://www.legrand.com.cn/ecatalogue/cn/catalogsearch/result/?q=LE13416"
+      ],
+      "evidence": "Queries returned HTTP 200 and no search results during this review.",
+      "limits": "No-result responses do not prove the device/manual does not exist."
+    },
+    {
+      "id": "legrand-eliot",
+      "kind": "official_product_page",
+      "url": "https://www.legrand.com.cn/content/legrand-eliot",
+      "evidence": "Compatible smart-community products support cloud intercom, cloud access, visitor management and notifications.",
+      "limits": "No S6819161 or IP68 compatibility mapping established."
+    },
+    {
+      "id": "archived-official-reference-manuals",
+      "kind": "official_pdfs_previously_archived",
+      "local_source_index": "../legrand-intercom-20261123/sources.json",
+      "read": ["Kaile-IP68-catalog.pdf pages 8 and 19-21", "Kaiyun-IU-operation-manual.pdf pages 44-46"],
+      "evidence": "Kaile catalogue shows vendor data/service centre and mobile app features. Kaiyun manual describes 60-second monitoring timeout and unlock during monitoring; public IPC viewing depends on server configuration and address book.",
+      "limits": "PDF page numbers. These documents are not confirmed S6819161 manuals. IPC input support does not establish RTSP/ONVIF output. Timeout and wiring must not be copied to this device."
+    },
+    {
+      "id": "shidean-980-recheck",
+      "kind": "community_readme_only",
+      "url": "https://github.com/luyumenq/shidean-980-deceiver/tree/e861c72bad28fa9853fdee080fd5c4fd975ef855",
+      "commit": "e861c72bad28fa9853fdee080fd5c4fd975ef855",
+      "read": ["recursive repository tree", "README.md"],
+      "evidence": "Repository still contains only README.md.",
+      "limits": "No circuit, firmware or protocol implementation; no S6819161 mapping."
+    },
+    {
+      "id": "bticino-easykit-reclaim",
+      "kind": "community_implementation_for_other_hardware",
+      "url": "https://github.com/cerealkiller57540/bticino-easykit-reclaim/tree/8ec79b2243c5525af0b33a07038a16d015e632fd",
+      "commit": "8ec79b2243c5525af0b33a07038a16d015e632fd",
+      "read": ["service/README.md", "service/bticino_live.py", "PJSIP patch presence"],
+      "evidence": "Python service with FFmpeg and go2rtc path, requiring SIP-TLS account/certificate provisioning and patched pjsua.",
+      "limits": "Specific EasyKit ecosystem, author single-device testing; not ESP or passive universal packet-to-video adapter; not mapped to S6819161."
+    },
+    {
+      "id": "btdoor-security-plus",
+      "kind": "community_implementation_for_other_ecosystem",
+      "url": "https://github.com/marturano/ha-btdoor-security-plus/tree/022ab2198f2efa93a2cd163d29ce2a2fe7fe7256",
+      "commit": "022ab2198f2efa93a2cd163d29ce2a2fe7fe7256",
+      "read": ["custom_components/btdoor_security_plus/cloud.py", "README compatibility matrix"],
+      "evidence": "BTicino MyHomeWeb account/SIP/certificate provisioning.",
+      "limits": "HA version compatibility is not a Legrand device compatibility list. No S6819161 evidence."
+    },
+    {
+      "id": "wireshark-capture-and-media",
+      "kind": "official_technical_documentation",
+      "urls": [
+        "https://wiki.wireshark.org/CaptureSetup/Ethernet",
+        "https://www.wireshark.org/docs/wsug_html_chunked/ChTelRTP.html",
+        "https://www.wireshark.org/docs/man-pages/dumpcap.html",
+        "https://www.wireshark.org/docs/man-pages/wireshark-filter.html"
+      ],
+      "evidence": "Switched-network capture requires delivered traffic via mirroring/TAP/etc.; promiscuous mode alone is insufficient. RTP tools, full snapshot lengths, capture buffering and display filters are documented.",
+      "limits": "No device-specific protocol, encryption or video-availability proof. Mirror timing/drop limitations apply."
+    },
+    {
+      "id": "tp-link-mirror-switch-example",
+      "kind": "official_product_specification",
+      "url": "https://www.tp-link.com/us/business-networking/easy-smart-switch/tl-sg105e/",
+      "evidence": "Five 10/100/1000 Mbps RJ45 ports and Port Mirroring listed.",
+      "limits": "Example capability only; region/hardware-version configuration, power path and S6819161 compatibility unverified. Not a purchase recommendation."
+    },
+    {
+      "id": "esp-ethernet-and-w5500",
+      "kind": "official_technical_documentation",
+      "urls": [
+        "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_eth.html",
+        "https://docs.wiznet.io/Product/Chip/Ethernet/W5500"
+      ],
+      "evidence": "ESP-IDF documents ETH_CMD_S_PROMISCUOUS and custom input path; W5500 lists 10/100 Ethernet and 32 KB internal memory.",
+      "limits": "Not proof of line-rate capture, transparent bridging, video decoding or Legrand protocol support."
+    }
+  ],
+  "failed_or_non_evidence": [
+    "Some search results were irrelevant, empty, or CAPTCHA pages; not used to prove absence.",
+    "Some Legrand FAQ/download pages timed out or returned 403; no access controls bypassed.",
+    "Waveshare board page returned 403; no board recommendation derived.",
+    "Two TP-Link FAQ URLs resolved to unrelated subjects; excluded from evidence."
+  ]
+}
