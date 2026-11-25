@@ -167,7 +167,7 @@
     }
   ],
   "plan_notes": {
-    "3A-tri-band": "当前Omada订单与待购主路由的完整配置，共8台；2026-11-25调整为Fusion星型直连中央ES210、电竞房ES210、客厅ES206；M200另行管理，不计入8台",
+    "3A-tri-band": "当前Omada订单与待购主路由的完整配置，共8台；2026-11-25 v1.6：Fusion直连中央ES210、电竞房ES210及两普通电脑墙口，中央SFP+连接客厅ES206，J3455客厅；M200另行管理，不计入8台",
     "3A-dual-band": "历史3AP数量，仅供比较",
     "3B-tri-band": "历史互斥方案，未采用"
   },
@@ -291,18 +291,18 @@
   },
   "lan_topology": {
     "updated_at": "2026-11-25",
-    "status": "用户确认接线规划，未安装/未部署",
-    "architecture": "Fusion分别以独立2.5G铜缆链路直连中央、电竞房、客厅三台交换机",
+    "status": "用户确认接线规划；光纤与模块规格待核，未安装/未部署",
+    "architecture": "Fusion以2.5G分别直连中央、电竞房及两个普通电脑墙口；中央与客厅以10G SFP+光纤互联；J3455改放客厅",
     "router_product_id": "fusion",
-    "router_lan_uplinks_used": 3,
+    "router_lan_uplinks_used": 2,
     "switches": [
       {
         "location": "中央核心位",
         "product_id": "es210xpp",
         "ports_2_5g": {
           "capacity": 8,
-          "assigned": 8,
-          "spare": 0,
+          "assigned": 7,
+          "spare": 1,
           "assignments": [
             "Fusion上联",
             "主卧EAP775-Wall",
@@ -310,18 +310,17 @@
             "电竞房EAP775-Wall",
             "大厅EAP772",
             "大厅M200",
-            "次网关M200",
-            "普通电脑墙口B"
+            "次网关M200"
           ]
         },
         "port_10g_rj45": {
-          "assignment": "普通电脑墙口A",
-          "target_speed_gbps": 10,
-          "status": "须核验电脑网卡与模块、跳线、全通道性能；不能仅凭Cat6A线缆保证10G"
+          "assignment": null,
+          "status": "空闲，未来高速终端待分配；不接Fusion或当前电脑墙口"
         },
         "port_10g_sfp_plus": {
-          "assignment": null,
-          "status": "备用；中央至客厅10G光级联仅为备选，尚未变更Fusion星型"
+          "assignment": "客厅ES206上联",
+          "target_speed_gbps": 10,
+          "status": "v1.6已确认接线方向；光纤、模块及跳线待核，未部署"
         },
         "poe": {
           "budget_w": 200,
@@ -352,14 +351,13 @@
         "product_id": "es210xpp",
         "ports_2_5g": {
           "capacity": 8,
-          "assigned": 7,
-          "spare": 1,
+          "assigned": 6,
+          "spare": 2,
           "assignments": [
             "Fusion上联",
             "PC1",
             "PC2",
             "Mac mini",
-            "J3455",
             "电竞房Apple TV",
             "投影仪"
           ]
@@ -385,16 +383,17 @@
           "assigned": 5,
           "spare": 0,
           "assignments": [
-            "Fusion上联",
             "电视",
             "客厅Apple TV",
             "Switch",
-            "PS"
+            "PS",
+            "J3455"
           ]
         },
         "port_10g_sfp_plus": {
-          "assignment": null,
-          "status": "备用；中央至客厅10G光级联仅为备选"
+          "assignment": "中央ES210上联",
+          "target_speed_gbps": 10,
+          "status": "v1.6已确认接线方向；光纤、模块及跳线待核，未部署"
         },
         "poe": {
           "all_ports_enabled": false
@@ -402,15 +401,34 @@
       }
     ],
     "notes": [
-      "电竞房Apple TV与客厅Apple TV分别计数；端口分配不代表新增购买。",
-      "两个独立电脑墙口为被动RJ45信息面板，不增加AP数量或PoE负载；电脑不经AP下联口。",
-      "同一家庭LAN、Fusion唯一DHCP/普通DNS、指定终端手动选用J3455 OpenWrt的逻辑方案不变。",
-      "未来中央至客厅10G光级联须撤掉客厅原Fusion铜缆上联，避免二层环路；当前不启用。",
-      "中央仅1个SFP+；电竞房SFP+预留NAS，不同时用于光纤上联。",
-      "FP400仍为候选，未计入当前端口分配或PoE负载。"
+      "电竞房Apple TV与客厅Apple TV分别列容量，端口分配不代表新增购买；若同一台迁移则取消电竞房原占口。",
+      "两个普通电脑墙口独立回中央设备位、跳接Fusion各一2.5G LAN；不是AP或PoE负载，不接AP下联。",
+      "同一家庭LAN；Fusion唯一DHCP/普通DNS；J3455移至客厅，指定终端手动选择其OpenWrt的逻辑规划不变。",
+      "原Fusion到客厅铜缆只保留端接备用，不与中央到客厅光纤同时接通。",
+      "中央与客厅各唯一SFP+互联；电竞房SFP+留未来NAS。中央10G RJ45当前空闲。",
+      "FP400与楼宇对讲尚未分配端口；客厅5个铜口包含J3455全部用满。",
+      "9条在用远端铜缆：中央6条PoE、Fusion两电脑墙口和电竞房上联共3条；另1条中央到客厅光链路，Fusion到中央是本地短跳线。",
+      "跨房访问电竞房Mac/NAS共享电竞房2.5G上联；J3455当前1G、升级后所有访问者合计共享2.5G，不能按光纤10G或未来NAS能力计算。"
     ],
-    "version": "1.4",
-    "router_lan_ports_spare": 1
+    "version": "1.6",
+    "router_lan_ports_spare": 0,
+    "diagram_path": "docs/network-topology.md",
+    "router_lan_ports_used": 4,
+    "router_ports": {
+      "total_capacity": 5,
+      "wan": {
+        "assignment": "运营商光猫桥接交付"
+      },
+      "lan_capacity": 4,
+      "lan_assignments": [
+        "中央ES210上联",
+        "电竞房ES210上联",
+        "普通电脑墙口A",
+        "普通电脑墙口B"
+      ],
+      "lan_spare": 0,
+      "port_labels_note": "LAN1–4仅逻辑用途，机身编号到货核对；四LAN保持同一家庭网段"
+    }
   },
   "gateway_plan": {
     "updated_at": "2026-11-25",
@@ -438,143 +456,35 @@
       "procurement_status": "备选，具体型号待核"
     },
     "ordinary_rj45_outlet_note": "合格Cat6模块用于2.5G；保持全4对正确端接并按实际链路验收。被动面板本身不主动限速。",
-    "computer_outlet_a_10g_note": "建议Cat6A模块及跳线，电脑网卡、线缆、模块和全通道均须通过10G目标验收；普通Cat6模块不保证10G。",
     "fiber_outlet_note": "现有RJ45+光纤面板的光口疑似SC，待核单模/多模、芯数、SC/UPC或SC/APC及匹配模块/跳线；不得混接不匹配端面。",
-    "fiber_status": "预留；Fusion无源RJ45-SC转接不可用，未新增光电转换设备；中央至客厅10G光级联未启用",
+    "fiber_status": "v1.6中央—客厅10G SFP+已选接线规划，未部署；先核光纤规格及模块兼容，模块未确认采购；原客厅铜缆备用不接通",
     "module_selection": {
       "ethernet_optics": "交换机间光纤需要兼容的10G以太网SFP+光模块；不同于PON猫棒，当前保留现有光猫桥接。",
       "copper_option": "SFP+使用Cat6A U/UTP铜缆时两端需10GBASE-T电口模块，不能使用普通光模块。",
       "copper_validation": "不少电口模块10G距离仅30m；按具体型号核含跳线的通道长度、交换机支持及插槽功耗/散热，不保证低于37m即可使用。",
       "heat_note": "常见SR/LR光模块约1–2W/只仅作参考；电口模块和猫棒通常更热，按具体规格与整柜温升验收。",
-      "procurement_status": "仅方案比较，模块型号及购买均未确认"
-    }
-  },
-  "topology_preview": {
-    "updated_at": "2026-11-25",
-    "status": "光纤上联展示方案；用户请求查看，尚未批准采购/施工，未部署",
-    "architecture": "Fusion以2.5G直连中央和电竞房；中央以10G SFP+光纤上联客厅，客厅不再直接接Fusion",
-    "router_product_id": "fusion",
-    "router_lan_uplinks_used": 2,
-    "switches": [
+      "procurement_status": "中央—客厅光纤配件待核型号，购买未确认；电口模块仅作替代介质研究"
+    },
+    "computer_outlets": {
+      "router_connection": "Fusion各一2.5G LAN",
+      "target_speed_gbps": 2.5,
+      "future_10g_note": "如将来改跳接中央空闲10G口，建议Cat6A模块及跳线并核网卡和完整通道，当前不按10G端口分配。"
+    },
+    "active_remote_copper_runs": {
+      "total": 9,
+      "central_switch_poe_devices": 6,
+      "fusion_computer_outlets": 2,
+      "fusion_gaming_uplink": 1,
+      "note": "不含Fusion到中央短跳线、房内支线与未跳接备用线"
+    },
+    "active_fiber_links": [
       {
-        "location": "中央核心位",
-        "product_id": "es210xpp",
-        "ports_2_5g": {
-          "capacity": 8,
-          "assigned": 8,
-          "spare": 0,
-          "assignments": [
-            "Fusion上联",
-            "主卧EAP775-Wall",
-            "次卧EAP775-Wall",
-            "电竞房EAP775-Wall",
-            "大厅EAP772",
-            "大厅M200",
-            "次网关M200",
-            "普通电脑墙口B"
-          ]
-        },
-        "port_10g_rj45": {
-          "assignment": "普通电脑墙口A",
-          "target_speed_gbps": 10,
-          "status": "须核验电脑网卡与模块、跳线、全通道性能；不能仅凭Cat6A线缆保证10G"
-        },
-        "port_10g_sfp_plus": {
-          "assignment": "客厅ES206上联",
-          "target_speed_gbps": 10,
-          "status": "光纤展示方案，介质与模块待核，未部署"
-        },
-        "poe": {
-          "budget_w": 200,
-          "pd_ports_assigned": 6,
-          "power_source_for": [
-            "EAP775-Wall×3",
-            "EAP772×1",
-            "M200×2"
-          ],
-          "wall_ap_poe_out_enabled": false,
-          "wall_ap_data_downlinks_used": false,
-          "non_pd_2_5g_ports_poe_enabled": false,
-          "planning_reference": {
-            "eap775_at_mode_w_each": 26,
-            "eap775_quantity": 3,
-            "eap772_w": 25.4,
-            "m200_w_each": 12,
-            "m200_quantity": 2,
-            "sum_w": 127.4,
-            "headroom_multiplier": 1.3,
-            "with_headroom_w": 165.62
-          },
-          "validation_note": "仅为包含线路损耗余量的规划参考；按实际at/bt协商及PSE分配/预留功率核验，并测试六台同时冷启动、重启和并发。不能声称bt会自动只预留26W。"
-        }
-      },
-      {
-        "location": "电竞房",
-        "product_id": "es210xpp",
-        "ports_2_5g": {
-          "capacity": 8,
-          "assigned": 7,
-          "spare": 1,
-          "assignments": [
-            "Fusion上联",
-            "PC1",
-            "PC2",
-            "Mac mini",
-            "J3455",
-            "电竞房Apple TV",
-            "投影仪"
-          ]
-        },
-        "port_10g_rj45": {
-          "assignment": "Mac Studio",
-          "target_speed_gbps": 10
-        },
-        "port_10g_sfp_plus": {
-          "assignment": "未来NAS",
-          "status": "仅预留，未部署"
-        },
-        "poe": {
-          "all_ports_enabled": false,
-          "note": "电竞房EAP775-Wall独立回中央ES210供电，不占本地端口或PoE预算"
-        }
-      },
-      {
-        "location": "客厅",
-        "product_id": "es206xpp",
-        "ports_2_5g": {
-          "capacity": 5,
-          "assigned": 4,
-          "spare": 1,
-          "assignments": [
-            "电视",
-            "客厅Apple TV",
-            "Switch",
-            "PS"
-          ]
-        },
-        "port_10g_sfp_plus": {
-          "assignment": "中央ES210上联",
-          "target_speed_gbps": 10,
-          "status": "光纤展示方案，介质与模块待核，未部署"
-        },
-        "poe": {
-          "all_ports_enabled": false
-        }
+        "from": "中央ES210 SFP+",
+        "to": "客厅ES206 SFP+",
+        "target_speed_gbps": 10
       }
     ],
-    "notes": [
-      "电竞房Apple TV与客厅Apple TV分别计数；端口分配不代表新增购买。",
-      "两个独立电脑墙口为被动RJ45信息面板，不增加AP数量或PoE负载；电脑不经AP下联口。",
-      "同一家庭LAN、Fusion唯一DHCP/普通DNS、指定终端手动选用J3455 OpenWrt的逻辑方案不变。",
-      "中央仅1个SFP+；电竞房SFP+预留NAS，不同时用于光纤上联。",
-      "FP400仍为候选，未计入当前端口分配或PoE负载。",
-      "采用此图时撤掉客厅原Fusion铜缆上联，保留备用线但不同时连通。",
-      "已确认的v1.4仍保留在lan_topology，本展示不自动覆盖原采购/施工基线。",
-      "在用远端铜缆由10条变9条，另有1条中央到客厅光链路；原客厅Cat6A保留端接备用。"
-    ],
-    "version": "1.5",
-    "router_lan_ports_spare": 2,
-    "diagram_path": "docs/network-topology.md"
+    "spare_copper_uplink": "原客厅铜缆端接保留，不跳接；禁止与光纤同时接通形成二层环路"
   },
   "storage_network_plan": {
     "updated_at": "2026-11-25",
@@ -591,9 +501,22 @@
       "upgrade_status": "用户确认升级方向；网卡未确认下单，未实施/验收",
       "candidate_nic": "TP-Link TX201（兼容性待验候选）",
       "host_slot_previous_record": "PCIe 2.0 x1",
-      "switch_connection": "电竞房ES210已有2.5G接入口，升级沿用，不增加端口",
+      "switch_connection": "客厅ES206的一个2.5G铜口；当前1G协商，升级2.5G不再增加端口",
       "planned_10g_nic_quantity": 0,
-      "validation": "核PCIe空间、发货芯片/驱动和Proxmox桥接；实测网络与金盘/SMB持续吞吐，保留原1G接口回退。"
+      "validation": "核PCIe空间、发货芯片/驱动和Proxmox桥接；实测网络与金盘/SMB持续吞吐，保留原1G接口回退。",
+      "planned_location": "客厅（大厅）箱外通风位，搬迁尚未实施",
+      "primary_use": "影视资源存储；既有黑群晖VM/代理保留，HAOS及OpenWrt规划仍在同一Proxmox宿主",
+      "ups_planning_location": "客厅；UPS选型后置，需同时考虑客厅交换机及通往中央/Fusion的链路供电",
+      "iscsi_game_disk": {
+        "status": "条件性研究，未部署/未测试",
+        "dsm_version": null,
+        "emulated_model": null,
+        "san_manager_available": null,
+        "recommended_layout": "每客户端独立LUN，独立目标与访问权限；单LUN单写入主机",
+        "shared_ntfs_multi_writer_allowed": false,
+        "note": "多会话不提供NTFS文件系统锁；共享基础镜像配独立写入层需专门系统，不能只开启iSCSI实现。",
+        "research_path": "docs/j3455-iscsi-game-library.md"
+      }
     },
     "future_nas": {
       "status": "独立未来采购，与J3455区分；型号与存储池待选",
@@ -621,5 +544,259 @@
       ],
       "note": "大文件连续传输常见参考，非本户实测或保证；磁盘型号/盘面位置、CPU、协议、虚拟化与小文件负载影响结果。"
     }
-  }
+  },
+  "topology_history": [
+    {
+      "updated_at": "2026-11-25",
+      "status": "历史方案，已由v1.6替代；非当前施工口径",
+      "architecture": "Fusion分别以独立2.5G铜缆链路直连中央、电竞房、客厅三台交换机",
+      "router_product_id": "fusion",
+      "router_lan_uplinks_used": 3,
+      "switches": [
+        {
+          "location": "中央核心位",
+          "product_id": "es210xpp",
+          "ports_2_5g": {
+            "capacity": 8,
+            "assigned": 8,
+            "spare": 0,
+            "assignments": [
+              "Fusion上联",
+              "主卧EAP775-Wall",
+              "次卧EAP775-Wall",
+              "电竞房EAP775-Wall",
+              "大厅EAP772",
+              "大厅M200",
+              "次网关M200",
+              "普通电脑墙口B"
+            ]
+          },
+          "port_10g_rj45": {
+            "assignment": "普通电脑墙口A",
+            "target_speed_gbps": 10,
+            "status": "须核验电脑网卡与模块、跳线、全通道性能；不能仅凭Cat6A线缆保证10G"
+          },
+          "port_10g_sfp_plus": {
+            "assignment": null,
+            "status": "备用；中央至客厅10G光级联仅为备选，尚未变更Fusion星型"
+          },
+          "poe": {
+            "budget_w": 200,
+            "pd_ports_assigned": 6,
+            "power_source_for": [
+              "EAP775-Wall×3",
+              "EAP772×1",
+              "M200×2"
+            ],
+            "wall_ap_poe_out_enabled": false,
+            "wall_ap_data_downlinks_used": false,
+            "non_pd_2_5g_ports_poe_enabled": false,
+            "planning_reference": {
+              "eap775_at_mode_w_each": 26,
+              "eap775_quantity": 3,
+              "eap772_w": 25.4,
+              "m200_w_each": 12,
+              "m200_quantity": 2,
+              "sum_w": 127.4,
+              "headroom_multiplier": 1.3,
+              "with_headroom_w": 165.62
+            },
+            "validation_note": "仅为包含线路损耗余量的规划参考；按实际at/bt协商及PSE分配/预留功率核验，并测试六台同时冷启动、重启和并发。不能声称bt会自动只预留26W。"
+          }
+        },
+        {
+          "location": "电竞房",
+          "product_id": "es210xpp",
+          "ports_2_5g": {
+            "capacity": 8,
+            "assigned": 7,
+            "spare": 1,
+            "assignments": [
+              "Fusion上联",
+              "PC1",
+              "PC2",
+              "Mac mini",
+              "J3455",
+              "电竞房Apple TV",
+              "投影仪"
+            ]
+          },
+          "port_10g_rj45": {
+            "assignment": "Mac Studio",
+            "target_speed_gbps": 10
+          },
+          "port_10g_sfp_plus": {
+            "assignment": "未来NAS",
+            "status": "仅预留，未部署"
+          },
+          "poe": {
+            "all_ports_enabled": false,
+            "note": "电竞房EAP775-Wall独立回中央ES210供电，不占本地端口或PoE预算"
+          }
+        },
+        {
+          "location": "客厅",
+          "product_id": "es206xpp",
+          "ports_2_5g": {
+            "capacity": 5,
+            "assigned": 5,
+            "spare": 0,
+            "assignments": [
+              "Fusion上联",
+              "电视",
+              "客厅Apple TV",
+              "Switch",
+              "PS"
+            ]
+          },
+          "port_10g_sfp_plus": {
+            "assignment": null,
+            "status": "备用；中央至客厅10G光级联仅为备选"
+          },
+          "poe": {
+            "all_ports_enabled": false
+          }
+        }
+      ],
+      "notes": [
+        "电竞房Apple TV与客厅Apple TV分别计数；端口分配不代表新增购买。",
+        "两个独立电脑墙口为被动RJ45信息面板，不增加AP数量或PoE负载；电脑不经AP下联口。",
+        "同一家庭LAN、Fusion唯一DHCP/普通DNS、指定终端手动选用J3455 OpenWrt的逻辑方案不变。",
+        "未来中央至客厅10G光级联须撤掉客厅原Fusion铜缆上联，避免二层环路；当前不启用。",
+        "中央仅1个SFP+；电竞房SFP+预留NAS，不同时用于光纤上联。",
+        "FP400仍为候选，未计入当前端口分配或PoE负载。"
+      ],
+      "version": "1.4",
+      "router_lan_ports_spare": 1,
+      "superseded_by": "1.6"
+    },
+    {
+      "updated_at": "2026-11-25",
+      "status": "历史方案，已由v1.6替代；非当前施工口径",
+      "architecture": "Fusion以2.5G直连中央和电竞房；中央以10G SFP+光纤上联客厅，客厅不再直接接Fusion",
+      "router_product_id": "fusion",
+      "router_lan_uplinks_used": 2,
+      "switches": [
+        {
+          "location": "中央核心位",
+          "product_id": "es210xpp",
+          "ports_2_5g": {
+            "capacity": 8,
+            "assigned": 8,
+            "spare": 0,
+            "assignments": [
+              "Fusion上联",
+              "主卧EAP775-Wall",
+              "次卧EAP775-Wall",
+              "电竞房EAP775-Wall",
+              "大厅EAP772",
+              "大厅M200",
+              "次网关M200",
+              "普通电脑墙口B"
+            ]
+          },
+          "port_10g_rj45": {
+            "assignment": "普通电脑墙口A",
+            "target_speed_gbps": 10,
+            "status": "须核验电脑网卡与模块、跳线、全通道性能；不能仅凭Cat6A线缆保证10G"
+          },
+          "port_10g_sfp_plus": {
+            "assignment": "客厅ES206上联",
+            "target_speed_gbps": 10,
+            "status": "光纤展示方案，介质与模块待核，未部署"
+          },
+          "poe": {
+            "budget_w": 200,
+            "pd_ports_assigned": 6,
+            "power_source_for": [
+              "EAP775-Wall×3",
+              "EAP772×1",
+              "M200×2"
+            ],
+            "wall_ap_poe_out_enabled": false,
+            "wall_ap_data_downlinks_used": false,
+            "non_pd_2_5g_ports_poe_enabled": false,
+            "planning_reference": {
+              "eap775_at_mode_w_each": 26,
+              "eap775_quantity": 3,
+              "eap772_w": 25.4,
+              "m200_w_each": 12,
+              "m200_quantity": 2,
+              "sum_w": 127.4,
+              "headroom_multiplier": 1.3,
+              "with_headroom_w": 165.62
+            },
+            "validation_note": "仅为包含线路损耗余量的规划参考；按实际at/bt协商及PSE分配/预留功率核验，并测试六台同时冷启动、重启和并发。不能声称bt会自动只预留26W。"
+          }
+        },
+        {
+          "location": "电竞房",
+          "product_id": "es210xpp",
+          "ports_2_5g": {
+            "capacity": 8,
+            "assigned": 7,
+            "spare": 1,
+            "assignments": [
+              "Fusion上联",
+              "PC1",
+              "PC2",
+              "Mac mini",
+              "J3455",
+              "电竞房Apple TV",
+              "投影仪"
+            ]
+          },
+          "port_10g_rj45": {
+            "assignment": "Mac Studio",
+            "target_speed_gbps": 10
+          },
+          "port_10g_sfp_plus": {
+            "assignment": "未来NAS",
+            "status": "仅预留，未部署"
+          },
+          "poe": {
+            "all_ports_enabled": false,
+            "note": "电竞房EAP775-Wall独立回中央ES210供电，不占本地端口或PoE预算"
+          }
+        },
+        {
+          "location": "客厅",
+          "product_id": "es206xpp",
+          "ports_2_5g": {
+            "capacity": 5,
+            "assigned": 4,
+            "spare": 1,
+            "assignments": [
+              "电视",
+              "客厅Apple TV",
+              "Switch",
+              "PS"
+            ]
+          },
+          "port_10g_sfp_plus": {
+            "assignment": "中央ES210上联",
+            "target_speed_gbps": 10,
+            "status": "光纤展示方案，介质与模块待核，未部署"
+          },
+          "poe": {
+            "all_ports_enabled": false
+          }
+        }
+      ],
+      "notes": [
+        "电竞房Apple TV与客厅Apple TV分别计数；端口分配不代表新增购买。",
+        "两个独立电脑墙口为被动RJ45信息面板，不增加AP数量或PoE负载；电脑不经AP下联口。",
+        "同一家庭LAN、Fusion唯一DHCP/普通DNS、指定终端手动选用J3455 OpenWrt的逻辑方案不变。",
+        "中央仅1个SFP+；电竞房SFP+预留NAS，不同时用于光纤上联。",
+        "FP400仍为候选，未计入当前端口分配或PoE负载。",
+        "采用此图时撤掉客厅原Fusion铜缆上联，保留备用线但不同时连通。",
+        "已确认的v1.4仍保留在lan_topology，本展示不自动覆盖原采购/施工基线。",
+        "在用远端铜缆由10条变9条，另有1条中央到客厅光链路；原客厅Cat6A保留端接备用。"
+      ],
+      "version": "1.5",
+      "router_lan_ports_spare": 2,
+      "diagram_path": "docs/network-topology.md",
+      "superseded_by": "1.6"
+    }
+  ]
 }
