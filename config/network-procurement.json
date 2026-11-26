@@ -447,7 +447,24 @@
         "switch_ports_assigned": 0,
         "poe_required": false,
         "power": "使用位置本地市电，保留可移动摆放，不预定固定吊装",
-        "status": "用户确认不插网线，不新增投影以太网支线"
+        "status": "用户确认不插网线，不新增投影以太网支线",
+        "reported_product_name": "米家激光投影仪（2019款）",
+        "reported_brightness_ansi_lm": 2400,
+        "identity_basis": "2026-11-26用户最新确认2019款及2400 ANSI流明；完整铭牌型号待核。",
+        "wireless_research": {
+          "checked_at": "2026-11-26",
+          "bands_ghz_reported": [
+            2.4,
+            5
+          ],
+          "bands_evidence": "用户提供802.11 a/b/g/n/ac；b/g对应2.4GHz、a/ac对应5GHz，非本户实测。",
+          "ieee_standard": "802.11 a/b/g/n/ac",
+          "wifi_6_support": false,
+          "status": "依据2026-11-26用户提供的无线规格确认最高Wi-Fi 5（ac）；未列ax，按不支持Wi-Fi 6记录。非原厂型号页独立核验；实际接入待验。",
+          "reference": "docs/mijia-laser-projector-2019-wifi.md",
+          "highest_wifi_generation": 5,
+          "specification_source": "用户在本对话直接提供：802.11 a/b/g/n/ac"
+        }
       }
     }
   },
