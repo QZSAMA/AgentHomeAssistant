@@ -1,10 +1,12 @@
 # 家庭基础设施采购 BOM 与未决清单
 
+> **2026-11-26影音终端更正（沿用v1.6）**：已有Apple TV仅1台，放大厅有线接ES206；电竞房无Apple TV。已有投影仪以主卧为主要使用位置，可移动，Wi-Fi接入、不插网线，使用本地市电、不占交换机口或PoE。电竞房2.5G口改为用4余4；不增加设备采购，尚未记为已搬迁/验收。
+
 > **光猫接入决定（2026-11-18）**：武汉电信 1,000 Mbps，当前采用运营商光猫 Internet 桥接 → Fusion 2.5G 普通版 PPPoE 拨号，尚未实施/验收。XG-PON 仅为备用研究假设，实际制式/原光猫型号待核；旧规划上行 30 Mbps 未实测。见[当前接入与验收](wan-bridge-plan.md)、[替换设备/案例/视频备用研究](ont-replacement-backup-research.md)。本轮不采购新光猫、猫棒或 MC420L；Omada 已下单 7 台、另待购 Fusion 的状态与同一家庭 LAN 方案不变。
 
-更新日期：2026-11-25。**7台Omada设备已下单、待到货验收，未安装/未部署；另有Fusion普通版×1计划采购、购买未确认。** 完整网络计划8台。当前v1.6为Fusion直连中央ES210、电竞ES210及电脑墙口A/B（均2.5G），中央以10G SFP+光纤级联客厅ES206；四AP与两M200全部中央PoE，J3455规划移至客厅。见[现行拓扑](network-topology.md)与[本次订单记录](network-order-20261118.md)。
+更新日期：2026-11-26。**7台Omada设备已下单、待到货验收，未安装/未部署；另有Fusion普通版×1计划采购、购买未确认。** 完整网络计划8台。当前v1.6为Fusion直连中央ES210、电竞ES210及电脑墙口A/B（均2.5G），中央以10G SFP+光纤级联客厅ES206；四AP与两M200全部中央PoE，J3455规划移至客厅。见[现行拓扑](network-topology.md)与[本次订单记录](network-order-20261118.md)。
 
-**版本对照**：v1.6为当前已选接线规划，Fusion WAN接光猫、四LAN全满；中央2.5G用7/8、独立10G电口空闲、SFP+接客厅；电竞2.5G用6/8、Mac10G/NAS光预留；客厅五铜口含J3455全满。v1.4星型与v1.5光纤展示仅保留历史，原客厅Fusion铜上联不再接通。光纤/模块型号待核，尚未采购或实施，不代表新增订单。
+**版本对照**：v1.6为当前已选接线规划，Fusion WAN接光猫、四LAN全满；中央2.5G用7/8、独立10G电口空闲、SFP+接客厅；电竞2.5G用4/8、Mac10G/NAS光预留；客厅五铜口含J3455全满。v1.4星型与v1.5光纤展示仅保留历史，原客厅Fusion铜上联不再接通。光纤/模块型号待核，尚未采购或实施，不代表新增订单。
 
 绿米2026-10-26签字方案仍为独立人民币历史采购口径：产品¥15,459＋服务费¥3,865＝¥19,324，见[签字清单](aqara-final-quote-20261026.md)。2026-11-25用户要求将次网关升级为M200，当前计划M200×2、均由中央PoE供电；升级订单及差价待核，不将原合同金额改写为已含升级，也不改变原采购/交付状态。
 
@@ -34,7 +36,7 @@
 | EAP775-Wall | 三频Wi-Fi 7；中央2.5G PoE上联；仅作AP，不使用下联数据口，关闭PoE Out | [Amazon](https://www.amazon.com/dp/B0G88FG4QH) · [官方规格](https://www.omadanetworks.com/us/business-networking/omada-wifi-wall-plate/eap775-wall/#specifications) |
 | EAP772 | 三频Wi-Fi 7；1×2.5G上联，802.3at，最大25.4W | [Amazon](https://www.amazon.com/dp/B0D2M26NYW) · [官方规格](https://www.omadanetworks.com/us/business-networking/omada-wifi-ceiling-mount/eap772/#specifications) |
 
-完整商城链接、历史报价、现行数量及订单金额分别保存在[采购数据](../config/network-procurement.json)。v1.6中Fusion四LAN给中央、电竞和电脑墙口A/B；中央8×2.5G使用7口（上联＋四AP＋两M200），余1口，10G RJ45空闲，SFP+光连客厅。电竞移走J3455后2.5G用6/8，10G电口给Mac Studio、SFP+留未来NAS；客厅五铜口为电视、Apple TV、Switch、PS、J3455，全部占满。详见[现行端口表](network-topology.md#当前端口与施工口径)。FP400与有线对讲不得占用假定空口，启用时重核分配；FP400接口未核，不按原生PoE采购。
+完整商城链接、历史报价、现行数量及订单金额分别保存在[采购数据](../config/network-procurement.json)。v1.6中Fusion四LAN给中央、电竞和电脑墙口A/B；中央8×2.5G使用7口（上联＋四AP＋两M200），余1口，10G RJ45空闲，SFP+光连客厅。电竞移走J3455并取消Apple TV/投影有线占位后2.5G用4/8、余4口，10G电口给Mac Studio、SFP+留未来NAS；客厅五铜口为电视、Apple TV、Switch、PS、J3455，全部占满。详见[现行端口表](network-topology.md#当前端口与施工口径)。FP400与有线对讲不得占用假定空口，启用时重核分配；FP400接口未核，不按原生PoE采购。
 
 ## 墙内网线与光纤配件
 
@@ -99,7 +101,7 @@
 - 本地支线、模块/跳线、面板底盒×3及吊顶安装位×1、两房间设备箱、中央设备位、插座/接地、标签和链路认证按复尺报价。RJ45＋光纤复合面板的光纤完整敷设、端接、编号与测试，先核实际芯数/类型；备用线另计。
 - 四AP和两M200均由中央ES210供电；三台775不用数据下联，关闭PoE Out。以at模式参考合计127.4W、加30%为165.62W；200W方案保留，实际at/bt分配与同时冷启动待验，不把26W当作bt自动预留。不新增独立注入器；电竞房两个10G口给Mac/NAS，不买SM5310-T。
 - 高速NAS及介质、UPS入住后再考虑。NAS要求自带10G SFP+，不另买NAS网卡；J3455西数金盘无RAID，用户确认PCIe 2.0 x1升级2.5G方向，TX201仍为兼容性候选，尚未确定下单，不增购J3455的10G卡。
-- J3455、M1 Mac mini、两台PC、旧Apple TV 4K、米家激光投影仪及树莓派继续复用。J3455规划客厅箱外通风位，HAOS/OpenWrt仍在该宿主，UPS及恢复随客厅负载核验；Mac、未来高速NAS及其他电竞终端仍在电竞房，Omada使用Fusion内置控制器。
+- J3455、M1 Mac mini、两台PC、旧Apple TV 4K、米家激光投影仪及树莓派继续复用。已有Apple TV仅1台放大厅，投影仪主放主卧、可移动且不插网线；不再计电竞房两项影音有线端口。J3455规划客厅箱外通风位，HAOS/OpenWrt仍在该宿主，UPS及恢复随客厅负载核验；Mac、未来高速NAS及其他电竞终端仍在电竞房，Omada使用Fusion内置控制器。
 - Apple HomeView桌面版、HomePod mini、壁挂安卓/iPad 不计入本表基础网络合计；相关采购状态保留在[设备台账](home-infrastructure-register.md)及[设备选型](device-selection-list.md)。
 - **绿米 Aqara 设备原签字合同合计 ¥19,324（含25%服务费），独立人民币口径，不并入本美元表**；原M200/M1S组合已提出升级M200×2，差价/采购待核，其余清单见[绿米签字方案](aqara-final-quote-20261026.md)，历史合同不改写。
 

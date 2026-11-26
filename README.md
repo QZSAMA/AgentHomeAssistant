@@ -1,14 +1,16 @@
 # AgentHomeAssistant
 
+> **当前网络与影音（2026-11-26，v1.6）**：Apple TV仅已有1台，放大厅接客厅ES206；投影仪主放主卧、可移动，Wi-Fi接入不插网线。电竞房ES210的2.5G口仅分配Fusion上联、PC×2、Mac mini，**用4余4**；10G电口给Mac Studio、SFP+留未来NAS。Fusion四LAN分别接中央/电竞/电脑墙口A/B，中央SFP+10G连客厅；中央四AP/两M200 PoE，客厅五铜口含Apple TV和J3455全满。当前[拓扑与端口](docs/network-topology.md)、[施工清单](docs/network-placement-and-cabling-plan.md)、[影音规划](docs/av-and-gaming-layout.md)优先，旧日期接法仅作历史。
+
 > **2026-11-21 三维户型小样**：[home-twin-3d 使用说明](examples/home-twin-3d/README.md)。已实现 CAD 户型旋转查看、设计师参考配色、次卧床靠窗靠墙、四盏模拟灯开关/调光及场景切换，并提供 NeonPlan 原生导入备份。运行 `python examples/home-twin-3d/serve.py` 后访问 http://127.0.0.1:8776/。当前没有连接真实 Home Assistant；[交付核验](examples/home-twin-3d/docs/delivery-check.md)记录完成范围与限制。
 
 > **光猫接入决定（2026-11-18）**：武汉电信 1,000 Mbps，当前采用运营商光猫 Internet 桥接 → Fusion 2.5G 普通版 PPPoE 拨号，尚未实施/验收。XG-PON 仅为备用研究假设，实际制式/原光猫型号待核；旧规划上行 30 Mbps 未实测。见[当前接入与验收](docs/wan-bridge-plan.md)、[替换设备/案例/视频备用研究](docs/ont-replacement-backup-research.md)。本轮不采购新光猫、猫棒或 MC420L；Omada 已下单 7 台、另待购 Fusion 的状态与同一家庭 LAN 方案不变。
 
 > **2026-11-21智能配件更新**：原绿米19,324元签字单不变。[设备增补Excel](outputs/aqara-supplement-20261118/全屋智能新增设备清单.xlsx)已补型号、官方/购买链接及核验状态，保留31条记录（独立门铃已取消、电竞房独立温湿度计暂不买），备选不叠加数量。两卫改选奥普米家版，完整SKU待定，拟经HA Xiaomi Home联动；米家不等于直连Aqara。门锁要求可视猫眼，当前官网较早猫眼款仅待核候选。见[型号核验](docs/aqara-model-verification-20261121.md)、[详细计划](docs/aqara-supplement-plan-20261118.md)与[全屋查漏](docs/smart-home-supplement-audit-20261118.md)。次卧照明不加、窗户仅检测，两卫FP310复用；欧瑞博仍覆盖空调/新风/地暖/热水器。未下单，实际库存待核。
 
-> **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 中央 ES206XPP-M2×1，电竞房/大厅 ES210XPP-M2 各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
+> **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 型号数量为 ES206XPP-M2×1、ES210XPP-M2×2，当前位置改为客厅ES206、中央/电竞房ES210各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
 >
-> **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。四条2.5G主干、两房间设备箱及电竞房本地双10G保持。以[订单记录](docs/network-order-20261118.md)、[采购BOM](docs/purchase-bom.md)和[现行拓扑](docs/network-topology.md)为准；旧日期报价/工作簿仅作历史，不按其旧数量采购。
+> **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。当前9条远端铜缆与中央—客厅光链路见逐线表；两房间设备箱及电竞房本地双10G保持。以[订单记录](docs/network-order-20261118.md)、[采购BOM](docs/purchase-bom.md)和[现行拓扑](docs/network-topology.md)为准；旧日期报价/工作簿仅作历史，不按其旧数量采购。
 
 <details>
 <summary>2026-10-19及以前的项目说明（历史，非当前采购/施工口径）</summary>
@@ -27,13 +29,13 @@
 > **J3455与协调器补充（2026-10-15）**：J3455现为1GbE，用户计划升级2.5G网卡，仍使用电竞房已分配的同一个交换机端口；型号、Proxmox驱动与桥接迁移待验证。HA经LAN连接有线网关/以太网协调器，不默认使用USB直通；Aqara网关集成与HA直管协调器是不同路径，具体型号和协议仍待选，见[智能家居接法](docs/smart-home-topology.md#21-各协议的实际接法)。
 > **PoE 与端口复核（2026-10-15）**：中央推荐ES210XPP-M2两卧室AP保守规划117W/200W，未来PoE可按需增加独立ES206XPP-M2。用户确认电竞房不扩交换机；继续使用单台ES210XPP-M2。工作室EAP775-Wall除上联外还有1×2.5G+3×1G数据下联，Apple TV/投影可改接两个1G口，从而释放两个ES210端口；J3455/HA、Mac、NAS和PC保持交换机直连，不使用AP PoE Out。见[网络拓扑](docs/network-topology.md#22-交换机-poe-与端口复核2026-10-15)及[BOM](docs/device-selection-list.md#63-交换机与-poe-预算)。
 > **6GHz 专项研究（2026-10-13）**：[中国大陆 Wi-Fi 7 / 6GHz 调研报告](docs/wifi7-6ghz-mainland-china-research.md)已记录官方限制、公开成功/失败案例与配置方法。存在特定组合的技术成功自述，但未发现大陆普通住宅 WLAN 开放依据；Apple 官方不支持在大陆使用 6GHz，EAP775-Wall 未经本项目实测。保留暂选型号，6GHz 不计入部署保证能力。
-> **AP 优先级确认（2026-10-14）**：支持6GHz的三频设备保持第一优先，主卧/次卧/工作室各暂选 **EAP775-Wall ×1**，大厅 **EAP772 ×1** 为第一优先候选，均按2.5G有线回程。[BOM](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单)与v1.2拓扑型号/数量不变；[AP有无6GHz选型与价格对比报告](docs/ap-6ghz-selection-price-comparison.md)保存美国官方/Amazon报价、725版本差异及快速更新流程，双频725/723仅留备选。地区合规、发货版本及PoE仍须核验，不代表已购买或大陆6GHz可启用。
+> **AP 优先级确认（2026-10-14）**：支持6GHz的三频设备保持第一优先，主卧/次卧/工作室各暂选 **EAP775-Wall ×1**，大厅 **EAP772 ×1** 为第一优先候选，均按2.5G有线回程。[BOM](docs/device-selection-list.md#64-当前端口与采购边界)与v1.2拓扑型号/数量不变；[AP有无6GHz选型与价格对比报告](docs/ap-6ghz-selection-price-comparison.md)保存美国官方/Amazon报价、725版本差异及快速更新流程，双频725/723仅留备选。地区合规、发货版本及PoE仍须核验，不代表已购买或大陆6GHz可启用。
 > **Apple设备最新决定（2026-10-15）**：大厅 **Apple HomeView非壁挂／桌面版×1已确认**，通过大厅AP Wi-Fi，使用随箱电源，不买壁挂版/底座。壁挂另用平板电脑或iPad，型号/数量/点位/供电待选。HomeView美国预购$299、11月13日供货；三房mini 2建议各1，美$149/大陆¥1,099、10月30日供货，代际/数量/地区仍待确认。用户接受英语Siri AI，大陆服务/账户/配套设备仍待验；未购/未部署，不改四主干/AP PoE。见[官方核验与建议](docs/apple-home-devices-2026.md)。
 > README 中较早的设备状态和网络方案用于背景参考；采购、户型、AP布点、Apple HomeView和模型计划以台账为准。
 > **当前品牌范围（用户已确认）**：Apple生态、Aqara/绿米为主，网络TP-Link；欧瑞博覆盖空调、新风、地暖、热水器。2026-11-21另指定奥普米家版两卫一体机，SKU/HA接入待核；其他小米/米家及华为设备仍不新增。已有米家激光投影仪复用，其他旧小米示例不视为已有。
 > **网络拓扑 v1.2（2026-10-14）：四条主干2.5G，仅电竞房Mac/NAS本地10G**。网络采购方向为 **TP-Link Omada**；主卧/次卧各一条Cat6A/2.5G直达EAP775-Wall，不设设备箱/交换机，电脑等有线设备接AP下联（1×2.5G+3×1G）；电竞房/大厅各保留一箱一交换机。电竞房已选 **ES210XPP-M2 ×1**，10G RJ45给Mac Studio、10G SFP+给未来高速NAS；J3455及其他关键终端接电竞房交换机。完整直连表会占用八个2.5G口和两个10G口；Apple TV、投影改接工作室AP的两个1G下联后可释放两个交换机2.5G口，AP仍余1×2.5G+1×1G。现有1G/100M终端按实际接口；核心网络仍在弱电箱附近机柜，中央至少两口需匹配卧室AP PoE。规格与采购入口见 [TP-Link 网络产品调研](docs/tplink-network-research.md)。
 
-> 最新候选购买 BOM 见 [设备清单第6.4节](docs/device-selection-list.md#64-按最新拓扑更新的候选购买清单)：电竞房只用一台ES210XPP-M2，不增加交换机；完整直连表可占满十口，但工作室AP下联可承载Apple TV/投影等低带宽终端。中央五连接，建议≥8×2.5G且至少两口匹配EAP775-Wall PoE输入/功率。两卧室无交换机/箱，三台面板AP均有1×2.5G+3×1G下联；不启用AP PoE Out。Omada 使用暂定 Fusion 的内置控制器，不另占交换机端口；HA 通过 J3455 的既有接入口联网（现1G，计划2.5G）。
+> 最新候选购买 BOM 见 [设备清单第6.4节](docs/device-selection-list.md#64-当前端口与采购边界)：电竞房只用一台ES210XPP-M2，不增加交换机；完整直连表可占满十口，但工作室AP下联可承载Apple TV/投影等低带宽终端。中央五连接，建议≥8×2.5G且至少两口匹配EAP775-Wall PoE输入/功率。两卧室无交换机/箱，三台面板AP均有1×2.5G+3×1G下联；不启用AP PoE Out。Omada 使用暂定 Fusion 的内置控制器，不另占交换机端口；HA 通过 J3455 的既有接入口联网（现1G，计划2.5G）。
 >
 > **⚠️ 历史内容警告（2026-10）**：本文下方的“双路由/副路由”、千兆交换机、ORVIBO面板/照明和“已接入设备”均为历史或未核验记录，禁止据此采购/施工。当前基线是 **AC（主路由器/网关）→ 中央匹配PoE的2.5G交换机 → 两卧室Wall AP（直达）/电竞房与大厅交换机 → 有线AP/终端**；AC不是无线控制器，也不是空调。
 
@@ -51,7 +53,7 @@
 | [2026-11-18网络下单记录](docs/network-order-20261118.md) | Omada Store七台设备、折后商品$828/总额$901.49；位置、端口和到货验收，Fusion不在本单 |
 | [采购BOM与未决清单](docs/purchase-bom.md) | 完整计划8台，7台已下单待到货；Fusion购买未确认；订单金额、历史报价、辅材与后置设备 |
 | [全屋网络拓扑图](docs/network-topology.md) | 四条主干目标2.5G；主卧/次卧775、电竞房/大厅ES210各一箱，电竞房775及大厅772交换机PoE直供；Mac/NAS本地10G |
-| [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视、电竞房投影、Switch 双底座、PS5/PS TV Remote Play；两条约10m反向光纤 HDMI AOC 与复尺/施工要求 |
+| [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视与唯一Apple TV、主卧可移动Wi-Fi投影；保留双向HDMI预留意向，原电竞房显示端用途重核，不按旧点位施工 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [楼宇对讲与门禁接入调研](docs/building-intercom-integration-research.md)／[罗格朗型号与手册核验](docs/legrand-intercom-identification-and-manuals.md) | 已确认Legrand、背标S6819161；两组红黑线＋RJ45用途待核。归档凯乐目录与凯蕴98页参考手册，本机专用手册未取得；视频、开门及米家／HA兼容未验收 |
 | [ESP门禁桥接与视频调查](docs/legrand-esp-intercom-bridge-research.md) | 核查Doorman、Simplebus2、按键改造、BTicino及ESP32-P4案例；区分事件／控制与音视频。S6819161先核线制，再条件性只读镜像／TAP调查，未接线或采购 |

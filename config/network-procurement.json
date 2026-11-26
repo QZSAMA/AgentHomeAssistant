@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25",
+  "updated_at": "2026-11-26",
   "currency": "USD",
   "active_plan": "3A-tri-band",
   "active_plan_status": "订单基线：7台已下单待到货验收；Fusion×1购买未确认；全部未部署",
@@ -290,7 +290,7 @@
     ]
   },
   "lan_topology": {
-    "updated_at": "2026-11-25",
+    "updated_at": "2026-11-26",
     "status": "用户确认接线规划；光纤与模块规格待核，未安装/未部署",
     "architecture": "Fusion以2.5G分别直连中央、电竞房及两个普通电脑墙口；中央与客厅以10G SFP+光纤互联；J3455改放客厅",
     "router_product_id": "fusion",
@@ -351,15 +351,13 @@
         "product_id": "es210xpp",
         "ports_2_5g": {
           "capacity": 8,
-          "assigned": 6,
-          "spare": 2,
+          "assigned": 4,
+          "spare": 4,
           "assignments": [
             "Fusion上联",
             "PC1",
             "PC2",
-            "Mac mini",
-            "电竞房Apple TV",
-            "投影仪"
+            "Mac mini"
           ]
         },
         "port_10g_rj45": {
@@ -401,7 +399,7 @@
       }
     ],
     "notes": [
-      "电竞房Apple TV与客厅Apple TV分别列容量，端口分配不代表新增购买；若同一台迁移则取消电竞房原占口。",
+      "2026-11-26用户确认已有Apple TV仅1台，安排在大厅/客厅ES206，电竞房不再分配Apple TV；投影仪主放主卧、可移动、不接以太网，电竞房释放两口后2.5G用4余4。",
       "两个普通电脑墙口独立回中央设备位、跳接Fusion各一2.5G LAN；不是AP或PoE负载，不接AP下联。",
       "同一家庭LAN；Fusion唯一DHCP/普通DNS；J3455移至客厅，指定终端手动选择其OpenWrt的逻辑规划不变。",
       "原Fusion到客厅铜缆只保留端接备用，不与中央到客厅光纤同时接通。",
@@ -428,6 +426,29 @@
       ],
       "lan_spare": 0,
       "port_labels_note": "LAN1–4仅逻辑用途，机身编号到货核对；四LAN保持同一家庭网段"
+    },
+    "media_devices": {
+      "updated_at": "2026-11-26",
+      "apple_tv": {
+        "quantity": 1,
+        "ownership": "已有复用，不新增采购",
+        "planned_location": "大厅/客厅",
+        "connection": "客厅ES206独立铜口",
+        "gaming_room_quantity": 0,
+        "status": "位置与接线规划已确认，未记为已搬迁/验收"
+      },
+      "projector": {
+        "quantity": 1,
+        "ownership": "已有米家激光投影仪复用",
+        "primary_location": "主卧",
+        "portable": true,
+        "connection": "Wi-Fi，移动时接使用区域覆盖合适的AP；实际体验待验",
+        "ethernet_connected": false,
+        "switch_ports_assigned": 0,
+        "poe_required": false,
+        "power": "使用位置本地市电，保留可移动摆放，不预定固定吊装",
+        "status": "用户确认不插网线，不新增投影以太网支线"
+      }
     }
   },
   "gateway_plan": {
@@ -441,7 +462,7 @@
     "contract_note": "不回写原签字合同的历史型号、数量或金额"
   },
   "cabling_plan": {
-    "updated_at": "2026-11-25",
+    "updated_at": "2026-11-26",
     "copper_category": "Cat6A",
     "primary_cable": {
       "brand": "CommScope 康普",
@@ -484,7 +505,8 @@
         "target_speed_gbps": 10
       }
     ],
-    "spare_copper_uplink": "原客厅铜缆端接保留，不跳接；禁止与光纤同时接通形成二层环路"
+    "spare_copper_uplink": "原客厅铜缆端接保留，不跳接；禁止与光纤同时接通形成二层环路",
+    "media_terminal_note": "大厅仅1台已有Apple TV有线接ES206；电竞STUDIO-ATV与STUDIO-PROJECTOR不再列在用，投影主卧移动Wi-Fi不占交换机口。9条远端铜缆不变；房内终端铜连接客厅5条、电竞4条（含Mac），该计量口径合计18条，不含核心本地短跳线、墙口跳线、备用或未来NAS介质。"
   },
   "storage_network_plan": {
     "updated_at": "2026-11-25",
