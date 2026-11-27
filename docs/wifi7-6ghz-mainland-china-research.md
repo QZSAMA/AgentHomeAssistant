@@ -4,7 +4,7 @@
 
 调研截止：2026-10-13。适用项目：AgentHomeAssistant。性质：公开资料调研与采购风险评估，**不是实机测试报告或无线电使用许可**。
 
-关联文档：[调研框架](research/wifi7-6ghz-mainland-framework.md) · [基础设施台账](home-infrastructure-register.md) · [当前 BOM](device-selection-list.md#64-按最新拓扑更新的候选购买清单) · [网络拓扑](network-topology.md) · [TP-Link 产品研究](tplink-network-research.md)。
+关联文档：[调研框架](research/wifi7-6ghz-mainland-framework.md) · [基础设施台账](home-infrastructure-register.md) · [当前 BOM](purchase-bom.md) · [网络拓扑](network-topology.md) · [TP-Link 产品研究](tplink-network-research.md)。
 
 **采购状态补记（2026-11-27整理）**：EAP775-Wall×3与EAP772×1已纳入用户2026-11-18确认的[Omada订单](network-order-20261118.md)，待到货验收；双频采购备选已移除。本文法规/案例检索截止日仍为2026-10-13，本次未重新检索；6GHz不计大陆部署保证，尚未验证具体SKU/终端，也不表示批准启用6GHz。
 

@@ -121,10 +121,10 @@ J3455 上的 NAS、未来 HA 服务会随宿主停机暂停。因此“智能家
 
 扩展使用前必须通过：Fusion 唯一 DHCP、普通 DNS 独立、未出现 VM 路由通告、普通设备在规则服务/VM/宿主停机时仍可新建普通连接、指定终端能够按操作单切回、局域网发现正常、IPv6 限制已记录。任何一项失败都保持普通路径，停止扩大规则设备范围；文档批准不能替代这些检查。
 
-## 9. 资料与历史方案
+## 9. 功能与兼容性证据
 
 - [Fusion 第三方能力与同 SSID 按设备分流调研](../../fusion-third-party-and-device-routing.md)：保留软件扩展、逐设备网关与认证方式的官方证据。
-- [官方功能调研](../../fusion-domain-routing-capability-research.md)、[社区案例比较](../../home-routing-community-and-reliability.md)：仅作历史研究；定向 DNS 与合成地址段全屋路由不属于现行方案。
-- [原全屋设计](2026-11-05-home-rule-routing-design.md)、[故障隔离比较](2026-11-05-home-rule-routing-availability.md)、[旧实施计划](../plans/2026-11-05-home-rule-routing.md)、[旧验收单](../../validation/home-rule-routing.md)：已被本方案取代，不执行其中全屋网关/DHCP 迁移与切换步骤。
+- [Fusion官方功能核验](../../fusion-domain-routing-capability-research.md)：保留原厂手册页码、界面截图和固件边界；不据此增加全屋DNS或静态路由。
+- [社区故障与浏览器兼容证据](../../home-routing-community-and-reliability.md)：保留原始案例来源、DNS独立性和合成地址的应用兼容检查；不能替代本户实测。
 
 真实节点、订阅地址、凭据与完整访问记录仅保存在个人受保护的运维资料中，不进入 Git。后续现场记录使用[现行验收单](../../validation/home-device-rule-routing.md)。

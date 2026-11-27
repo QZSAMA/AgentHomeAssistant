@@ -1,507 +1,62 @@
 # AgentHomeAssistant
 
-> **当前网络与影音（2026-11-26，v1.6）**：Apple TV仅已有1台，放大厅接客厅ES206；投影仪主放主卧、可移动，Wi-Fi接入不插网线。电竞房ES210的2.5G口仅分配Fusion上联、PC×2、Mac mini，**用4余4**；10G电口给Mac Studio、SFP+留未来NAS。Fusion四LAN分别接中央/电竞/电脑墙口A/B，中央SFP+10G连客厅；中央四AP/两M200 PoE，客厅五铜口含Apple TV和J3455全满。当前[拓扑与端口](docs/network-topology.md)、[施工清单](docs/network-placement-and-cabling-plan.md)、[影音规划](docs/av-and-gaming-layout.md)为当前接线依据。
+家庭网络、装修与智能家居的方案资料，以及 Home Assistant / Hermes 集成实验。当前事实以台账、已确认订单和各专项验收记录为准；软件示例、模拟设备与真实家居接入分别记录。
 
-> **2026-11-21 三维户型小样**：[home-twin-3d 使用说明](examples/home-twin-3d/README.md)。已实现 CAD 户型旋转查看、设计师参考配色、次卧床靠窗靠墙、四盏模拟灯开关/调光及场景切换，并提供 NeonPlan 原生导入备份。运行 `python examples/home-twin-3d/serve.py` 后访问 http://127.0.0.1:8776/。当前没有连接真实 Home Assistant；[交付核验](examples/home-twin-3d/docs/delivery-check.md)记录完成范围与限制。
+## 当前状态
 
-> **光猫接入决定（2026-11-18）**：武汉电信 1,000 Mbps，当前采用运营商光猫 Internet 桥接 → Fusion 2.5G 普通版 PPPoE 拨号，尚未实施/验收。XG-PON 仅为备用研究假设，实际制式/原光猫型号待核；旧规划上行 30 Mbps 未实测。见[当前接入与验收](docs/wan-bridge-plan.md)、[替换设备/案例/视频备用研究](docs/ont-replacement-backup-research.md)。本轮不采购新光猫、猫棒或 MC420L；Omada 已下单 7 台、另待购 Fusion 的状态与同一家庭 LAN 方案不变。
+- **网络**：Omada ES210×2、ES206×1、EAP775-Wall×3、EAP772×1共7台已下单，订单总额 **$901.49**，待到货验收；Fusion 2.5G普通版×1购买未确认，完整计划8台，尚未安装/部署。见[订单](docs/network-order-20261118.md)与[采购BOM](docs/purchase-bom.md)。
+- **接线**：采用[v1.6](docs/network-topology.md)：Fusion四LAN接中央、电竞及电脑墙口A/B；中央10G光纤接客厅，四AP与两M200集中PoE。光纤配件待核；同一家庭LAN，指定终端按[批准方案](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md)选择OpenWrt。
+- **位置**：J3455规划在客厅；Apple TV仅大厅一台；投影仪主卧为主、移动Wi-Fi使用。当前端口与施工数量统一查[逐线计划](docs/network-placement-and-cabling-plan.md)，现场未实施。
+- **智能家居**：原绿米签字合同 **¥19,324** 与后续增补分开管理；M200×2为升级计划，差价、订单及交付待核。设备采购状态和集成待办见[基础设施台账](docs/home-infrastructure-register.md)。
+- **软件**：已提供三维户型模拟示例、Hermes/HA隔离实验资料及只读REST探测器。旧Middleware已有源码和测试，HA/Agent真实适配尚未完成，服务入口另有待修复导入问题；详见[Code Wiki](CODE_WIKI.md)。不将模拟或离线测试视为真实设备验收。
 
-> **2026-11-21智能配件更新**：原绿米19,324元签字单不变。[设备增补Excel](outputs/aqara-supplement-20261118/全屋智能新增设备清单.xlsx)已补型号、官方/购买链接及核验状态，保留31条记录（独立门铃已取消、电竞房独立温湿度计暂不买），备选不叠加数量。两卫改选奥普米家版，完整SKU待定，拟经HA Xiaomi Home联动；米家不等于直连Aqara。门锁要求可视猫眼，当前官网较早猫眼款仅待核候选。见[型号核验](docs/aqara-model-verification-20261121.md)、[详细计划](docs/aqara-supplement-plan-20261118.md)与[全屋查漏](docs/smart-home-supplement-audit-20261118.md)。次卧照明不加、窗户仅检测，两卫FP310复用；欧瑞博仍覆盖空调/新风/地暖/热水器。未下单，实际库存待核。
+## 方案与施工入口
 
-> **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 型号数量为 ES206XPP-M2×1、ES210XPP-M2×2，当前位置改为客厅ES206、中央/电竞房ES210各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
->
-> **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。当前9条远端铜缆与中央—客厅光链路见逐线表；两房间设备箱及电竞房本地双10G保持。以[订单记录](docs/network-order-20261118.md)、[采购BOM](docs/purchase-bom.md)和[现行拓扑](docs/network-topology.md)为准；旧网络备选和过时工作簿已清理，历史版本可从 Git 查询。
-
-## 当前方案与图纸入口（2026-11-27 整理）
-
-| 文档 | 内容 |
+| 主题 | 文档 |
 |---|---|
-| [11月22日水电定位讨论稿](docs/electrical-network-positioning-draft-20261121.md) | 按原家具图分26组建议开关/插座/网口位置，含高度参考、主卧多控、网络点位与本地支线、现场签认表；仅草案，待现场量尺 |
-| [装修原图与网络设备位置](docs/floorplan-and-network-locations.md) | 两张用户装修原图、局部尺寸边界；弱电箱在入户门左侧，中央设备位置及现场核验清单 |
-| [Apple HomeView / mini 2官方核验](docs/apple-home-devices-2026.md) | HomeView桌面版×1已确认、mini 2待选；官方规格/报价与地区限制，壁挂平板或iPad待选，不买HomeView壁挂底座 |
-| [当前宽带桥接方案](docs/wan-bridge-plan.md) | 武汉电信、原光猫Internet桥接、Fusion PPPoE；参数与逐项验收，尚未实施 |
-| [光猫替换备用研究](docs/ont-replacement-backup-research.md) | 中兴、VSOL、Nokia XG-040G-MD、PRX126猫棒与MC420L；32条分级来源含8条视频，暂不采购 |
-| [2026-11-18网络下单记录](docs/network-order-20261118.md) | Omada Store七台设备、折后商品$828/总额$901.49；位置、端口和到货验收，Fusion不在本单 |
-| [采购BOM与未决清单](docs/purchase-bom.md) | 完整计划8台，7台已下单待到货；Fusion购买未确认；订单金额、待购主路由、辅材与后置设备 |
-| [全屋网络拓扑图](docs/network-topology.md) | v1.6：Fusion接中央/电竞及两个电脑墙口，中央10G光纤接客厅；四AP、两M200中央PoE；J3455在客厅 |
-| [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视与唯一Apple TV、主卧可移动Wi-Fi投影；保留双向HDMI预留意向，原电竞房显示端用途重核，不按旧点位施工 |
-| [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
-| [楼宇对讲与门禁接入调研](docs/building-intercom-integration-research.md)／[罗格朗型号与手册核验](docs/legrand-intercom-identification-and-manuals.md) | 已确认Legrand、背标S6819161；两组红黑线＋RJ45用途待核。归档凯乐目录与凯蕴98页参考手册，本机专用手册未取得；视频、开门及米家／HA兼容未验收 |
-| [ESP门禁桥接与视频调查](docs/legrand-esp-intercom-bridge-research.md) | 核查Doorman、Simplebus2、按键改造、BTicino及ESP32-P4案例；区分事件／控制与音视频。S6819161先核线制，再条件性只读镜像／TAP调查，未接线或采购 |
-| [S6819161调查方案续篇（11月25日）](docs/legrand-s6819161-investigation-plan.md) | 新增国内罗格朗第三方终端线索、ESP米家BLE实验边界、安装商核对单及逐场景镜像调查；本机手册、远控与视频均未确认 |
-| [基础设施台账](docs/home-infrastructure-register.md) | 当前决定、已有/计划设备、模型计划与待验证事项的事实源 |
-| [已批准：同一LAN按设备选用OpenWrt](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md) | 全家同网段、不划分VLAN；Fusion保留主网关、唯一DHCP和独立普通DNS。2.4GHz共用SSID内，智能家居自动配置，指定终端手动选用OpenWrt；日常5GHz/可用6GHz另一个SSID仍在同一LAN。故障时指定终端手动切回普通路径；未部署 |
-| [现行实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md) / [现行验收与应急单](docs/validation/home-device-rule-routing.md) | 盘点备份、隔离建VM、单终端试点、双栈与本地发现、故障及切回演练；不修改现有物理布线，全部现场检查 `not_run` |
-| [Fusion扩展与同SSID按设备分流调研](docs/fusion-third-party-and-device-routing.md) | 原厂扩展能力、手动网关、PPSK/VLAN历史比较及逐设备DHCP能力边界；当前采用方案A |
-| [Fusion官方功能调研](docs/fusion-domain-routing-capability-research.md) / [社区案例比较](docs/home-routing-community-and-reliability.md) | 历史研究证据；全屋定向DNS、合成地址段静态路由与独立主网关不属于本次批准范围 |
-| [历史全屋设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) / [故障隔离比较](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) / [旧计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [旧验收单](docs/validation/home-rule-routing.md) | 已被现行批准版取代；不执行全屋网关、DHCP或DNS迁移及其回退步骤 |
-| [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
-| [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 9条在用远端铜缆、客厅10G光纤、四AP/两M200中央PoE；NAS/UPS后置 |
-| [Hermes × HA 隔离实验指南](examples/hermes-ha-lab/README.md) / [验收记录](docs/validation/hermes-ha-lab.md) | 当前软件入口：固定官方插件、独立 profile、虚拟实体、只读 REST 探测与预期断言；真实联调仍为 `not_run` |
+| 当前事实、采购与选型 | [基础设施台账](docs/home-infrastructure-register.md) · [采购BOM](docs/purchase-bom.md) · [设备选型](docs/device-selection-list.md) · [网络订单](docs/network-order-20261118.md) |
+| 网络与施工 | [拓扑及端口](docs/network-topology.md) · [逐线/点位计划](docs/network-placement-and-cabling-plan.md) · [施工需求](docs/renovation-wiring-requirements.md) · [Omada规格与验收](docs/tplink-network-research.md) |
+| 宽带与分流 | [原光猫桥接](docs/wan-bridge-plan.md) · [同一LAN批准设计](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md) · [实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md) · [验收与应急单](docs/validation/home-device-rule-routing.md) |
+| 装修图纸 | [原图与位置记录](docs/floorplan-and-network-locations.md) · [水电定位讨论稿](docs/electrical-network-positioning-draft-20261121.md)，点位、路径、标高和米数待现场签认 |
+| 智能家居 | [接入拓扑](docs/smart-home-topology.md) · [绿米签字清单](docs/aqara-final-quote-20261026.md) · [增补计划](docs/aqara-supplement-plan-20261118.md) · [型号核验](docs/aqara-model-verification-20261121.md) · [全屋查漏](docs/smart-home-supplement-audit-20261118.md) |
+| 影音与Apple终端 | [影音规划](docs/av-and-gaming-layout.md) · [投影仪Wi-Fi记录](docs/mijia-laser-projector-2019-wifi.md) · [Apple设备核验记录](docs/apple-home-devices-2026.md)，原查询日期和未验收边界沿用各页 |
+| 文件产物 | [输出文件索引](outputs/README.md) · [智能设备增补Excel](outputs/aqara-supplement-20261118/全屋智能新增设备清单.xlsx) |
 
-软件实验底座及只读断言已合入 `main`。可先运行 `python -m unittest discover -s tests/ha_lab -v` 复跑离线测试；这不安装 Hermes/HA、不连接真实家居，也不代表旧 Middleware 或真实集成已通过验收。准备隔离测试环境后，按实验指南逐项验证，不执行下方历史部署步骤。
+设备尚未到货、线路尚未施工或集成尚未验收的项目，均不能仅凭图纸、商品规格或文档提交记录标为完成。
 
-房屋约 **100㎡、单层**，已收到并归档[装修布置图与尺寸标注图](docs/floorplan-and-network-locations.md)。**弱电箱在入户门左侧**，光猫、Fusion和中央交换机规划在该箱或附近通风核心柜，9条在用远端铜缆及客厅光纤在此汇聚。大厅/入户过道已确认有吊顶或局部吊顶，新增[设备点位与埋线草案](docs/network-placement-and-cabling-plan.md)及标注图；箱体、完整电气点位、实际管线路径与逐线长度仍待现场签认，以现行逐线表交底。宽带已明确为**武汉电信 1000Mbps**；上行30Mbps沿用旧规划、未实测，当前采用[原光猫桥接 + Fusion拨号](docs/wan-bridge-plan.md)，实际PON制式待核。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接客厅ES206、箱外通风摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
+## 软件与交互示例
 
-Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+，NAS自带SFP+且不买网卡；具体介质/长度待入住后按实物选型。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
+### 三维户型与模拟灯光
 
-UPS入住后再评估，装修先留位置、电源与通风；原至少1小时仅为后续评估目标，不作入住前购买/验收条件。当前四台AP和两台M200均计中央PoE；电竞房/客厅交换机本地PoE关闭。J3455供电与有序关机归客厅评估。后续按实测负载、分散供电位置及安全关机要求选UPS，不通过密封机柜隔音。
+[home-twin-3d](examples/home-twin-3d/README.md)提供CAD派生户型、旋转查看、设计参考配色、四盏模拟灯及场景切换，并包含NeonPlan原生导入备份。完成范围与限制见[交付核验](examples/home-twin-3d/docs/delivery-check.md)。
 
-## 早期项目状态（历史记录，非最新验收）
+在仓库根目录运行：
 
-> 更新时间：2026-06
-
-### 项目时间线
-
-| 阶段 | 时间 | 状态 | 说明 |
-|------|------|------|------|
-| 软件开发（阶段1） | 2026.06 - 2026.09 | 🟡 进行中 | 纯软件开发，无硬件依赖，Mock 测试 |
-| 房屋交房 | 2026.09 | ⏳ 待定 | 交房后启动装修 |
-| 装修协调期（阶段2） | 2026.09 - 2026.12 | ⏳ 待定 | 弱电布线、设备选型确认 |
-| 设备安装与网络部署（阶段3） | 2026.12 - 2027.03 | ⏳ 待定 | HA 部署、设备接入、网络配置 |
-| 系统集成与上线（阶段4） | 2027.03 - 2027.04 | ⏳ 待定 | 端到端测试、正式上线 |
-
-### 设备现状
-
-| 类别 | 设备 | 状态 | 备注 |
-|------|------|------|------|
-| 智能家居设备 | Apple TV 4K | ✅ 已有 | 可用于 HomeKit 测试 |
-| 智能家居设备 | 投影仪 | ✅ 已有 | 待接入 HA |
-| 计算设备 | MacBook | ✅ 已有 | 暂代 Mac Studio 做开发测试 |
-| 计算设备 | Mac Studio | ⏳ 计划购买 | 最新：M5 Ultra，512GB统一内存+4TB SSD、10GbE接工作室交换机；Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机精确报价待开放后核验 |
-| 计算设备 / 现有 NAS | J3455 自建服务器 | ✅ 用户确认已有；HA 部署位置已定 | 16GB/10TB/现1GbE、计划2.5G/Proxmox，影音NAS及代理服务保留；计划客厅箱外通风摆放，未迁移；新增独立 HAOS VM 尚未部署/验收；Omada 由暂定 Fusion 承载 |
-| 计算设备（本轮接入计划） | Mac Mini | 1G终端，部署状态待核 | 电竞房已分配1个铜口，不因接入规划追加整机采购 |
-| 存储设备（未来扩购） | 高速 NAS | ⏳ 待评估，非必购 | 与J3455区分；电竞房10G SFP+预留，型号/磁盘入住后再选，自带SFP+且不另买网卡，不再规划中央接入 |
-| 智能家居设备（历史合并项） | 绿米/欧瑞博 | ⏳ 未核验 | 当前方向以台账为准：Aqara为主，2026-11-18欧瑞博范围更新为空调/新风/地暖/热水器 |
-
-### 软件开发进度
-
-| 模块 | 状态 | 说明 |
-|------|------|------|
-| 架构设计 | ✅ 完成 | 四层架构、组件职责、网络方案 |
-| Middleware 核心框架 | 🟡 开发中 | Config Manager、Scene Parser 等模块开发中 |
-| HA Adapter | 🟡 Mock 模式 | 抽象接口已定义，真实实现待 HA 部署 |
-| Agent 集成 | ⏳ 待开始 | Hermes Agent 调研中 |
-| 测试基础设施 | ⏳ 待开始 | 单元测试 + Mock 全链路测试 |
-
-> 早期开发时序文档未随仓库保留。当前设备、网络和部署待办见[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)。
-
-## 核心特性
-
-- 🤖 **Agent 驱动**：使用 Hermes Agent 作为智能核心，支持自然语言交互
-- 🔧 **自然语言配置**：通过对话即可创建、修改场景，无需手动编辑配置
-- 🔄 **灵活可扩展**：Agent 可自由替换，适配器模式解耦 Home Assistant
-- ⚙️ **YAML + Web UI**：核心配置版本化管理，可视化配置灵活调整
-
-## 网络架构
-
-当前采用 [v1.6 拓扑](docs/network-topology.md)：运营商光猫桥接，Fusion 2.5G 普通版拨号并运行 Omada 控制器。Fusion 四个 LAN 分别接中央 ES210、电竞房 ES210、普通电脑墙口 A/B；中央 ES210 以 10G SFP+ 光纤连接客厅 ES206。光纤方向已定，模块和跳线规格待核，尚未施工或部署。
-
-四台 AP 和两台 M200 均独立回中央 PoE，AP 下联口不用。J3455 和唯一已有 Apple TV 规划放在客厅；投影仪主卧为主、可移动 Wi-Fi 接入。电竞房 Mac Studio 接 10G RJ45，未来 NAS 预留 SFP+；各口用途与九条远端铜缆见[端口及布线表](docs/network-placement-and-cabling-plan.md)。
-
-所有设备保持同一家庭 LAN，Fusion 为唯一 DHCP 和普通 DNS。指定终端手动使用 J3455 上的 OpenWrt；故障时切回普通参数。按[已批准设计](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md)、[实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md)和[验收单](docs/validation/home-device-rule-routing.md)执行，现场项目仍未运行。
-
-## 设备清单与历史接入记录
-
-> **⚠️ 历史规划 / 接入未核验 / 禁止按此采购**：本节的 Home Assistant/品牌接入措辞没有验收记录支持；已存在的硬件以当前状态表和台账为准。当前品牌方向以台账为准：Aqara/绿米为主；2026-11-18用户确定欧瑞博空调、新风、地暖、热水器四类方案，具体接口待核，本文旧通用面板/照明不作为采购项。
-
-### 历史接入示例（HA 未核验）
-
-#### 智能家居设备
-
-**历史品牌规划（不代表当前决策）**
-- **绿米 (Aqara)**：传感器、开关面板、窗帘电机等（兼容性须按具体型号验证）
-- **欧瑞博 (ORVIBO)**：旧规划中的智能面板、照明不作为当前采购项；四类环境设备按2026-11-18新决定另行选型
-
-**控制体系（旧方案假设，未验收；优先级从高到低）**
-
-| 控制方式 | 协议 | 跨子网可靠性 | 说明 |
-|---------|------|-------------|------|
-| Agent 系统 | HTTP/WebSocket (TCP) | ✅ 完全可靠 | 通过 Home Assistant API 控制，不依赖 mDNS |
-| Home Assistant | HTTP/WebSocket (TCP) | ✅ 完全可靠 | Web UI / App 远程控制，基于 TCP 单播 |
-| HomeKit | mDNS + Bonjour | ⚠️ 依赖 mDNS 中继 | 跨子网偶发"无响应"，主网内完全正常 |
-
-> 以上是旧双路由方案的设计假设，不是当前部署事实；设备配网、跨 VLAN/mDNS 和 Home Assistant 控制必须以台账中的 PoC/验收记录为准。
-
-**历史接入示例（HA 状态未核验；不作为采购清单）**
-- 绿米 (Aqara) 传感器 / 开关 / 窗帘电机
-- 欧瑞博 (ORVIBO) 智能面板 / 照明（当前不采购）
-- 米家激光投影仪（历史示例，当前品牌范围排除；不代表已有）
-- Apple TV 4K
-- 小米踢脚线暖风机（历史示例，当前品牌范围排除；不代表已有）
-- 小米空气净化器（历史示例，当前品牌范围排除；不代表已有）
-- iPhone (苹果手机)
-
-#### 计算基础设施（历史规划，未核验）
-
-| 设备 | 角色 | 主要功能 | 网络位置 |
-|------|------|----------|----------|
-| Mac Studio | 本地大模型 | 本地 LLM 推理 (Ollama/LocalAI) | 主网络 |
-| Mac Mini | Agent 控制节点 | 运行 Hermes Agent 实现自动化控制 | 主网络 (安全隔离) |
-| NAS (数据中心) | 文件存储 + 媒体服务 | 照片备份、文件共享、媒体库、备份服务 | 主网络 |
-| 副路由器 (OpenWrt) | 工作网络网关 | WireGuard 隧道、mDNS 中继、NAT 穿透 | 桥接主网络 / 工作子网 |
-
-#### Mac Studio 配置说明
-
-Mac Studio 作为核心算力设备，承担以下职责：
-
-**本地大模型**
-- 运行 Ollama / llama.cpp 等本地 LLM 推理引擎
-- 支持模型: Llama 3, Mistral, CodeLlama 等
-- 通过 API 对外提供服务，供 Hermes Agent 调用
-- 与 Home Assistant 集成，提供语义理解能力
-
-#### Mac Mini 配置说明
-
-Mac Mini 作为独立的 Agent 控制节点：
-
-**Agent 运行环境**
-- 运行 Hermes Agent 实例
-- 专门负责智能家居自动化决策
-- 通过 Home Assistant API 控制设备
-- 日志和敏感操作记录隔离存储
-
-**安全隔离策略**
-```
-┌─────────────────┐      主网络       ┌─────────────────┐
-│    Mac Studio    │◄────────────────►│     Mac Mini     │
-│   (本地 LLM)     │                  │  (Agent 控制)    │
-└─────────────────┘                  └─────────────────┘
-        │                                     │
-        │                                     │
-        ▼                                     ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      Home Assistant                         │
-│   ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐     │
-│   │  传感器  │  │   灯光   │  │   暖风  │  │  净化器  │     │
-│   └─────────┘  └─────────┘  └─────────┘  └─────────┘     │
-└─────────────────────────────────────────────────────────────┘
+```text
+python examples/home-twin-3d/serve.py
 ```
 
-#### NAS 配置建议
+打开 [本机预览](http://127.0.0.1:8776/)。这是模拟示例，没有连接真实Home Assistant；实体映射需后续逐个绑定与验收。
 
-| 服务 | 推荐用途 |
-|------|----------|
-| Time Machine | Mac 设备备份 |
-| SMB / NFS | 文件共享 |
-| Plex / Jellyfin | 媒体库服务 |
-| Nextcloud | 私有云盘 |
-| 数据库备份 | SQLite / PostgreSQL 备份 |
+### Hermes / Home Assistant隔离实验
 
-### 设备别名映射
+[实验指南](examples/hermes-ha-lab/README.md)包含固定版本、独立profile、虚拟helper和人工联调步骤；[验收记录](docs/validation/hermes-ha-lab.md)区分资料交付、离线测试与尚未执行的真实联调。独立REST探测器仅执行GET请求，不控制设备。
 
-系统支持设备名称到 Home Assistant Entity ID 的映射：
+离线测试入口（不需要安装Hermes或连接家中HA）：
 
-> 本文出现的 `xiaomi_*` 实体 ID 属于仓库旧示例/Mock 数据，保留用于解释现有代码；不是当前设备登记或部署配置，接入实物时必须按实际 Aqara 等获选设备替换并验收。
-
-| 自然语言 | Home Assistant Entity ID |
-|----------|---------------------------|
-| 灯光 / 客厅灯 | `light.living_room` |
-| 窗帘 / 客厅窗帘 | `cover.living_room_curtain` |
-| 投影仪 / 投影 | `media_player.xiaomi_projector` |
-| 暖风机 | `climate.xiaomi_heater` |
-| 净化器 / 空气净化器 | `air_quality.xiaomi_air_purifier` |
-
-## 系统架构
-
-> 下图为旧架构示例，“米家设备”已被当前品牌范围排除，不是采购或接入目标。
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              用户层                                          │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                     │
-│  │  Web UI     │    │  语音输入    │    │  自然语言    │                     │
-│  │  (可视化配置) │    │  (Siri等)   │    │  (对话交互)  │                     │
-│  └─────────────┘    └─────────────┘    └─────────────┘                     │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            Agent 层                                          │
-│  ┌───────────────────────────────────────────────────────────────────────┐   │
-│  │                    Hermes Agent (可替换)                               │   │
-│  │                                                                       │   │
-│  │   • 自然语言理解 (NLU)                                                 │   │
-│  │   • 意图识别 (Intent Recognition)                                      │   │
-│  │   • 对话管理 (Dialogue Management)                                     │   │
-│  │   • 语义记忆 (Semantic Memory)                                        │   │
-│  │                                                                       │   │
-│  │   ┌───────────────────────────────────────────────────────────────┐   │   │
-│  │   │  核心意图                                                        │   │   │
-│  │   │  • define_scene    (定义场景) ← 自然语言创建场景                 │   │   │
-│  │   │  • modify_scene    (修改场景)                                  │   │   │
-│  │   │  • activate_scene  (激活场景)                                  │   │   │
-│  │   │  • control_device  (控制设备)                                  │   │   │
-│  │   │  • query_state     (查询状态)                                  │   │   │
-│  │   └───────────────────────────────────────────────────────────────┘   │   │
-│  │                                                                       │   │
-│  │   ┌─────────────┐                                                     │   │
-│  │   │  AgentBridge │  ◄── 适配器层，支持替换不同 Agent                  │   │
-│  │   └─────────────┘                                                     │   │
-│  └───────────────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │ 标准协议 (HTTP/WebSocket)
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           Middleware 层                                      │
-│                                                                              │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │                         API 网关                                      │   │
-│   │   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌────────┐ │   │
-│   │   │  Agent API   │  │  Config API  │  │  State API   │  │ Scene  │ │   │
-│   │   │  (对话接口)   │  │  (配置接口)   │  │  (状态接口)   │  │ Parser │ │   │
-│   │   └──────────────┘  └──────────────┘  └──────────────┘  │  (新增) │ │   │
-│   │                                                       └────────┘ │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│                                    │                                        │
-│                                    ▼                                        │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │                         核心引擎                                      │   │
-│   │   ┌────────────────┐  ┌────────────────┐  ┌────────────────┐          │   │
-│   │   │    意图路由     │  │    场景编排     │  │    场景解析     │          │   │
-│   │   │  Intent Router │  │ Scene Engine   │  │ Scene Parser   │          │   │
-│   │   └────────────────┘  └────────────────┘  └────────────────┘          │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-│                                    │                                        │
-│          ┌─────────────────────────┼─────────────────────────┐                │
-│          ▼                         ▼                         ▼                │
-│   ┌─────────────┐           ┌─────────────┐           ┌─────────────┐        │
-│   │ Config      │           │   State     │           │    HA      │        │
-│   │ Manager     │           │   Store     │           │  Adapter   │        │
-│   │ (YAML+DB)   │           │ (状态记录)   │           │            │        │
-│   └─────────────┘           └─────────────┘           └─────────────┘        │
-│          │                                                     │                │
-│          ▼                                                     ▼                │
-│   ┌─────────────┐                                   ┌─────────────────────┐  │
-│   │ YAML 配置   │                                   │  Device Alias       │  │
-│   │ (版本控制)   │                                   │  Registry           │  │
-│   └─────────────┘                                   │  (设备别名映射)      │  │
-│                                                    └─────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           Home Assistant                                     │
-│   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│   │   米家设备   │  │   传感器    │  │   灯光      │  │   空调/暖风  │        │
-│   └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘        │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                          计算基础设施层                                       │
-│                                                                              │
-│   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │                        主网络 192.168.1.0/24                         │   │
-│   │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                  │   │
-│   │  │ Mac Studio  │  │  Mac Mini   │  │     NAS     │                  │   │
-│   │  │ (本地 LLM)  │  │ (Agent节点) │  │  (存储/备份) │                  │   │
-│   │  └─────────────┘  └─────────────┘  └─────────────┘                  │   │
-│   │                              │                                      │   │
-│   │              ┌───────────────┴───────────────┐                      │   │
-│   │              │    副路由器 (OpenWrt)           │                      │   │
-│   │              │    WireGuard + mDNS 中继        │                      │   │
-│   │              └───────────────┬───────────────┘                      │   │
-│   │                              │                                      │   │
-│   └──────────────────────────────┼──────────────────────────────────────┘   │
-│                                  │                                          │
-│   ┌──────────────────────────────┼──────────────────────────────────────┐   │
-│   │               工作子网 192.168.2.0/24                                │   │
-│   │              工作设备 (通过 WiFi "Work" 接入)                         │   │
-│   └─────────────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────────────┘
+```text
+python -m unittest discover -s tests/ha_lab -v
 ```
 
-## 组件说明
+这条命令复验探测器契约；测试通过也不代表插件、模型、helper控制或真实设备已接通。旧Middleware源码职责、测试入口和已知启动阻塞见[Code Wiki](CODE_WIKI.md)。
 
-### Agent 层
+## 保留的专项研究
 
-| 组件 | 职责 | 可替换性 |
-|------|------|----------|
-| Hermes Agent | 自然语言理解、意图识别、对话管理 | ✅ 可替换 |
-| AgentBridge | 适配器层，统一接口协议 | ✅ 可替换 |
+以下是证据资料或待核事项，不自动进入采购和现场实施：
 
-### Middleware 层
+- [光猫替换研究](docs/ont-replacement-backup-research.md)、[6GHz地区与终端研究](docs/wifi7-6ghz-mainland-china-research.md)、[J3455游戏存储评估](docs/j3455-iscsi-game-library.md)。
+- [Fusion按设备分流能力](docs/fusion-third-party-and-device-routing.md)、[Fusion官方功能核验](docs/fusion-domain-routing-capability-research.md)、[社区案例与可靠性](docs/home-routing-community-and-reliability.md)：当前执行范围以已批准的同一LAN方案为准。
+- 楼宇对讲：[接入研究](docs/building-intercom-integration-research.md) · [型号/手册](docs/legrand-intercom-identification-and-manuals.md) · [ESP桥接调查](docs/legrand-esp-intercom-bridge-research.md) · [S6819161续篇](docs/legrand-s6819161-investigation-plan.md)。原室内机接口、视频和控制路径仍待核验。
+- [旧公司VPN工作网络需求待确认](docs/dual-router-feasibility-analysis.md)；不作为当前家庭网络方案。
 
-| 组件 | 职责 | 类型 |
-|------|------|------|
-| Agent API | 对话接口，接收用户输入 | 对外接口 |
-| Config API | 配置接口，管理设备/场景 | 对外接口 |
-| State API | 状态接口，查询设备状态 | 对外接口 |
-| Scene Parser | 解析自然语言场景定义 | 核心引擎 |
-| Intent Router | 将意图路由到对应服务 | 核心引擎 |
-| Scene Engine | 编排多设备场景执行 | 核心引擎 |
-| Config Manager | 加载/验证/管理 YAML 配置 | 内部组件 |
-| State Store | 记录设备状态、执行历史 | 内部组件 |
-| Device Alias Registry | 设备名称 ↔ Entity ID 映射 | 内部组件 |
-| HA Adapter | 封装 Home Assistant API | 可替换适配器 |
-
-### 数据流示例
-
-```
-用户："观影模式的意思是，灯光调到最暗，拉上窗帘并且打开投影仪"
-        │
-        ▼
-Hermes Agent
-  └─► 识别意图: define_scene
-        │
-        ▼
-AgentBridge → Middleware
-        │
-        ▼
-Scene Parser
-  ├─► Device Alias Registry 解析设备名称
-  │     ├─► "灯光" → light.living_room
-  │     ├─► "窗帘" → cover.living_room_curtain
-  │     └─► "投影仪" → media_player.xiaomi_projector
-  │
-  └─► 解析操作并生成 SceneConfig
-        │
-        ▼
-Config Manager → 保存到 YAML
-        │
-        ▼
-返回确认给用户
-```
-
-## 配置管理
-
-### 配置存储方式
-
-| 配置类型 | 存储方式 | 版本控制 |
-|----------|----------|----------|
-| 设备注册 | YAML | ✅ Git 管理 |
-| 场景定义 | YAML | ✅ Git 管理 |
-| 设备别名 | YAML | ✅ Git 管理 |
-| 用户偏好 | 数据库 | ❌ 运行时存储 |
-| 设备状态 | 内存/缓存 | ❌ 实时数据 |
-
-### 场景定义示例
-
-```yaml
-# scenes/movie_mode.yaml
-name: "观影模式"
-description: "自动开启观影环境"
-source: "natural_language"  # 自然语言创建
-
-devices:
-  - entity_id: "light.living_room"
-    service: "turn_on"
-    data:
-      brightness: 0
-
-  - entity_id: "cover.living_room_curtain"
-    service: "close_cover"
-
-  - entity_id: "media_player.xiaomi_projector"
-    service: "turn_on"
-```
-
-### 操作映射示例
-
-| 自然语言描述 | 解析结果 |
-|-------------|----------|
-| 调暗 / 调到最暗 | `brightness: 0` |
-| 调亮 / 调到最亮 | `brightness: 100` |
-| 拉上窗帘 / 关窗帘 | `service: close_cover` |
-| 打开投影仪 / 开投影 | `service: turn_on` |
-| 调高温 / 调高温度 | `temperature: +2` |
-| 调低温 / 调低温度 | `temperature: -2` |
-
-## 使用示例
-
-### 自然语言创建场景
-
-```
-用户：观影模式的意思是，灯光调到最暗，拉上窗帘并且打开投影仪
-
-Agent：我理解了，观影模式包括：
-       1. 客厅灯 - 亮度调至最暗
-       2. 窗帘 - 拉上
-       3. 投影仪 - 打开
-
-       保存中...
-       [保存成功]
-
-       观影模式已创建完成。需要我现在执行一次吗？
-```
-
-### 执行场景
-
-```
-用户：打开观影模式
-
-Agent：好的，正在启动观影模式...
-
-       ✓ 客厅灯已调至最暗
-       ✓ 窗帘已拉上
-       ✓ 投影仪已打开
-
-       观影模式已就绪！
-```
-
-### 修改场景
-
-```
-用户：把观影模式的灯光调亮一点
-
-Agent：我理解了，观影模式灯光从最暗调整到50%亮度。
-       [保存成功]
-
-       观影模式已更新，灯光现在会调到50%亮度。
-```
-
-### 查询状态
-
-```
-用户：现在客厅温度多少？
-
-Agent：当前客厅温度是 24°C，湿度 45%。
-       暖风机目前处于关闭状态。
-```
-
-## 技术栈
-
-- **Agent**: Hermes Agent (可替换)
-- **Home Assistant**: 智能家居核心平台
-- **API 网关**: FastAPI / Flask
-- **配置存储**: YAML + SQLite
-- **设备集成**: Home Assistant REST API / WebSocket
-- **按设备分流**: J3455 OpenWrt，保持同一家庭 LAN
-
-## 后续建议补充的设备
-
-### 智能家居设备
-- **Aqara 人体存在传感器**：实现人来自动开设备，人走自动关闭节能
-- **温湿度传感器**：给暖风机提供更准确的温度数据，自动调节
-- **PM2.5 传感器**：如果空气净化器不带，可以额外添加给自动化决策
-- **智能开关面板**：实现物理按键 + 自动化双重控制灯光
-- **智能窗帘电机**：支持自动拉上/拉开窗帘
-
-### 网络与基础设施
-- **Home Assistant 运行位置已定**：现有 J3455 / Proxmox 独立 HAOS VM，资源/备份待验收
-- **UPS 不间断电源**：保护 Mac Studio、Mac Mini、NAS 免受电力波动影响
-- **网络设备到货验收**：按已确认7台订单和v1.6端口表核对，无新增交换机采购
-
-## 下一步计划（历史路线，不是当前执行清单）
-
-> **⚠️ 请勿按本节直接采购或施工**：本节保留早期软件/副路由路线；当前网络、设备、房间点位、Apple HomeView和模型部署以[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)为准。
-
-- [ ] 按[当前网络实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md)完成设备到货、同LAN配置与恢复验收。
-- [ ] 确定集成方案
-- [ ] 搭建运行环境 (决定是跑在本地还是 Docker)
-- [ ] 开发 Middleware 核心服务
-  - [ ] Config Manager 配置管理
-  - [ ] State Store 状态存储
-  - [ ] HA Adapter Home Assistant 适配器
-  - [ ] Scene Parser 场景解析器
-  - [ ] Scene Engine 场景编排引擎
-- [ ] 配置设备别名映射
-- [ ] 接入 Home Assistant
-- [ ] 集成 Hermes Agent
-- [ ] 开发 Web UI 可视化配置界面
-- [ ] 测试基础设备控制
-- [ ] 测试自然语言场景创建
-- [ ] 编写场景自动化
-- [ ] 端到端测试优化
+资料入口整理于2026-11-27。已取消的网络备选和重复旧接线表可从Git历史追溯。

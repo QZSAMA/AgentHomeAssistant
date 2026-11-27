@@ -147,7 +147,7 @@ J3455仍在现有Proxmox新增独立OpenWrt完整VM，关闭家庭LAN的DHCP/RA�
 
 **故障与验收边界：** J3455故障不改变其他设备普通联网与解析的路径；主动使用OpenWrt的终端可能失去外网，需手动切日常SSID或恢复自动IPv4/DNS，不承诺自动无感切换。宿主上的NAS/未来HA服务仍随宿主停机暂停。手动IPv4网关不代表IPv6规则已覆盖，不全局关闭本地IPv6/Thread；所有实机检查均为 `not_run`。
 
-**历史范围：** 早先“所有联网设备统一规则”、全屋网关/DHCP迁移、Fusion定向DNS与合成地址段静态路由、独立OpenWrt主网关均不作为本次执行步骤。其[官方功能调研](fusion-domain-routing-capability-research.md)、[社区比较](home-routing-community-and-reliability.md)、[原故障隔离设计](superpowers/specs/2026-11-05-home-rule-routing-availability.md)仅保留证据；最终按设备方案的功能依据见[同SSID接入调研](fusion-third-party-and-device-routing.md)。
+**实施边界：** 本次仅执行指定终端手动选用OpenWrt，不做全屋网关/DHCP迁移、定向DNS或合成地址段静态路由，也不更换主网关。[官方功能核验](fusion-domain-routing-capability-research.md)、[社区故障与兼容证据](home-routing-community-and-reliability.md)及[同SSID按设备调研](fusion-third-party-and-device-routing.md)保留原始来源，部署以当前设计、计划和验收单为准。
 
 ### 4.1 当前物理拓扑（2026-11-25计划变更）
 
@@ -260,10 +260,8 @@ J3455已知为16GB内存、10TB存储记录、现1GbE、Proxmox，用户确认�
 | 2026-11-18（智能配件增补） | 保持绿米19,324元签字清单不变，新增[增补计划](aqara-supplement-plan-20261118.md)、[全屋查漏](smart-home-supplement-audit-20261118.md)与[Excel](../outputs/aqara-supplement-20261118/全屋智能新增设备清单.xlsx)。记录折扣新品渠道、完整询价后定预算、两卫FP310复用与三干王接口选型、FP400入户/沙发场景、家电计量及照明5个插座候选位、漏水与报警等增补。次卧照明暂缓、窗户仅检测；欧瑞博扩展为空调/新风/地暖/热水器。建议数量不是订单，未实施自动化。 |
 | 2026-11-18（网络设备已下单） | 用户提供Omada订单确认：ES206×1、ES210×2、775×3、772×1共7台，商品$828、运费$0、预计税费$73.49、总额$901.49。大厅升级ES210，次卧恢复独立775；Fusion不在本单，购买未确认，完整计划8台。更新订单/BOM/拓扑/端口/PoE及施工，旧报价工作簿标为历史。全部待到货验收，未安装/部署；原图和个人订单信息不入库。 |
 | 2026-11-05（用户批准现行方案） | 整理[同一LAN按设备选用OpenWrt设计](superpowers/specs/2026-11-05-home-device-rule-routing-design.md)、[实施计划](superpowers/plans/2026-11-05-home-device-rule-routing.md)及[验收与应急单](validation/home-device-rule-routing.md)。Fusion保留唯一DHCP与独立普通DNS，指定终端手工选网关，故障时手动切回；不分VLAN，不做全屋迁移。同步当前入口，旧方案标为历史。用户授权整理并推送；未部署、现场全部 `not_run`。 |
-| 2026-11-05（社区案例与可靠性比较） | 已读取 DNS/合成地址/静态路由的公开部署与故障反馈，明确同类成功不等于 Fusion 适配或 J3455 停机验收。新增[比较报告](home-routing-community-and-reliability.md)，将 Fusion 组合限定为试验候选；独立 OpenWrt 主网关作为减少宿主依赖的替代方向待比较。补充浏览器访问检查验收项，未改采购基线或设备。 |
-| 2026-11-05（Fusion官方手册核验） | 已读Fusion REV1.0.1完整手册及对应固件说明：确认Domain-Port Group、静态Next Hop、Local DNS FORWARD；域名策略界面没有任意LAN下一跳字段。新增[调研报告](fusion-domain-routing-capability-research.md)，优先试验定向DNS＋合成地址段静态路由，保持Fusion普通路径与地址服务。同步拓扑和验收门槛；组合未实测、未改变家庭设备或采购。 |
-| 2026-11-05（故障隔离要求修订） | 用户明确普通上网不能因J3455故障停用，指定网站可暂时不可用，并提出由Fusion按网站送往J3455的方向。新增[故障隔离与能力核验](superpowers/specs/2026-11-05-home-rule-routing-availability.md)；保留OpenWrt完整VM试验，暂停原全屋DHCP迁移。当时域名匹配/LAN下一跳尚未核实，后续手册结论见上一条；不默认增加树莓派或宣称WAN故障切换能接替旁路由。未部署。 |
-| 2026-11-05（全屋规则分流设计） | 新增 J3455/Proxmox 上 OpenWrt 完整VM的全屋方案，覆盖地址服务、OpenClash/Mihomo、单臂转发、IPv6、本地发现、阶段实施、故障回退及 `not_run`验收表；用户确认全体联网终端纳入规则范围。沿用电竞房 ES210 既有接入口，不重装宿主、不加回线；全屋网关/DNS切换尚未执行。详见[设计](superpowers/specs/2026-11-05-home-rule-routing-design.md)、[计划](superpowers/plans/2026-11-05-home-rule-routing.md)及[验收单](validation/home-rule-routing.md)。 |
+| 2026-11-05（社区故障与兼容证据） | 读取DNS/合成地址的公开部署与故障反馈，明确其他平台自述不能证明Fusion适配或J3455停机验收；[研究记录](home-routing-community-and-reliability.md)保留原始来源、DNS故障边界和浏览器检查依据。未改采购或部署，现行采用按设备方案。 |
+| 2026-11-05（Fusion官方手册核验） | 已读Fusion REV1.0.1完整手册及固件说明：确认Domain-Port Group、静态Next Hop和Local DNS FORWARD；域名策略表单未提供任意LAN下一跳字段。[调研记录](fusion-domain-routing-capability-research.md)保留手册页码、截图和版本边界；不据此执行全屋路由或DNS改造，未部署。 |
 | 2026-10-26（绿米签字方案定稿） | 用户确认绿米全屋智能最终签字方案，合计**¥19,324**（产品¥15,459＋25%服务费¥3,865），新增[绿米最终签字方案](aqara-final-quote-20261026.md)完整BOM。M200×1为主网关（客餐厅吊顶PoE供电，Matter Controller+Thread BR+Matter Bridge，新增吊顶支线建议2根Cat6A、封板前完成，原HALL-IOT-GW墙面口转备用）；M1S×1为主卧辅助Zigbee网关（不支持Matter，下挂设备暴露路径到货实测）；S100妙控场景屏仅客餐厅1台；E1摄像机×1为Wi-Fi非PoE。H1M三键×10/双键×1、FP310×2（两卫）、T1人体/门窗各×1（玄关）、C200×2（阳台7m单层纱帘/主卧3m布帘电动）、T2Pro射灯×7、双色温灯带25m＋单只300W驱动（满载约500W，交底必核）、1515灯槽×25；小爱音箱PRO×1为赠品（¥0）。报价无次卧点位，交底确认。全部设备未购/未施工/未部署。 |
 | 2026-10-20（吊顶与埋线草案） | 用户确认大厅/入户过道有吊顶或局部吊顶，新增[点位与吊顶埋线规划](network-placement-and-cabling-plan.md)及原图标注。旧线量已由v1.6替代，路径、标高、穿墙、米数及箱体尺寸仍待现场签认。 |
 | 2026-10-15（HomeView安装决定） | 用户确认大厅HomeView非壁挂／桌面版×1，接受英语Siri AI；通过大厅AP Wi-Fi，使用随箱线材/适配器，未购/未部署，大陆服务/账户/配套设备待验。壁挂另选平板电脑或iPad，型号/数量/点位/供电待定；不购买HomeView壁挂版或配套底座，不增加网络布线或AP PoE预算。BOM记录HomeView桌面版$299参考价，mini代际/数量/地区仍待确认。 |

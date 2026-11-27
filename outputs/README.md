@@ -11,3 +11,8 @@
 2026-11-27已删除双频对照、旧网络采购装修表及旧成本优化表，避免旧数量和备选型号继续参与采购；需要追溯时从Git历史恢复。智能设备增补表和原始装修资料保留。
 
 当前网络采购与施工使用[订单记录](../docs/network-order-20261118.md)、[采购BOM](../docs/purchase-bom.md)、[拓扑与端口](../docs/network-topology.md)、[施工要求](../docs/renovation-wiring-requirements.md)和[结构化采购数据](../config/network-procurement.json)。
+
+
+## 水电点位资料
+
+旧水电可打印HTML已清理，开关、插座、窗帘的原标注图片继续保留，当前文字见[水电定位讨论稿](../docs/electrical-network-positioning-draft-20261121.md)。`electrical-positioning-20261121/render_positioning.py`仅保留为旧图片的坐标与生成来源，其中网络标签尚未同步v1.6；重新运行不能视为生成了当前施工图。
