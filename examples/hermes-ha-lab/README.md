@@ -1,6 +1,6 @@
 # Hermes ↔ Home Assistant 隔离软件实验
 
-目标是用官方 HA 插件验证“查询 → 控制 helper → 读回 → 调用 script → 读回”的最小链路，不经过旧 Middleware，不接真实设备。本目录提供配置片段与人工 runbook，**没有安装、启动或真实联调完成的含义**。当前验收记录见 [validation](../../docs/validation/hermes-ha-lab.md)，设计与实施边界见 [design](../../docs/superpowers/specs/2026-10-13-hermes-ha-lab-design.md)。
+目标是用官方 HA 插件验证“查询 → 控制 helper → 读回 → 调用 script → 读回”的最小链路，通过官方插件直接连接HA，不接真实设备。本目录提供配置片段与人工 runbook，**没有安装、启动或真实联调完成的含义**。当前验收记录见 [validation](../../docs/validation/hermes-ha-lab.md)，设计与实施边界见 [design](../../docs/superpowers/specs/2026-10-13-hermes-ha-lab-design.md)。
 
 ## 1. 固定版本与安全边界
 
@@ -207,18 +207,16 @@ hermes profile delete aha-lab
 - 插件固定 revision 的 [README](https://github.com/NousResearch/hermes-official-plugins/blob/682b22d019a1109421faa62efe43e16b23c2ebef/homeassistant/README.md)、[registration](https://github.com/NousResearch/hermes-official-plugins/blob/682b22d019a1109421faa62efe43e16b23c2ebef/homeassistant/__init__.py)、[tools](https://github.com/NousResearch/hermes-official-plugins/blob/682b22d019a1109421faa62efe43e16b23c2ebef/homeassistant/tools.py)：环境变量、toolset、事件开关、`data` 字符串与 HTTP success 局限。
 - HA 官方 [packages](https://www.home-assistant.io/docs/configuration/packages/)、[input_boolean](https://www.home-assistant.io/integrations/input_boolean/)、[script](https://www.home-assistant.io/integrations/script/)：仅静态对照配置语法，未运行 HA 配置检查/启动加载。
 
-旧 Middleware 入口 `src/middleware/main.py` 引用不存在的 `middleware.core.engine`，且 `RealHAAdapter` 仍抛出 `NotImplementedError`。本实验不绕过或修复这两项，也不以官方插件实验的成功替代旧 Middleware 验收。旧 pytest 基线当前失败于 `No module named pytest`；未安装依赖恢复其基线。独立 REST 探测器的离线 unittest 与真实 Hermes/HA 集成分别记录。
+2026-11-27用户确认采用Hermes＋HA，旧自研Middleware及其演示配置、测试和打包依赖已退役。独立REST探测器的离线测试与真实Hermes/HA集成继续分别验收；本指南不要求安装仓库根目录为Python包。
 
-## 7. 后续拉取开发分支验证
+## 7. 获取当前实验资料
 
-本次只读断言增强已推送至 [codex/hermes-ha-lab](https://github.com/QZSAMA/AgentHomeAssistant/tree/codex/hermes-ha-lab) 开发分支，包含第一阶段底座；已核对的实现提交为 `4bcdbdeeba1da77ac1d005b831d3ba94caae9ec1`，交付记录见 validation E5。尚未合并 `main`。
-
-在未来实验机器的合适目录运行以下命令；先确认目标 `AgentHomeAssistant-lab` 不存在，不覆盖已有 checkout：
+实验代码已合入`main`；早期开发分支的交付回执保存在验收记录中，不再作为当前克隆入口。在目标目录不存在时，可获取当前主分支：
 
 ```powershell
-git clone --branch codex/hermes-ha-lab --single-branch https://github.com/QZSAMA/AgentHomeAssistant.git AgentHomeAssistant-lab
+git clone --branch main --single-branch https://github.com/QZSAMA/AgentHomeAssistant.git AgentHomeAssistant-lab
 cd AgentHomeAssistant-lab
 python -m unittest discover -s tests/ha_lab -v
 ```
 
-使用 Python 3.14。拉取代码或离线通过不会安装/启动 Hermes 或 HA。之后仍需按本 runbook 人工准备隔离环境，在正确阶段运行 A 节只读命令并填写验收记录。当前真实 HA、Hermes 和新增断言的在线验收均为 `not_run`，远程推送不改变这些状态。
+实验基线仍为Python 3.14；脚本和离线测试只使用标准库，不需要`pip install -e .`。代码获取或离线测试通过不会安装、启动或验证Hermes/HA；真实联调继续按本runbook准备隔离环境、运行并填写验收记录。

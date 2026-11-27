@@ -1,6 +1,6 @@
 # AgentHomeAssistant
 
-家庭网络、装修与智能家居的方案资料，以及 Home Assistant / Hermes 集成实验。当前事实以台账、已确认订单和各专项验收记录为准；软件示例、模拟设备与真实家居接入分别记录。
+家庭网络、装修与智能家居的方案资料，软件主路线为 **Hermes Agent＋Home Assistant**。仓库保留隔离集成实验、独立只读探测器和三维户型示例；当前事实以台账、已确认订单和各专项验收记录为准。
 
 ## 当前状态
 
@@ -8,7 +8,8 @@
 - **接线**：采用[v1.6](docs/network-topology.md)：Fusion四LAN接中央、电竞及电脑墙口A/B；中央10G光纤接客厅，四AP与两M200集中PoE。光纤配件待核；同一家庭LAN，指定终端按[批准方案](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md)选择OpenWrt。
 - **位置**：J3455规划在客厅；Apple TV仅大厅一台；投影仪主卧为主、移动Wi-Fi使用。当前端口与施工数量统一查[逐线计划](docs/network-placement-and-cabling-plan.md)，现场未实施。
 - **智能家居**：原绿米签字合同 **¥19,324** 与后续增补分开管理；M200×2为升级计划，差价、订单及交付待核。设备采购状态和集成待办见[基础设施台账](docs/home-infrastructure-register.md)。
-- **软件**：已提供三维户型模拟示例、Hermes/HA隔离实验资料及只读REST探测器。旧Middleware已有源码和测试，HA/Agent真实适配尚未完成，服务入口另有待修复导入问题；详见[Code Wiki](CODE_WIKI.md)。不将模拟或离线测试视为真实设备验收。
+- **软件**：采用Hermes官方HA插件接入Home Assistant；自研Middleware原型已退役。保留[隔离实验](examples/hermes-ha-lab/README.md)、独立REST探测器及离线测试、[三维户型模拟](examples/home-twin-3d/README.md)。真实联调尚未完成，运行入口见[Code Wiki](CODE_WIKI.md)。
+- **办公**：使用Windows App直接连接公司AVD，不需要家庭工作子网或长期连接公司VPN的副路由。
 
 ## 方案与施工入口
 
@@ -48,7 +49,7 @@ python examples/home-twin-3d/serve.py
 python -m unittest discover -s tests/ha_lab -v
 ```
 
-这条命令复验探测器契约；测试通过也不代表插件、模型、helper控制或真实设备已接通。旧Middleware源码职责、测试入口和已知启动阻塞见[Code Wiki](CODE_WIKI.md)。
+这条命令复验探测器契约；测试通过也不代表插件、模型、helper控制或真实设备已接通。Hermes实验和3D工具的职责、入口及边界见[Code Wiki](CODE_WIKI.md)。
 
 ## 保留的专项研究
 
@@ -57,6 +58,5 @@ python -m unittest discover -s tests/ha_lab -v
 - [光猫替换研究](docs/ont-replacement-backup-research.md)、[6GHz地区与终端研究](docs/wifi7-6ghz-mainland-china-research.md)、[J3455游戏存储评估](docs/j3455-iscsi-game-library.md)。
 - [Fusion按设备分流能力](docs/fusion-third-party-and-device-routing.md)、[Fusion官方功能核验](docs/fusion-domain-routing-capability-research.md)、[社区案例与可靠性](docs/home-routing-community-and-reliability.md)：当前执行范围以已批准的同一LAN方案为准。
 - 楼宇对讲：[接入研究](docs/building-intercom-integration-research.md) · [型号/手册](docs/legrand-intercom-identification-and-manuals.md) · [ESP桥接调查](docs/legrand-esp-intercom-bridge-research.md) · [S6819161续篇](docs/legrand-s6819161-investigation-plan.md)。原室内机接口、视频和控制路径仍待核验。
-- [旧公司VPN工作网络需求待确认](docs/dual-router-feasibility-analysis.md)；不作为当前家庭网络方案。
 
 资料入口整理于2026-11-27。已取消的网络备选和重复旧接线表可从Git历史追溯。

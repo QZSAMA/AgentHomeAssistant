@@ -42,7 +42,7 @@ Hermes 使用独立测试 profile，并配置 `HASS_URL`、`HASS_TOKEN`。长期
 python scripts/ha_probe.py --entity-id input_boolean.aha_lab_light --json
 ```
 
-`scripts/ha_probe.py` 独立于 `src/middleware`，不启动或导入旧应用，仅使用标准库。
+`scripts/ha_probe.py`为独立标准库工具，不启动其他应用。2026-11-27用户确认Hermes＋HA主路线，旧自研原型已退役，不再构成实验依赖或待修复事项。
 
 输入从环境变量取得 URL 和 Token；不接受命令行 Token。`--entity-id` 可重复，不指定则只检查 API 认证和 HA 版本。全部输入先校验；缺失配置、非法 URL／实体 ID 直接退出，不发请求。
 
@@ -68,7 +68,7 @@ python -m unittest discover -s tests/ha_lab -v
 
 覆盖输入校验、正常响应、401／403、实体不存在／不可用、超时／连接失败、非 JSON／结构错误、重定向拒绝、文本／JSON／退出码一致、错误脱敏及 GET-only。测试不连接真实 HA。
 
-验收结果仅允许 `not_run`、`passed`、`failed`；未运行不填通过。文档将开发检查与真实联调分表记录。旧中间件测试单独记录，不宣称全量测试通过。
+验收结果仅允许 `not_run`、`passed`、`failed`；未运行不填通过。文档将开发检查与真实联调分表记录。历史原型测试与当前实验分开记录；2026-11-27原型已退役，不再计入当前实验验收。
 
 ## 后续真实联调门槛
 

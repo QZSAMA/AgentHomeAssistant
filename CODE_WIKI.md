@@ -1,78 +1,31 @@
-# AgentHomeAssistant · Code Wiki
+# AgentHomeAssistant · 工具与示例说明
 
-本文按2026-11-27仓库源码静态核对，说明软件职责、运行入口和实现边界。家庭设备、采购、网络与施工事实统一查[README](README.md)及其所链专项文档；本页不维护第二份设备清单。
+整理日期：2026-11-27。当前软件路线为 **Hermes Agent＋Home Assistant**，通过Hermes官方HA插件验证家居查询与控制。自研Middleware原型已退役；仓库维护独立探测器、隔离联调资料及三维户型示例。家庭设备、采购、网络与施工事实查[README](README.md)及专项文档。
 
 ## 1. 软件组成与状态
 
 | 部分 | 已有内容 | 当前边界 |
 |---|---|---|
-| [只读REST探测器](scripts/ha_probe.py) | 标准库CLI、输入校验、限定GET请求、版本/实体状态断言、结构化结果 | 独立工具，不导入Middleware；不控制设备、不证明Hermes联调完成 |
-| [Hermes/HA实验](examples/hermes-ha-lab/README.md) | 固定版本说明、独立profile、HA helper/script片段、人工runbook | 真实联调状态以[验收单](docs/validation/hermes-ha-lab.md)为准；不接生产设备 |
-| [三维户型示例](examples/home-twin-3d/README.md) | 本机预览、模拟灯光交互、NeonPlan导入备份 | 没有真实HA连接；映射与真实控制待后续适配 |
-| [Middleware](src/middleware/) | FastAPI路由、场景/别名YAML、场景引擎、规则解析器、内存状态、Mock适配器 | 开发原型；入口存在导入阻塞，真实HA适配和Hermes接入未完成 |
-| [Agent包](src/agent/) | 包占位 | 没有独立Hermes启动模块；实验使用官方Hermes CLI，步骤在实验指南 |
+| [Hermes/HA实验](examples/hermes-ha-lab/README.md) | 固定版本说明、独立profile、HA helper/script配置片段与人工联调步骤 | 主集成路线；真实联调以[验收单](docs/validation/hermes-ha-lab.md)为准，尚未完成 |
+| [只读REST探测器](scripts/ha_probe.py) | 标准库CLI、输入校验、GET请求、版本/实体状态断言与结构化结果 | 独立工具；不控制设备，探测通过不证明Hermes联调完成 |
+| [探测器离线测试](tests/ha_lab/) | 本机HTTP夹具、模拟错误与CLI契约检查 | 不连接用户家中HA，不依赖Hermes安装 |
+| [三维户型示例](examples/home-twin-3d/README.md) | CAD派生户型、本机预览、模拟灯光、NeonPlan导入备份 | 保留的交互示例；尚未连接真实HA，实体映射与控制需另行验收 |
 
-源码和测试存在不等于服务已部署或现场验收通过。本次文档整理没有运行测试、安装依赖或连接设备。
+## 2. Hermes＋HA联调入口
 
-## 2. 目录与职责
+沿[隔离实验设计](docs/superpowers/specs/2026-10-13-hermes-ha-lab-design.md)和[实验指南](examples/hermes-ha-lab/README.md)实施。版本、插件commit与隔离条件在实验指南集中维护，本页不复制另一套版本表。
 
 | 路径 | 用途 |
 |---|---|
-| [src/middleware/main.py](src/middleware/main.py) | 创建FastAPI应用，装配配置、内存状态、Mock HA与AgentBridge，挂载API |
-| [src/middleware/api/v1](src/middleware/api/v1/) | 对话、场景配置、别名和状态查询路由 |
-| [src/middleware/core](src/middleware/core/) | IntentRouter、SceneEngine、独立SceneParser |
-| [src/middleware/adapters](src/middleware/adapters/) | HA抽象接口/Mock/真实适配占位，AgentBridge规则占位 |
-| [src/middleware/internal](src/middleware/internal/) | YAML配置管理、内存状态与执行日志 |
-| [config/device_aliases.yaml](config/device_aliases.yaml) · [config/scenes](config/scenes/) | Middleware的演示别名与场景数据；不是家庭资产登记 |
-| [scripts/ha_probe.py](scripts/ha_probe.py) · [tests/ha_lab](tests/ha_lab/) | 独立只读探测器及离线契约测试 |
-| [tests](tests/) | 另含配置管理、HA Mock、场景引擎、解析器、状态存储的单元测试 |
-| [pyproject.toml](pyproject.toml) | Python版本、包依赖、可选开发依赖、入口点、测试/格式配置 |
+| [Hermes实验配置](examples/hermes-ha-lab/hermes/config.fragment.yaml) | 独立实验profile使用的配置片段 |
+| [实验指令](examples/hermes-ha-lab/hermes/lab-instructions.md) | CLI允许的工具、实验实体和人工操作范围 |
+| [HA配置片段](examples/hermes-ha-lab/homeassistant/configuration.fragment.yaml) | 启用实验packages的合并参考，不能覆盖完整HA配置 |
+| [实验helper与script](examples/hermes-ha-lab/homeassistant/packages/aha_lab.yaml) | 虚拟开关和只操作该开关的脚本 |
+| [联调验收记录](docs/validation/hermes-ha-lab.md) | 分别记录资料交付、离线检查、真实工具调用与状态回读 |
 
-`config/network-procurement.json`是采购资料，与Middleware的设备别名和场景配置分开；文档清理不据此删除演示配置或测试夹具。
+先在独立HA测试实例与Hermes实验profile验证“查询→控制helper→读回→调用script→读回”。安装和控制步骤按实验指南人工执行；目前没有真实设备、语音入口或长期运行服务的验收结果。
 
-## 3. Middleware实现
-
-| 组件 | 现有行为 | 限制 |
-|---|---|---|
-| [ConfigManager](src/middleware/internal/config_manager.py) | 读写`config/scenes/*.yaml`与别名文件，内存缓存，场景增删及别名查询/更新 | 当前YAML持久化；没有SQLite用户偏好存储，也没有完整场景schema校验 |
-| [SceneParser](src/middleware/core/scene_parser.py) | 按标点/连接词分句、匹配别名与正则操作，生成结构化场景 | 独立规则解析；当前AgentBridge/SceneEngine没有调用它 |
-| [IntentRouter](src/middleware/core/intent_router.py) | 分发`define_scene`、`modify_scene`、`activate_scene`、`control_device`、`query_state` | 接收意图字符串与参数，不负责LLM推理 |
-| [SceneEngine](src/middleware/core/scene_engine.py) | 保存/修改场景，顺序调用适配器执行操作，记录执行结果 | 当前由Mock适配器承接；不代表真实动作成功 |
-| [StateStore](src/middleware/internal/state_store.py) | 内存字典保存状态，deque保存历史和执行记录 | 进程结束即丢失；未连接HA事件流或自动状态同步 |
-| [MockHAAdapter](src/middleware/adapters/ha_adapter.py) | 模拟设备状态与调用日志，供开发测试 | `subscribe_events`不做实际订阅 |
-| [RealHAAdapter](src/middleware/adapters/ha_adapter.py) | 定义REST/WebSocket适配方向 | 构造及方法抛`NotImplementedError`，尚不可用于真实HA |
-| [AgentBridge](src/middleware/adapters/agent_bridge.py) | 按关键词生成有限意图，调用路由器并组装回复 | 未接Hermes或模型；场景定义只传description，没有连接完整解析流程 |
-
-当前调用关系：API → AgentBridge/ConfigManager/StateStore；AgentBridge → IntentRouter → SceneEngine → MockHAAdapter。SceneParser是独立模块；HA探测器与官方插件实验也独立于这条原型链路。
-
-### 演示实体与配置
-
-`xiaomi_*`等实体ID出现在Mock适配器、默认别名、YAML场景和相关测试中，表示测试数据，不证明用户拥有设备或已接入HA。实体替换需要同时核对配置、Mock与测试；不能因采购方案清理而单独删掉这些记录。
-
-现有场景文件使用`name`、`description`、`source`、`devices`字段，每个操作包含`entity_id`、`service`与可选`data`。示例见[movie_mode.yaml](config/scenes/movie_mode.yaml)和[sleep_mode.yaml](config/scenes/sleep_mode.yaml)，不在Wiki再维护一份副本。
-
-### 已定义的API
-
-以下路径由源码挂载规则推导，尚不是已通过启动或端到端验收的服务承诺：
-
-| 方法与路径 | 作用 |
-|---|---|
-| `GET /health` | 应用存活响应 |
-| `POST /api/v1/agent/chat` | 将`message`与可选`session_id`交给AgentBridge |
-| `GET /api/v1/config/scenes` | 列出场景 |
-| `GET /api/v1/config/scenes/{scene_name}` | 查询场景 |
-| `POST /api/v1/config/scenes` | 保存场景配置 |
-| `DELETE /api/v1/config/scenes/{scene_name}` | 删除场景 |
-| `GET /api/v1/config/devices/aliases` | 列出别名 |
-| `GET /api/v1/state/devices/{entity_id}` | 读取StateStore；没有记录时404，不直接向HA查询 |
-| `GET /api/v1/state/devices/{entity_id}/history` | 查询内存状态历史 |
-| `GET /api/v1/state/execution-log` | 查询场景执行记录 |
-
-路由中的Pydantic请求模型与状态码见[API源码](src/middleware/api/v1/)。当前没有独立Web UI、SQLite数据库或Flask实现；这些不列为已完成能力。
-
-## 4. 独立实验入口
-
-### 只读探测器与离线测试
+## 3. 只读探测器与离线测试
 
 在仓库根目录运行：
 
@@ -81,42 +34,32 @@ python scripts/ha_probe.py --help
 python -m unittest discover -s tests/ha_lab -v
 ```
 
-探测器只使用Python标准库；实验固定版本要求见[实验指南](examples/hermes-ha-lab/README.md)。离线测试通过本地夹具与模拟传输验证契约，不连接用户家中HA。
+探测器仅用Python标准库；不需要安装根目录应用包。测试使用本机夹具和模拟传输，验证输入、HTTP响应、断言、输出与退出码。根目录[pyproject.toml](pyproject.toml)仅把可选pytest的发现范围限定为`tests/ha_lab`，不定义应用包、依赖、服务入口或覆盖率门槛；主要复验入口仍是上面的标准库unittest命令。Hermes与3D工具各按自己的指南管理。
 
-显式准备隔离测试HA及其环境变量后，才按指南运行连接探测：
+准备好隔离测试HA及指南要求的环境变量后，可按需运行连接探测：
 
 ```text
 python scripts/ha_probe.py --entity-id input_boolean.aha_lab_light --entity-id script.aha_lab_work_mode --json
 ```
 
-该脚本仅GET API、配置与显式实体；`--expect-version`可检查版本，`--expect-state entity=on/off`可检查helper状态。退出码0表示该探测范围通过，1表示响应/连接/断言失败，2表示输入或配置无效。即使返回通过，也不能推断某次Hermes请求导致状态变化；控制与回读仍须按[验收单](docs/validation/hermes-ha-lab.md)分别记录。
+脚本只GET API、配置及显式指定的实体；`--expect-version`检查版本，`--expect-state entity=on/off`检查观察到的helper状态。退出码`0`表示本次探测范围通过，`1`表示连接、响应或断言失败，`2`表示输入或配置无效。输出不包含Token或原始响应。
 
-### 三维示例
+一次状态读取不能证明某次Hermes请求导致状态变化；插件加载、模型工具调用、控制动作及回读分别记录在[验收单](docs/validation/hermes-ha-lab.md)。离线测试也不能替代真实联调。
+
+## 4. 三维户型与模拟灯光
+
+在仓库根目录运行：
 
 ```text
 python examples/home-twin-3d/serve.py
 ```
 
-访问[本机预览](http://127.0.0.1:8776/)。操作方式、模拟状态、NeonPlan文件及复验范围以[示例README](examples/home-twin-3d/README.md)和[交付核验](examples/home-twin-3d/docs/delivery-check.md)为准。
+访问[本机预览](http://127.0.0.1:8776/)。页面提供旋转查看、设计参考配色和四盏模拟灯光交互；NeonPlan原生备份及其外观表达范围见[示例说明](examples/home-twin-3d/README.md)和[交付核验](examples/home-twin-3d/docs/delivery-check.md)。
 
-## 5. Middleware开发环境与阻塞
+预览使用本地模拟状态；导入文件、原始CAD派生数据、设计参考与许可证均保留在示例目录。完整几何/导出/浏览器测试按示例README运行，其依赖与Hermes实验分别管理。
 
-[pyproject.toml](pyproject.toml)声明Python≥3.10，构建后端为Hatchling；核心依赖包括FastAPI、Uvicorn、Pydantic、PyYAML、httpx、websockets和jsonschema，开发依赖在`dev`组。`ollama`仅为可选依赖，不代表已有模型集成。
+## 5. 网络资料与办公接入
 
-需要继续开发原型时，可在独立Python环境安装包与开发依赖：
+[结构化采购数据](config/network-procurement.json)维护订单、设备计划和物理接线事实；它不是HA实体配置。[同一LAN批准设计](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md)、[实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md)及[验收单](docs/validation/home-device-rule-routing.md)保留指定终端手动选用OpenWrt的计划，物理接线以[v1.6拓扑](docs/network-topology.md)为准。
 
-```text
-python -m pip install -e ".[dev]"
-```
-
-**当前服务启动有源码阻塞**：`main.py`从不存在的`middleware.core.engine`导入IntentRouter和SceneEngine；实际类分别在`core/intent_router.py`与`core/scene_engine.py`。`middleware/__init__.py`会导入main，因此相关包导入及单元测试收集也受影响。另有两个类型检查导入沿用旧路径；本次只记录，不修改代码。
-
-`pyproject.toml`定义的`aha-server`入口指向`middleware.main:run`，但在上述问题解决并完成启动检查前，不把它当作可用部署命令。仓库没有`requirements.txt`、`agent.hermes`启动模块或Compose部署文件。
-
-现有Middleware单元测试包括`test_config_manager.py`、`test_ha_adapter.py`、`test_scene_engine.py`、`test_scene_parser.py`、`test_state_store.py`。解除导入阻塞后使用项目的pytest配置检查；不能用独立探测器测试结果代替这组测试或API验收。持续开发还需接通场景解析、真实适配和状态同步，再另做隔离端到端验证。
-
-## 6. 家庭网络与保留研究
-
-家庭网络执行[同一LAN批准设计](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md)、[实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md)及[验收单](docs/validation/home-device-rule-routing.md)，物理接线见[v1.6拓扑](docs/network-topology.md)。这些资料不由软件Mock实体决定。
-
-[旧公司VPN工作网络需求待确认](docs/dual-router-feasibility-analysis.md)；其双子网、WireGuard与mDNS设想不作为当前家庭网络或Middleware的运行依赖。
+办公使用Windows App直接连接公司AVD，不需要家庭工作子网或VPN副路由。家庭规则分流、Hermes/HA集成与办公远程桌面分别按各自需求验证。

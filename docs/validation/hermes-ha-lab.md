@@ -24,7 +24,7 @@
 | S2 | HA package/helper/script 示例静态语法核对 | `passed` | 对照官方 packages/input_boolean/script 文档；没有 HA schema 加载、`check_config` 或实例执行。 |
 | S3 | 独立 REST 探测器离线 unittest | `passed` | 2026-10-13，Python 3.14.0，最终执行 `python -m unittest discover -s tests/ha_lab -v`：29 tests，3.384s，OK。本机回环 HTTP fixture 与注入错误不证明真实 HA 可用，也不替代旧 pytest 基线。另以 `-B -W error::ResourceWarning` 运行同一测试集通过。 |
 | S4 | Git 空白与变更范围检查 | `passed` | 已执行 `git diff --check` 与 `git diff --cached --check`，无空白错误；暂存变更仅为本阶段 12 个文件，未纳入原工作区未提交文档。 |
-| S5 | 旧 pytest 基线 | `failed` | 已执行 `python -m pytest --no-cov`，解释器报告 `No module named pytest`。这是当前环境依赖缺失，不能推断旧测试通过/失败；本轮不安装恢复。 |
+| S5 | 旧 pytest 基线 | `failed` | 已执行 `python -m pytest --no-cov`，解释器报告 `No module named pytest`。这是2026-10-13当时环境的依赖缺失，不是旧测试结果。2026-11-27原型已退役，本项仅保留历史，不再安排修复。 |
 | S6 | 独立代码／安全／文档复核 | `passed` | 29 项测试另行回归通过，无未解决阻断项。复核发现的畸形重定向 `Location` 异常已用失败测试复现并修复；实体发现、歧义拒绝和 HA 独立运行验收项已补齐。 |
 
 ## 第二阶段：只读预期断言（本轮记录）
@@ -63,7 +63,7 @@
 | M2 | 合并后的独立 unittest | `passed` | 在 `main` 执行 `python -m unittest discover -s tests/ha_lab -v`：50 tests，5.457s，OK。 |
 | M3 | 合并后的资源警告回归 | `passed` | 在 `main` 执行 `python -B -W error::ResourceWarning -m unittest discover -s tests/ha_lab -v`：50 tests，5.381s，OK。 |
 
-以上仅是 Git 整合与本机离线证据，不是实际部署、施工或 Hermes/HA 端到端验收；旧 Middleware 的 pytest 基线未在此次合并中重跑，仍保留 S5 的依赖缺失记录。远端交付需另核对 `refs/heads/main` 与本地提交号；提交/推送成功不能将 R1–R3、I1–I15 改为通过。
+以上仅是 Git 整合与本机离线证据，不是实际部署、施工或 Hermes/HA 端到端验收；已退役原型的S5记录仅说明当时的依赖缺失，不再属于当前验收范围。远端交付需另核对 `refs/heads/main` 与本地提交号；提交/推送成功不能将 R1–R3、I1–I15 改为通过。
 
 ## 独立 HA 与 Hermes 人工验收
 
@@ -83,7 +83,7 @@
 | I12 | 错误与未确认状态处理 | `not_run` | 连接/认证/实体不可用/状态不符时停止，不自动重试，不改目标，不谎报动作已完成；仅在隔离实例人工验证。 |
 | I13 | 停止 Hermes 后 HA 独立运行 | `not_run` | 所有实验 Hermes CLI 停止、无 gateway/计划任务后，HA UI 开关 helper 和原生 script 均能独立工作；UI 读回逐次确认，最后恢复 `off`。 |
 | I14 | 恢复与清理 | `not_run` | helper 读回 `off`，退出 CLI 后禁用/移除实验插件，撤销 Token，确认路径后删除实验 profile，清除本轮凭据/环境变量与实验 package。 |
-| I15 | 物理灯具、`light` 域、语音、事件、旧 Middleware | `not_run` | 本轮明确不在范围；不得从 helper/script 或 REST probe 成功推导通过。 |
+| I15 | 物理灯具、`light` 域、语音、事件 | `not_run` | 本轮明确不在范围；不得从 helper/script 或 REST probe 成功推导通过。 |
 
 即便 I5 是 `passed`，I6–I14 仍要逐项实际运行；不得把 REST 探测结果整体改名为 Hermes E2E。
 
@@ -107,9 +107,10 @@
 恢复/清理结果：
 ```
 
-## 旧仓库基线问题（仅记录）
+## 2026-11-27路线清理
 
-- `src/middleware/main.py` 导入 `middleware.core.engine`，仓库没有对应模块；本轮没有修复入口。
-- `src/middleware/adapters/ha_adapter.py` 的 `RealHAAdapter` 尚为 `NotImplementedError`；官方插件实验不经过该适配器。
-- 旧 pytest 基线缺少 pytest 环境，见 S5；独立标准库 unittest 不能替代该基线。
-- 第一阶段无安装、真实服务启动、真实集成或 push，这是历史范围。第二阶段仍不安装/部署/真实联调，但已获用户授权完成验证后推送开发分支，实际结果见 E5。本地 Git 提交与远程推送均不代表集成验收通过。
+用户已选择Hermes＋Home Assistant。自研Middleware、演示别名/场景、对应5个测试文件及Python包构建/服务入口已移除，原型的导入错误与未实现适配器不再列为待修复事项。S5保留为原日期历史记录，不能解释为当前实验失败。
+
+当前保留`examples/hermes-ha-lab/`、`scripts/ha_probe.py`及`tests/ha_lab/`。其标准库离线测试、真实插件联调和物理设备验收仍分别记录；路线清理不代表部署或集成完成。
+
+清理后离线复验：2026-11-27执行`python -m unittest discover -s tests/ha_lab -v`，50 tests、5.793s、OK；未连接真实HA或运行Hermes联调，以上真实验收项状态不变。
