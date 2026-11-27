@@ -1,10 +1,8 @@
 {
-  "updated_at": "2026-11-26",
+  "updated_at": "2026-11-27",
   "currency": "USD",
   "active_plan": "3A-tri-band",
   "active_plan_status": "订单基线：7台已下单待到货验收；Fusion×1购买未确认；全部未部署",
-  "alternative_plan": "3A-dual-band",
-  "alternative_plan_status": "历史预算备选，未启用；旧数量不作为当前采购口径",
   "price_basis": "products价格为各自verified_at日期的历史公开页面价；orders为用户确认订单的折后金额，含税运口径单列，不混用",
   "products": [
     {
@@ -19,19 +17,6 @@
       "official_price": 184.99,
       "official_verified_at": "2026-10-20",
       "spec_url": "https://www.tp-link.com/productpages/spec/116210-3.html"
-    },
-    {
-      "id": "fusion-poe",
-      "model": "Fusion 2.5G PoE",
-      "amazon_asin": "B0HKQ8ZPML",
-      "amazon_url": "https://www.amazon.com/dp/B0HKQ8ZPML",
-      "amazon_price": 349.99,
-      "amazon_verified_at": "2026-10-20",
-      "amazon_product_title": "Omada Fusion 2.5G PoE Gateway",
-      "official_url": "https://store.omadanetworks.com/products/omada-gateway-controller-in-one-with-poe-fusion-2-5g-poe",
-      "official_price": 349.99,
-      "official_verified_at": "2026-10-20",
-      "spec_url": "https://www.tp-link.com/productpages/spec/116211-3.html"
     },
     {
       "id": "es210xpp",
@@ -86,33 +71,6 @@
       "official_price": 179.99,
       "official_verified_at": "2026-10-20",
       "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-wifi-ceiling-mount/eap772/#specifications"
-    },
-    {
-      "id": "eap725",
-      "model": "EAP725-Wall（要求US V2）",
-      "amazon_asin": "B0FB1W85FN",
-      "amazon_url": "https://www.amazon.com/dp/B0FB1W85FN",
-      "amazon_price": 134.99,
-      "amazon_verified_at": "2026-10-20",
-      "amazon_product_title": "Omada 7 Wall BE5000 Wall-Plate WiFi Access Point, 5yr Warranty(EAP725-Wall)",
-      "verification_note": "型号与双频匹配，但页面仍列1×2.5G+2×1G下联，不能保证发货US V2的四下联口；此价仅作条件比较",
-      "official_url": "https://store.omadanetworks.com/products/eap725-wall",
-      "official_price": 144.99,
-      "official_verified_at": "2026-10-20",
-      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-wifi-wall-plate/eap725-wall/#specifications"
-    },
-    {
-      "id": "eap723",
-      "model": "EAP723",
-      "amazon_asin": "B0DT4YP2GX",
-      "amazon_url": "https://www.amazon.com/dp/B0DT4YP2GX",
-      "amazon_price": 89.99,
-      "amazon_verified_at": "2026-10-20",
-      "amazon_product_title": "Omada 7, BE5000 Wireless Access Point, 2.5G Port, w/o DC Adapter(EAP723)",
-      "official_url": "https://store.omadanetworks.com/products/omada-be5000-ceiling-mount-dual-band-wi-fi-7-access-point-with-1x2-5g-port",
-      "official_price": 94.99,
-      "official_verified_at": "2026-10-20",
-      "spec_url": "https://www.omadanetworks.com/us/business-networking/omada-wifi-ceiling-mount/eap723/#specifications"
     }
   ],
   "plans": {
@@ -122,54 +80,10 @@
       "es206xpp": 1,
       "eap775": 3,
       "eap772": 1
-    },
-    "3A-dual-band": {
-      "fusion": 1,
-      "es210xpp": 1,
-      "es206xpp": 2,
-      "eap725": 2,
-      "eap723": 1
-    },
-    "3B-tri-band": {
-      "fusion-poe": 1,
-      "es210xpp": 1,
-      "es206xpp": 1,
-      "eap775": 2,
-      "eap772": 1
     }
   },
-  "history_price_snapshots": [
-    {
-      "date": "2026-10-19",
-      "plan": "3A-tri-band",
-      "amazon_total": 1264.21,
-      "official_total": 1314.93
-    },
-    {
-      "date": "2026-10-19",
-      "plan": "3A-dual-band",
-      "amazon_total": 1094.21,
-      "official_total": 1139.93
-    }
-  ],
-  "historical_plans": [
-    {
-      "recorded_at": "2026-10-20",
-      "superseded_at": "2026-11-18",
-      "plan": "3A-tri-band",
-      "quantities": {
-        "fusion": 1,
-        "es210xpp": 1,
-        "es206xpp": 2,
-        "eap775": 2,
-        "eap772": 1
-      }
-    }
-  ],
   "plan_notes": {
-    "3A-tri-band": "当前Omada订单与待购主路由的完整配置，共8台；2026-11-25 v1.6：Fusion直连中央ES210、电竞房ES210及两普通电脑墙口，中央SFP+连接客厅ES206，J3455客厅；M200另行管理，不计入8台",
-    "3A-dual-band": "历史3AP数量，仅供比较",
-    "3B-tri-band": "历史互斥方案，未采用"
+    "3A-tri-band": "当前Omada订单与待购主路由的完整配置，共8台；2026-11-25 v1.6：Fusion直连中央ES210、电竞房ES210及两普通电脑墙口，中央SFP+连接客厅ES206，J3455客厅；M200另行管理，不计入8台"
   },
   "procurement_status": {
     "fusion": {
@@ -583,259 +497,5 @@
       ],
       "note": "大文件连续传输常见参考，非本户实测或保证；磁盘型号/盘面位置、CPU、协议、虚拟化与小文件负载影响结果。"
     }
-  },
-  "topology_history": [
-    {
-      "updated_at": "2026-11-25",
-      "status": "历史方案，已由v1.6替代；非当前施工口径",
-      "architecture": "Fusion分别以独立2.5G铜缆链路直连中央、电竞房、客厅三台交换机",
-      "router_product_id": "fusion",
-      "router_lan_uplinks_used": 3,
-      "switches": [
-        {
-          "location": "中央核心位",
-          "product_id": "es210xpp",
-          "ports_2_5g": {
-            "capacity": 8,
-            "assigned": 8,
-            "spare": 0,
-            "assignments": [
-              "Fusion上联",
-              "主卧EAP775-Wall",
-              "次卧EAP775-Wall",
-              "电竞房EAP775-Wall",
-              "大厅EAP772",
-              "大厅M200",
-              "次网关M200",
-              "普通电脑墙口B"
-            ]
-          },
-          "port_10g_rj45": {
-            "assignment": "普通电脑墙口A",
-            "target_speed_gbps": 10,
-            "status": "须核验电脑网卡与模块、跳线、全通道性能；不能仅凭Cat6A线缆保证10G"
-          },
-          "port_10g_sfp_plus": {
-            "assignment": null,
-            "status": "备用；中央至客厅10G光级联仅为备选，尚未变更Fusion星型"
-          },
-          "poe": {
-            "budget_w": 200,
-            "pd_ports_assigned": 6,
-            "power_source_for": [
-              "EAP775-Wall×3",
-              "EAP772×1",
-              "M200×2"
-            ],
-            "wall_ap_poe_out_enabled": false,
-            "wall_ap_data_downlinks_used": false,
-            "non_pd_2_5g_ports_poe_enabled": false,
-            "planning_reference": {
-              "eap775_at_mode_w_each": 26,
-              "eap775_quantity": 3,
-              "eap772_w": 25.4,
-              "m200_w_each": 12,
-              "m200_quantity": 2,
-              "sum_w": 127.4,
-              "headroom_multiplier": 1.3,
-              "with_headroom_w": 165.62
-            },
-            "validation_note": "仅为包含线路损耗余量的规划参考；按实际at/bt协商及PSE分配/预留功率核验，并测试六台同时冷启动、重启和并发。不能声称bt会自动只预留26W。"
-          }
-        },
-        {
-          "location": "电竞房",
-          "product_id": "es210xpp",
-          "ports_2_5g": {
-            "capacity": 8,
-            "assigned": 7,
-            "spare": 1,
-            "assignments": [
-              "Fusion上联",
-              "PC1",
-              "PC2",
-              "Mac mini",
-              "J3455",
-              "电竞房Apple TV",
-              "投影仪"
-            ]
-          },
-          "port_10g_rj45": {
-            "assignment": "Mac Studio",
-            "target_speed_gbps": 10
-          },
-          "port_10g_sfp_plus": {
-            "assignment": "未来NAS",
-            "status": "仅预留，未部署"
-          },
-          "poe": {
-            "all_ports_enabled": false,
-            "note": "电竞房EAP775-Wall独立回中央ES210供电，不占本地端口或PoE预算"
-          }
-        },
-        {
-          "location": "客厅",
-          "product_id": "es206xpp",
-          "ports_2_5g": {
-            "capacity": 5,
-            "assigned": 5,
-            "spare": 0,
-            "assignments": [
-              "Fusion上联",
-              "电视",
-              "客厅Apple TV",
-              "Switch",
-              "PS"
-            ]
-          },
-          "port_10g_sfp_plus": {
-            "assignment": null,
-            "status": "备用；中央至客厅10G光级联仅为备选"
-          },
-          "poe": {
-            "all_ports_enabled": false
-          }
-        }
-      ],
-      "notes": [
-        "电竞房Apple TV与客厅Apple TV分别计数；端口分配不代表新增购买。",
-        "两个独立电脑墙口为被动RJ45信息面板，不增加AP数量或PoE负载；电脑不经AP下联口。",
-        "同一家庭LAN、Fusion唯一DHCP/普通DNS、指定终端手动选用J3455 OpenWrt的逻辑方案不变。",
-        "未来中央至客厅10G光级联须撤掉客厅原Fusion铜缆上联，避免二层环路；当前不启用。",
-        "中央仅1个SFP+；电竞房SFP+预留NAS，不同时用于光纤上联。",
-        "FP400仍为候选，未计入当前端口分配或PoE负载。"
-      ],
-      "version": "1.4",
-      "router_lan_ports_spare": 1,
-      "superseded_by": "1.6"
-    },
-    {
-      "updated_at": "2026-11-25",
-      "status": "历史方案，已由v1.6替代；非当前施工口径",
-      "architecture": "Fusion以2.5G直连中央和电竞房；中央以10G SFP+光纤上联客厅，客厅不再直接接Fusion",
-      "router_product_id": "fusion",
-      "router_lan_uplinks_used": 2,
-      "switches": [
-        {
-          "location": "中央核心位",
-          "product_id": "es210xpp",
-          "ports_2_5g": {
-            "capacity": 8,
-            "assigned": 8,
-            "spare": 0,
-            "assignments": [
-              "Fusion上联",
-              "主卧EAP775-Wall",
-              "次卧EAP775-Wall",
-              "电竞房EAP775-Wall",
-              "大厅EAP772",
-              "大厅M200",
-              "次网关M200",
-              "普通电脑墙口B"
-            ]
-          },
-          "port_10g_rj45": {
-            "assignment": "普通电脑墙口A",
-            "target_speed_gbps": 10,
-            "status": "须核验电脑网卡与模块、跳线、全通道性能；不能仅凭Cat6A线缆保证10G"
-          },
-          "port_10g_sfp_plus": {
-            "assignment": "客厅ES206上联",
-            "target_speed_gbps": 10,
-            "status": "光纤展示方案，介质与模块待核，未部署"
-          },
-          "poe": {
-            "budget_w": 200,
-            "pd_ports_assigned": 6,
-            "power_source_for": [
-              "EAP775-Wall×3",
-              "EAP772×1",
-              "M200×2"
-            ],
-            "wall_ap_poe_out_enabled": false,
-            "wall_ap_data_downlinks_used": false,
-            "non_pd_2_5g_ports_poe_enabled": false,
-            "planning_reference": {
-              "eap775_at_mode_w_each": 26,
-              "eap775_quantity": 3,
-              "eap772_w": 25.4,
-              "m200_w_each": 12,
-              "m200_quantity": 2,
-              "sum_w": 127.4,
-              "headroom_multiplier": 1.3,
-              "with_headroom_w": 165.62
-            },
-            "validation_note": "仅为包含线路损耗余量的规划参考；按实际at/bt协商及PSE分配/预留功率核验，并测试六台同时冷启动、重启和并发。不能声称bt会自动只预留26W。"
-          }
-        },
-        {
-          "location": "电竞房",
-          "product_id": "es210xpp",
-          "ports_2_5g": {
-            "capacity": 8,
-            "assigned": 7,
-            "spare": 1,
-            "assignments": [
-              "Fusion上联",
-              "PC1",
-              "PC2",
-              "Mac mini",
-              "J3455",
-              "电竞房Apple TV",
-              "投影仪"
-            ]
-          },
-          "port_10g_rj45": {
-            "assignment": "Mac Studio",
-            "target_speed_gbps": 10
-          },
-          "port_10g_sfp_plus": {
-            "assignment": "未来NAS",
-            "status": "仅预留，未部署"
-          },
-          "poe": {
-            "all_ports_enabled": false,
-            "note": "电竞房EAP775-Wall独立回中央ES210供电，不占本地端口或PoE预算"
-          }
-        },
-        {
-          "location": "客厅",
-          "product_id": "es206xpp",
-          "ports_2_5g": {
-            "capacity": 5,
-            "assigned": 4,
-            "spare": 1,
-            "assignments": [
-              "电视",
-              "客厅Apple TV",
-              "Switch",
-              "PS"
-            ]
-          },
-          "port_10g_sfp_plus": {
-            "assignment": "中央ES210上联",
-            "target_speed_gbps": 10,
-            "status": "光纤展示方案，介质与模块待核，未部署"
-          },
-          "poe": {
-            "all_ports_enabled": false
-          }
-        }
-      ],
-      "notes": [
-        "电竞房Apple TV与客厅Apple TV分别计数；端口分配不代表新增购买。",
-        "两个独立电脑墙口为被动RJ45信息面板，不增加AP数量或PoE负载；电脑不经AP下联口。",
-        "同一家庭LAN、Fusion唯一DHCP/普通DNS、指定终端手动选用J3455 OpenWrt的逻辑方案不变。",
-        "中央仅1个SFP+；电竞房SFP+预留NAS，不同时用于光纤上联。",
-        "FP400仍为候选，未计入当前端口分配或PoE负载。",
-        "采用此图时撤掉客厅原Fusion铜缆上联，保留备用线但不同时连通。",
-        "已确认的v1.4仍保留在lan_topology，本展示不自动覆盖原采购/施工基线。",
-        "在用远端铜缆由10条变9条，另有1条中央到客厅光链路；原客厅Cat6A保留端接备用。"
-      ],
-      "version": "1.5",
-      "router_lan_ports_spare": 2,
-      "diagram_path": "docs/network-topology.md",
-      "superseded_by": "1.6"
-    }
-  ]
+  }
 }

@@ -20,10 +20,14 @@
 flowchart LR
   F[武汉电信入户光纤] --> O[运营商光猫<br/>PON 注册 / Internet 桥接]
   O -->|RJ45 交付口<br/>按实机协商 1G 或 2.5G| R[Fusion 2.5G 普通版<br/>PPPoE / NAT / 防火墙<br/>家庭唯一 DHCP / 普通 DNS]
-  R -->|2.5G LAN| S[中央 ES206XPP-M2<br/>四条 Cat6A 主干]
+  R -->|LAN1 / 2.5G| S[中央 ES210XPP-M2<br/>四AP / 两M200独立PoE]
+  R -->|LAN2 / 2.5G| E[电竞房 ES210XPP-M2]
+  R -->|LAN3 / 2.5G| A[普通电脑墙口 A]
+  R -->|LAN4 / 2.5G| B[普通电脑墙口 B]
+  S -->|10G SFP+ 光纤| L[客厅 ES206XPP-M2<br/>电视 / Apple TV / Switch / PS / J3455]
 ```
 
-[Fusion 官方规格](https://www.omadanetworks.com/us/business-networking/omada-fusion-gateway-series/fusion-2.5g/)明确支持 PPPoE，提供 1×2.5G WAN 与 4×2.5G LAN/WAN；普通版没有 SFP/SFP+。光纤仍接光猫，电口接 Fusion WAN，Fusion LAN 再接中央交换机。光猫交付口只有 1G 时，全屋 2.5G 内网仍可按计划建设，但互联网不能因此越过该 1G 接口瓶颈。
+[Fusion 官方规格](https://www.omadanetworks.com/us/business-networking/omada-fusion-gateway-series/fusion-2.5g/)明确支持 PPPoE，提供 1×2.5G WAN 与 4×2.5G LAN/WAN；普通版没有 SFP/SFP+。入户光纤仍接光猫，电口接 Fusion WAN；Fusion四个LAN按[v1.6](network-topology.md)接中央、电竞交换机和电脑墙口A/B，中央光纤级联客厅。当前为9条在用远端铜缆＋1条中央—客厅光链路，光纤配件待核、未施工；原Fusion→客厅铜线仅留未接备用。光猫交付口只有 1G 时，全屋 2.5G 内网仍可按计划建设，但互联网不能因此越过该 1G 接口瓶颈。
 
 现有[同一 LAN 按设备选用 OpenWrt](superpowers/specs/2026-11-05-home-device-rule-routing-design.md)方案继续有效：Fusion 保留主网关、唯一 DHCP 和独立普通 DNS；J3455 的 OpenWrt 只服务指定终端。运营商 WAN 业务 VLAN 与家庭 LAN 分区是不同概念；需要 WAN 标签不意味着要给全屋划分 VLAN。
 

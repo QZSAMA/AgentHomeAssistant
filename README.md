@@ -1,6 +1,6 @@
 # AgentHomeAssistant
 
-> **当前网络与影音（2026-11-26，v1.6）**：Apple TV仅已有1台，放大厅接客厅ES206；投影仪主放主卧、可移动，Wi-Fi接入不插网线。电竞房ES210的2.5G口仅分配Fusion上联、PC×2、Mac mini，**用4余4**；10G电口给Mac Studio、SFP+留未来NAS。Fusion四LAN分别接中央/电竞/电脑墙口A/B，中央SFP+10G连客厅；中央四AP/两M200 PoE，客厅五铜口含Apple TV和J3455全满。当前[拓扑与端口](docs/network-topology.md)、[施工清单](docs/network-placement-and-cabling-plan.md)、[影音规划](docs/av-and-gaming-layout.md)优先，旧日期接法仅作历史。
+> **当前网络与影音（2026-11-26，v1.6）**：Apple TV仅已有1台，放大厅接客厅ES206；投影仪主放主卧、可移动，Wi-Fi接入不插网线。电竞房ES210的2.5G口仅分配Fusion上联、PC×2、Mac mini，**用4余4**；10G电口给Mac Studio、SFP+留未来NAS。Fusion四LAN分别接中央/电竞/电脑墙口A/B，中央SFP+10G连客厅；中央四AP/两M200 PoE，客厅五铜口含Apple TV和J3455全满。当前[拓扑与端口](docs/network-topology.md)、[施工清单](docs/network-placement-and-cabling-plan.md)、[影音规划](docs/av-and-gaming-layout.md)为当前接线依据。
 
 > **2026-11-21 三维户型小样**：[home-twin-3d 使用说明](examples/home-twin-3d/README.md)。已实现 CAD 户型旋转查看、设计师参考配色、次卧床靠窗靠墙、四盏模拟灯开关/调光及场景切换，并提供 NeonPlan 原生导入备份。运行 `python examples/home-twin-3d/serve.py` 后访问 http://127.0.0.1:8776/。当前没有连接真实 Home Assistant；[交付核验](examples/home-twin-3d/docs/delivery-check.md)记录完成范围与限制。
 
@@ -10,49 +10,20 @@
 
 > **2026-11-18 用户确认已下单：3A 三频，三面板一吊顶。** 型号数量为 ES206XPP-M2×1、ES210XPP-M2×2，当前位置改为客厅ES206、中央/电竞房ES210各1，主卧/次卧/电竞房 EAP775-Wall 各1，大厅 EAP772×1，共 **7台已下单，待到货验收，未安装/未部署**。本单商品 $828.00，运费 $0，页面预计税费 $73.49，订单总额 **$901.49**。
 >
-> **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。当前9条远端铜缆与中央—客厅光链路见逐线表；两房间设备箱及电竞房本地双10G保持。以[订单记录](docs/network-order-20261118.md)、[采购BOM](docs/purchase-bom.md)和[现行拓扑](docs/network-topology.md)为准；旧日期报价/工作簿仅作历史，不按其旧数量采购。
+> **Fusion 2.5G 普通版×1不在本单中，仍计划采购、购买未确认**；完整网络计划8台。当前9条远端铜缆与中央—客厅光链路见逐线表；两房间设备箱及电竞房本地双10G保持。以[订单记录](docs/network-order-20261118.md)、[采购BOM](docs/purchase-bom.md)和[现行拓扑](docs/network-topology.md)为准；旧网络备选和过时工作簿已清理，历史版本可从 Git 查询。
 
-<details>
-<summary>2026-10-19及以前的项目说明（历史，非当前采购/施工口径）</summary>
-
-> **2026-10-19 第三版成本优化（用户确认网络采购主案）**：[Omada成本优化Excel](outputs/network-value-20261019/基础网络采购与装修交底_第三版Omada成本优化.xlsx)已按最新决定改为交换机直接PoE，不买独立供电器或SM5310-T。用户确认3A：Fusion 2.5G普通版 + 中央ES206XPP-M2 + 工作室ES210XPP-M2 + 大厅ES206XPP-M2；Amazon条件预算$1,229.20。3B用Fusion 2.5G PoE取代普通Fusion与中央交换机，Amazon $1,242.07，仅保留为比较。两种拓扑、端口、PoE、施工和验收边界见[第三版说明](docs/network-cost-optimization.md)。725-Wall仍须书面确认US V2四下联口；设备均未购买或部署。
-
-> **2026-10-19 双频备选**：[不含6GHz的Wi-Fi 7对照Excel](outputs/network-dualband-20261019/基础网络采购与装修交底_双频WiFi7对照版.xlsx)已另存，含拓扑、BOM、施工与差价。四AP按今日Amazon页面价省$215、官方商城省$220；725-Wall必须先确认US V2四下联口及对应报价。原三频版保留，尚未批准换型。详见[差价与版本核验](docs/ap-6ghz-selection-price-comparison.md)。
-
-> **2026-10-16 当前采购/装修范围**：[基础网络采购与装修交底 Excel](outputs/network-renovation-20261016/基础网络采购与装修交底.xlsx)覆盖网络硬件、材料、逐条布线、端口/PoE、配置和分阶段验收。高速NAS、UPS搬入后再考虑，不作为入住前必购；NAS要求自带10G SFP+，不买网卡，介质待实物确认。Mac走原生10G RJ45；Apple TV 4K旧款、米家激光投影仪、树莓派均已有，不重复购买。壁挂屏先试已有杂牌安卓，不合适再选二手iPad mini/便宜iPad，暂未定。J3455已确认PCIe 2.0 x1，TX201为兼容性待验的首选候选。下方较早的固定DAC与UPS入住前要求由本条更新；不改四主干/两房间箱/三面板一吊顶。
-
-基于 Apple 生态 + Aqara（绿米）智能家居 + Hermes Agent 的个人家庭助理自动化方案
-
-> **当前基础设施事实源**：[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)。
-> **采购与报价（2026-10-15）**：[完整采购BOM](docs/purchase-bom.md)区分已确认、暂选与未决；NAS已确认靠近工作室交换机，当前用兼容SFP+ DAC短线。四区域不额外预埋光纤，保留可抽换弱电管/牵引线。
-> **核心设备最新状态（2026-10-15）**：用户暂定 **Fusion 2.5G 普通版 ×1（非 PoE 版）**作为主路由，使用其内置 Omada 控制器；ER707-M2 和 J3455 上的 Omada Linux VM 撤出当前计划，OC200 不采购。大厅 ES206XPP-M2 选型保留；中央仍推荐 ES210XPP-M2（90W/口、200W总PoE），待用户确认。Home Assistant 继续在现有 J3455/Proxmox 上新增独立 HAOS VM，尚未实施，须核资源、SSD、备份与 UPS。Fusion 未购/未部署，保留运营商光猫桥接；普通版无 PoE、无 SFP，不替代中央 PoE 交换机。功能、价格与电源证据见[网络调研](docs/tplink-network-research.md#25-fusion-25g-普通版暂定与电源核验2026-10-15)。
-> **J3455与协调器补充（2026-10-15）**：J3455现为1GbE，用户计划升级2.5G网卡，仍使用电竞房已分配的同一个交换机端口；型号、Proxmox驱动与桥接迁移待验证。HA经LAN连接有线网关/以太网协调器，不默认使用USB直通；Aqara网关集成与HA直管协调器是不同路径，具体型号和协议仍待选，见[智能家居接法](docs/smart-home-topology.md#21-各协议的实际接法)。
-> **PoE 与端口复核（2026-10-15）**：中央推荐ES210XPP-M2两卧室AP保守规划117W/200W，未来PoE可按需增加独立ES206XPP-M2。用户确认电竞房不扩交换机；继续使用单台ES210XPP-M2。工作室EAP775-Wall除上联外还有1×2.5G+3×1G数据下联，Apple TV/投影可改接两个1G口，从而释放两个ES210端口；J3455/HA、Mac、NAS和PC保持交换机直连，不使用AP PoE Out。见[网络拓扑](docs/network-topology.md#22-交换机-poe-与端口复核2026-10-15)及[BOM](docs/device-selection-list.md#63-交换机与-poe-预算)。
-> **6GHz 专项研究（2026-10-13）**：[中国大陆 Wi-Fi 7 / 6GHz 调研报告](docs/wifi7-6ghz-mainland-china-research.md)已记录官方限制、公开成功/失败案例与配置方法。存在特定组合的技术成功自述，但未发现大陆普通住宅 WLAN 开放依据；Apple 官方不支持在大陆使用 6GHz，EAP775-Wall 未经本项目实测。保留暂选型号，6GHz 不计入部署保证能力。
-> **AP 优先级确认（2026-10-14）**：支持6GHz的三频设备保持第一优先，主卧/次卧/工作室各暂选 **EAP775-Wall ×1**，大厅 **EAP772 ×1** 为第一优先候选，均按2.5G有线回程。[BOM](docs/device-selection-list.md#64-当前端口与采购边界)与v1.2拓扑型号/数量不变；[AP有无6GHz选型与价格对比报告](docs/ap-6ghz-selection-price-comparison.md)保存美国官方/Amazon报价、725版本差异及快速更新流程，双频725/723仅留备选。地区合规、发货版本及PoE仍须核验，不代表已购买或大陆6GHz可启用。
-> **Apple设备最新决定（2026-10-15）**：大厅 **Apple HomeView非壁挂／桌面版×1已确认**，通过大厅AP Wi-Fi，使用随箱电源，不买壁挂版/底座。壁挂另用平板电脑或iPad，型号/数量/点位/供电待选。HomeView美国预购$299、11月13日供货；三房mini 2建议各1，美$149/大陆¥1,099、10月30日供货，代际/数量/地区仍待确认。用户接受英语Siri AI，大陆服务/账户/配套设备仍待验；未购/未部署，不改四主干/AP PoE。见[官方核验与建议](docs/apple-home-devices-2026.md)。
-> README 中较早的设备状态和网络方案用于背景参考；采购、户型、AP布点、Apple HomeView和模型计划以台账为准。
-> **当前品牌范围（用户已确认）**：Apple生态、Aqara/绿米为主，网络TP-Link；欧瑞博覆盖空调、新风、地暖、热水器。2026-11-21另指定奥普米家版两卫一体机，SKU/HA接入待核；其他小米/米家及华为设备仍不新增。已有米家激光投影仪复用，其他旧小米示例不视为已有。
-> **网络拓扑 v1.2（2026-10-14）：四条主干2.5G，仅电竞房Mac/NAS本地10G**。网络采购方向为 **TP-Link Omada**；主卧/次卧各一条Cat6A/2.5G直达EAP775-Wall，不设设备箱/交换机，电脑等有线设备接AP下联（1×2.5G+3×1G）；电竞房/大厅各保留一箱一交换机。电竞房已选 **ES210XPP-M2 ×1**，10G RJ45给Mac Studio、10G SFP+给未来高速NAS；J3455及其他关键终端接电竞房交换机。完整直连表会占用八个2.5G口和两个10G口；Apple TV、投影改接工作室AP的两个1G下联后可释放两个交换机2.5G口，AP仍余1×2.5G+1×1G。现有1G/100M终端按实际接口；核心网络仍在弱电箱附近机柜，中央至少两口需匹配卧室AP PoE。规格与采购入口见 [TP-Link 网络产品调研](docs/tplink-network-research.md)。
-
-> 最新候选购买 BOM 见 [设备清单第6.4节](docs/device-selection-list.md#64-当前端口与采购边界)：电竞房只用一台ES210XPP-M2，不增加交换机；完整直连表可占满十口，但工作室AP下联可承载Apple TV/投影等低带宽终端。中央五连接，建议≥8×2.5G且至少两口匹配EAP775-Wall PoE输入/功率。两卧室无交换机/箱，三台面板AP均有1×2.5G+3×1G下联；不启用AP PoE Out。Omada 使用暂定 Fusion 的内置控制器，不另占交换机端口；HA 通过 J3455 的既有接入口联网（现1G，计划2.5G）。
->
-> **⚠️ 历史内容警告（2026-10）**：本文下方的“双路由/副路由”、千兆交换机、ORVIBO面板/照明和“已接入设备”均为历史或未核验记录，禁止据此采购/施工。当前基线是 **AC（主路由器/网关）→ 中央匹配PoE的2.5G交换机 → 两卧室Wall AP（直达）/电竞房与大厅交换机 → 有线AP/终端**；AC不是无线控制器，也不是空调。
-
-</details>
-
-## 当前方案与图纸入口（2026-11-21 更新）
+## 当前方案与图纸入口（2026-11-27 整理）
 
 | 文档 | 内容 |
 |---|---|
-| [11月22日水电定位讨论稿](docs/electrical-network-positioning-draft-20261121.md) | 按原家具图分26组建议开关/插座/网口位置，含高度参考、主卧多控、四主干与本地支线、现场签认表；仅草案，待现场量尺 |
-| [装修原图与网络设备位置](docs/floorplan-and-network-locations.md) | 两张用户装修原图、局部尺寸边界；弱电箱在入户门左侧，四条Cat6A汇聚起点及现场核验清单 |
+| [11月22日水电定位讨论稿](docs/electrical-network-positioning-draft-20261121.md) | 按原家具图分26组建议开关/插座/网口位置，含高度参考、主卧多控、网络点位与本地支线、现场签认表；仅草案，待现场量尺 |
+| [装修原图与网络设备位置](docs/floorplan-and-network-locations.md) | 两张用户装修原图、局部尺寸边界；弱电箱在入户门左侧，中央设备位置及现场核验清单 |
 | [Apple HomeView / mini 2官方核验](docs/apple-home-devices-2026.md) | HomeView桌面版×1已确认、mini 2待选；官方规格/报价与地区限制，壁挂平板或iPad待选，不买HomeView壁挂底座 |
 | [当前宽带桥接方案](docs/wan-bridge-plan.md) | 武汉电信、原光猫Internet桥接、Fusion PPPoE；参数与逐项验收，尚未实施 |
 | [光猫替换备用研究](docs/ont-replacement-backup-research.md) | 中兴、VSOL、Nokia XG-040G-MD、PRX126猫棒与MC420L；32条分级来源含8条视频，暂不采购 |
 | [2026-11-18网络下单记录](docs/network-order-20261118.md) | Omada Store七台设备、折后商品$828/总额$901.49；位置、端口和到货验收，Fusion不在本单 |
-| [采购BOM与未决清单](docs/purchase-bom.md) | 完整计划8台，7台已下单待到货；Fusion购买未确认；订单金额、历史报价、辅材与后置设备 |
-| [全屋网络拓扑图](docs/network-topology.md) | 四条主干目标2.5G；主卧/次卧775、电竞房/大厅ES210各一箱，电竞房775及大厅772交换机PoE直供；Mac/NAS本地10G |
+| [采购BOM与未决清单](docs/purchase-bom.md) | 完整计划8台，7台已下单待到货；Fusion购买未确认；订单金额、待购主路由、辅材与后置设备 |
+| [全屋网络拓扑图](docs/network-topology.md) | v1.6：Fusion接中央/电竞及两个电脑墙口，中央10G光纤接客厅；四AP、两M200中央PoE；J3455在客厅 |
 | [大厅—电竞房影音与游戏连接规划](docs/av-and-gaming-layout.md) | 大厅电视与唯一Apple TV、主卧可移动Wi-Fi投影；保留双向HDMI预留意向，原电竞房显示端用途重核，不按旧点位施工 |
 | [智能家居与 Thread 拓扑图](docs/smart-home-topology.md) | 可编辑 Mermaid 接入图；四个主要区域和两卫生间的 Wi-Fi、Zigbee、Matter over Thread 规划及 Apple Home/HA 控制关系 |
 | [楼宇对讲与门禁接入调研](docs/building-intercom-integration-research.md)／[罗格朗型号与手册核验](docs/legrand-intercom-identification-and-manuals.md) | 已确认Legrand、背标S6819161；两组红黑线＋RJ45用途待核。归档凯乐目录与凯蕴98页参考手册，本机专用手册未取得；视频、开门及米家／HA兼容未验收 |
@@ -65,17 +36,16 @@
 | [Fusion官方功能调研](docs/fusion-domain-routing-capability-research.md) / [社区案例比较](docs/home-routing-community-and-reliability.md) | 历史研究证据；全屋定向DNS、合成地址段静态路由与独立主网关不属于本次批准范围 |
 | [历史全屋设计](docs/superpowers/specs/2026-11-05-home-rule-routing-design.md) / [故障隔离比较](docs/superpowers/specs/2026-11-05-home-rule-routing-availability.md) / [旧计划](docs/superpowers/plans/2026-11-05-home-rule-routing.md) / [旧验收单](docs/validation/home-rule-routing.md) | 已被现行批准版取代；不执行全屋网关、DHCP或DNS迁移及其回退步骤 |
 | [Wi-Fi 7 / 6GHz 大陆可用性研究](docs/wifi7-6ghz-mainland-china-research.md) | 法规与 Apple/Intel/Omada 限制、公开案例证据、正常配置与非官方方法边界、采购/验收门槛 |
-| [AP 有无 6GHz 选型与价格对比](docs/ap-6ghz-selection-price-comparison.md) | 历史频段/版本与报价比较，旧数量不作为当前订单或施工依据 |
-| [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 四条2.5G主干、三面板一吊顶、两房间箱、电源与分阶段验收；NAS/UPS后置 |
+| [设备选型清单](docs/device-selection-list.md) / [施工需求](docs/renovation-wiring-requirements.md) | 9条在用远端铜缆、客厅10G光纤、四AP/两M200中央PoE；NAS/UPS后置 |
 | [Hermes × HA 隔离实验指南](examples/hermes-ha-lab/README.md) / [验收记录](docs/validation/hermes-ha-lab.md) | 当前软件入口：固定官方插件、独立 profile、虚拟实体、只读 REST 探测与预期断言；真实联调仍为 `not_run` |
 
 软件实验底座及只读断言已合入 `main`。可先运行 `python -m unittest discover -s tests/ha_lab -v` 复跑离线测试；这不安装 Hermes/HA、不连接真实家居，也不代表旧 Middleware 或真实集成已通过验收。准备隔离测试环境后，按实验指南逐项验证，不执行下方历史部署步骤。
 
-房屋约 **100㎡、单层**，已收到并归档[装修布置图与尺寸标注图](docs/floorplan-and-network-locations.md)。**弱电箱在入户门左侧**，光猫、Fusion和中央交换机规划在该箱或附近通风核心柜，四条Cat6A由此汇聚。大厅/入户过道已确认有吊顶或局部吊顶，新增[设备点位与埋线草案](docs/network-placement-and-cabling-plan.md)及标注图；箱体、完整电气点位、实际管线路径与逐线长度仍待现场签认，Excel尚未写回该草案。宽带已明确为**武汉电信 1000Mbps**；上行30Mbps沿用旧规划、未实测，当前采用[原光猫桥接 + Fusion拨号](docs/wan-bridge-plan.md)，实际PON制式待核。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接电竞房交换机、箱外摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
+房屋约 **100㎡、单层**，已收到并归档[装修布置图与尺寸标注图](docs/floorplan-and-network-locations.md)。**弱电箱在入户门左侧**，光猫、Fusion和中央交换机规划在该箱或附近通风核心柜，9条在用远端铜缆及客厅光纤在此汇聚。大厅/入户过道已确认有吊顶或局部吊顶，新增[设备点位与埋线草案](docs/network-placement-and-cabling-plan.md)及标注图；箱体、完整电气点位、实际管线路径与逐线长度仍待现场签认，以现行逐线表交底。宽带已明确为**武汉电信 1000Mbps**；上行30Mbps沿用旧规划、未实测，当前采用[原光猫桥接 + Fusion拨号](docs/wan-bridge-plan.md)，实际PON制式待核。图纸是方案，不代表已安装。已有J3455：**16GB内存、10TB存储、千兆网口、Proxmox**，运行非官方群晖影音NAS与家庭代理/转发容器；最新规划接客厅ES206、箱外通风摆放，未执行迁移。已决定在其 Proxmox 上新增独立 HAOS VM，尚未部署或完成资源验收；Omada 改用暂定 Fusion 的内置控制器。
 
-Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+兼容DAC短线，NAS自带SFP+且不买网卡；介质待入住后选型。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
+Mac Studio采购目标为 **M5 Ultra、512GB统一内存、4TB内置SSD**，接电竞房原生10G RJ45，Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机报价待开放后核验。未来高速NAS若新增，已确定放交换机附近，接同台交换机10G SFP+，NAS自带SFP+且不买网卡；具体介质/长度待入住后按实物选型。Mac↔NAS与Apple TV↔J3455在同VLAN内本地交换，不占2.5G中央上联；其他房间访问共享该上联，NAS磁盘/CPU和自身网口仍需验收。大厅HomeView已确认非壁挂／桌面版×1，Wi-Fi接大厅AP，未购/部署，大陆服务/账户/配套设备仍待验；壁挂另选平板或iPad，型号/数量/点位与供电待定。
 
-UPS入住后再评估，装修先留位置、电源与通风；原至少1小时仅为后续评估目标，不作入住前购买/验收条件。当前两卧室AP均计中央PoE，电竞房/大厅AP由本地交换机供电；AP下联电脑不随PoE保活。后续按实测负载、分散供电位置及安全关机要求选UPS，不通过密封机柜隔音。
+UPS入住后再评估，装修先留位置、电源与通风；原至少1小时仅为后续评估目标，不作入住前购买/验收条件。当前四台AP和两台M200均计中央PoE；电竞房/客厅交换机本地PoE关闭。J3455供电与有序关机归客厅评估。后续按实测负载、分散供电位置及安全关机要求选UPS，不通过密封机柜隔音。
 
 ## 早期项目状态（历史记录，非最新验收）
 
@@ -99,10 +69,9 @@ UPS入住后再评估，装修先留位置、电源与通风；原至少1小时�
 | 智能家居设备 | 投影仪 | ✅ 已有 | 待接入 HA |
 | 计算设备 | MacBook | ✅ 已有 | 暂代 Mac Studio 做开发测试 |
 | 计算设备 | Mac Studio | ⏳ 计划购买 | 最新：M5 Ultra，512GB统一内存+4TB SSD、10GbE接工作室交换机；Apple美国配置页2026-10-15写512GB选项10月下旬提供，目标整机精确报价待开放后核验 |
-| 计算设备 / 现有 NAS | J3455 自建服务器 | ✅ 用户确认已有；HA 部署位置已定 | 16GB/10TB/现1GbE、计划2.5G/Proxmox，影音NAS及代理服务保留；计划电竞房箱外，未迁移；新增独立 HAOS VM 尚未部署/验收；Omada 由暂定 Fusion 承载 |
+| 计算设备 / 现有 NAS | J3455 自建服务器 | ✅ 用户确认已有；HA 部署位置已定 | 16GB/10TB/现1GbE、计划2.5G/Proxmox，影音NAS及代理服务保留；计划客厅箱外通风摆放，未迁移；新增独立 HAOS VM 尚未部署/验收；Omada 由暂定 Fusion 承载 |
 | 计算设备（本轮接入计划） | Mac Mini | 1G终端，部署状态待核 | 电竞房已分配1个铜口，不因接入规划追加整机采购 |
 | 存储设备（未来扩购） | 高速 NAS | ⏳ 待评估，非必购 | 与J3455区分；电竞房10G SFP+预留，型号/磁盘入住后再选，自带SFP+且不另买网卡，不再规划中央接入 |
-| 网络设备（历史候选） | 副路由器 | ⏳ 未核验 | 不属于当前 AP 主干；禁止按此行采购 |
 | 智能家居设备（历史合并项） | 绿米/欧瑞博 | ⏳ 未核验 | 当前方向以台账为准：Aqara为主，2026-11-18欧瑞博范围更新为空调/新风/地暖/热水器 |
 
 ### 软件开发进度
@@ -126,232 +95,11 @@ UPS入住后再评估，装修先留位置、电源与通风；原至少1小时�
 
 ## 网络架构
 
-### 双路由方案（历史规划/可选工作网络）
+当前采用 [v1.6 拓扑](docs/network-topology.md)：运营商光猫桥接，Fusion 2.5G 普通版拨号并运行 Omada 控制器。Fusion 四个 LAN 分别接中央 ES210、电竞房 ES210、普通电脑墙口 A/B；中央 ES210 以 10G SFP+ 光纤连接客厅 ES206。光纤方向已定，模块和跳线规格待核，尚未施工或部署。
 
-> **⚠️ 历史规划 / 未核验 / 禁止按此采购施工**：本节只记录可选的工作网络叠加方案，不是当前家庭 AP 主干拓扑。副路由器、旧千兆设备和本节的地址/配置必须经过台账与现场验证后才能采用。
+四台 AP 和两台 M200 均独立回中央 PoE，AP 下联口不用。J3455 和唯一已有 Apple TV 规划放在客厅；投影仪主卧为主、可移动 Wi-Fi 接入。电竞房 Mac Studio 接 10G RJ45，未来 NAS 预留 SFP+；各口用途与九条远端铜缆见[端口及布线表](docs/network-placement-and-cabling-plan.md)。
 
-采用主路由器 + 副路由器双路由架构，实现家庭网络与工作网络的物理隔离，通过切换 WiFi 即可切换网络出口。
-
-```
-互联网
-  │
-  ▼
-┌──────────────────┐
-│   光猫 (桥接模式)  │
-└────────┬─────────┘
-         │
-         ▼
-┌──────────────────────────────┐
-│   主路由器 (原厂固件)          │
-│   192.168.1.1                │
-│   DHCP: 192.168.1.100-200    │
-│   WiFi: "Home"               │
-└────────┬─────────────────────┘
-         │
-    ┌────┴──────────────────────┐
-    │  主网络 192.168.1.0/24     │
-    │  NAS / Mac / 智能家居设备   │
-    │                            │
-    │  ┌────────────────────────┐│
-    │  │ 副路由器 (OpenWrt)      ││
-    │  │ WAN: DHCP → 192.168.1.x││
-    │  │ LAN: 192.168.2.1       ││
-    │  │ WiFi: "Work"           ││
-    │  │ + WireGuard 隧道        ││
-    │  │ + avahi-daemon 中继     ││
-    │  │ + NAT (MASQUERADE)      ││
-    │  └────────┬───────────────┘│
-    │           │                │
-    │  工作子网 192.168.2.0/24    │
-    │  工作设备 (切换 WiFi 即可)   │
-    └────────────────────────────┘
-```
-
-### 设计原则
-
-| 原则 | 说明 |
-|------|------|
-| 主路由零改动 | 主路由器保持原厂固件，不做任何配置变更 |
-| 网络隔离 | 工作流量与家庭流量完全隔离，指定出口故障不影响家庭网络 |
-| 切换便捷 | 切换 WiFi 即可切换网络出口，无需额外操作 |
-| NAS 互通 | 工作网络通过 NAT 穿透访问主网络 NAS |
-| 设备发现 | 通过 avahi-daemon mDNS 中继实现跨子网 AirPlay/HomeKit |
-
-### 数据流路径
-
-| 场景 | 流量路径 |
-|------|---------|
-| 工作设备 → 公司网络 | 设备 → 副路由器 → WireGuard 隧道 → 公司网络 |
-| 工作设备 → NAS | 设备 → 副路由器 NAT → 主网络 → NAS |
-| 工作设备 → AirPlay | 设备 mDNS → avahi 中继 → 主网络 AirPlay 设备 → 副路由器 NAT → 设备 |
-| 工作设备 → 智能家居 (Agent) | 设备 → Home Assistant API (TCP) → 副路由器 NAT → 主网络 HA → 智能家居 |
-| 家庭设备 → 互联网 | 设备 → 主路由器 → 互联网（不经过副路由器） |
-
-### 副路由器配置详情
-
-#### 硬件选型（历史候选，不符合当前 2.5G+ 有线 AP 基线）
-
-> **⚠️ 不得作为当前采购清单**：以下型号仅用于旧双路由方案的背景比较。
-
-| 型号 | SoC | WiFi | 网口 | OpenWrt | 价格 | 备注 |
-|------|-----|------|------|---------|------|------|
-| 小米 AX3000T (RD03，已排除) | MT7981B | WiFi 6 AX3000 | 4× 千兆 | 23.05+ | ~¥130 | 历史比较项；不在当前采购/部署范围 |
-| GL.iNet MT3000 | MT7981B | WiFi 6 AX3000 | 1× 2.5G + 1× 千兆 | 原生 | ~¥300 | 开箱即用 |
-| CMCC RAX3000M | MT7981B | WiFi 6 AX3000 | 4× 千兆 + USB | 官方 | ~¥200 | 均衡之选 |
-
-#### OpenWrt 配置步骤
-
-**1. 基础网络配置**
-
-```uci
-# /etc/config/network
-
-config interface 'lan'
-    option device 'br-lan'
-    option proto 'static'
-    option ipaddr '192.168.2.1'
-    option netmask '255.255.255.0'
-
-config interface 'wan'
-    option device 'wan'
-    option proto 'dhcp'    # 从主路由器获取 192.168.1.x
-```
-
-**2. DHCP 服务**
-
-```uci
-# /etc/config/dhcp
-
-config dhcp 'lan'
-    option interface 'lan'
-    option start '100'
-    option limit '100'
-    option leasetime '12h'
-```
-
-**3. 防火墙配置**
-
-```uci
-# /etc/config/firewall
-
-config zone
-    option name 'lan'
-    list network 'lan'
-    option input 'ACCEPT'
-    option output 'ACCEPT'
-    option forward 'ACCEPT'
-
-config zone
-    option name 'wan'
-    list network 'wan'
-    list network 'wan6'
-    option input 'REJECT'
-    option output 'ACCEPT'
-    option forward 'REJECT'
-    option masq '1'        # NAT 穿透，使工作设备可访问主网络
-    option mtu_fix '1'     # MSS Clamping，避免双 NAT 分片问题
-
-config forwarding
-    option src 'lan'
-    option dest 'wan'      # 允许 LAN → WAN 流量
-```
-
-**4. WireGuard 隧道**
-
-```uci
-# /etc/config/network
-
-config interface 'wg0'
-    option proto 'wireguard'
-    option private_key '<YOUR_CLIENT_PRIVATE_KEY>'
-    option mtu '1420'
-    list addresses '10.x.x.x/24'     # 指定出口分配的 IP
-    list dns '1.1.1.1'
-
-config wireguard_wg0
-    option description 'Work-Exit'
-    option public_key '<SERVER_PUBLIC_KEY>'
-    option preshared_key '<PRESHARED_KEY>'
-    option endpoint_host '<EXIT_SERVER_IP>'
-    option endpoint_port '51820'
-    list allowed_ips '0.0.0.0/0'       # 所有流量走指定出口
-    option route_allowed_ips '1'
-    option persistent_keepalive '25'    # 保持 NAT 穿透状态
-```
-
-```uci
-# /etc/config/firewall - 添加 WireGuard 区域
-
-config zone
-    option name 'wg'
-    list network 'wg0'
-    option input 'REJECT'
-    option output 'ACCEPT'
-    option forward 'REJECT'
-    option masq '1'
-    option mtu_fix '1'
-
-config forwarding
-    option src 'lan'
-    option dest 'wg'         # LAN 流量 → 指定出口
-```
-
-**5. mDNS 中继 (avahi-daemon)**
-
-```bash
-# 安装
-opkg update && opkg install avahi-daemon
-
-# 禁用默认 umdns（避免冲突）
-/etc/init.d/umdns stop && /etc/init.d/umdns disable
-```
-
-```ini
-# /etc/avahi/avahi-daemon.conf
-
-[server]
-use-ipv4=yes
-use-ipv6=no
-allow-interfaces=br-lan,eth0    # LAN 和 WAN 接口
-check-response-ttl=no
-use-iff-running=no
-
-[publish]
-disable-publishing=no
-publish-workstation=no
-
-[reflector]
-enable-reflector=yes
-reflect-ipv6=no
-reflect-filters=_airplay._tcp,_raop._tcp,_ipp._tcp,_hap._tcp
-reflector-quick-join=yes
-
-[rlimits]
-rlimit-core=0
-rlimit-data=4194304
-rlimit-nofile=30
-rlimit-stack=4194304
-rlimit-nproc=3
-```
-
-```bash
-# 启动并设置开机自启
-/etc/init.d/avahi-daemon enable
-/etc/init.d/avahi-daemon start
-```
-
-### 已知限制与缓解
-
-| 限制 | 影响 | 缓解措施 |
-|------|------|---------|
-| HomeKit 跨子网偶发"无响应" | mDNS 公告超时导致 | 优先使用 Home Assistant / Agent 控制（TCP，完全可靠）；HomeKit 仅作备用 |
-| AirPlay 发现延迟 5-15 秒 | 首次发现比同网段慢 | 启用 reflector-quick-join；可接受 |
-| 主网络无法主动访问工作子网 | NAT 导致单向可访问 | 当前需求不需要反向访问 |
-| HomeKit 首次配对需同网段 | 跨子网配对可能失败 | 所有设备在主网配对完成后再使用（当前已是如此） |
-
-> **核心结论**：由于 Agent 系统和 Home Assistant 均基于 TCP 协议，跨子网控制智能家居完全可靠。HomeKit 的 mDNS 限制仅影响直接通过 Siri/家庭 App 控制的场景，不影响主要控制路径。
-
-> 详细可行性分析见 [docs/dual-router-feasibility-analysis.md](docs/dual-router-feasibility-analysis.md)
+所有设备保持同一家庭 LAN，Fusion 为唯一 DHCP 和普通 DNS。指定终端手动使用 J3455 上的 OpenWrt；故障时切回普通参数。按[已批准设计](docs/superpowers/specs/2026-11-05-home-device-rule-routing-design.md)、[实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md)和[验收单](docs/validation/home-device-rule-routing.md)执行，现场项目仍未运行。
 
 ## 设备清单与历史接入记录
 
@@ -720,7 +468,7 @@ Agent：当前客厅温度是 24°C，湿度 45%。
 - **API 网关**: FastAPI / Flask
 - **配置存储**: YAML + SQLite
 - **设备集成**: Home Assistant REST API / WebSocket
-- **工作网络**: OpenWrt + WireGuard + avahi-daemon
+- **按设备分流**: J3455 OpenWrt，保持同一家庭 LAN
 
 ## 后续建议补充的设备
 
@@ -732,22 +480,15 @@ Agent：当前客厅温度是 24°C，湿度 45%。
 - **智能窗帘电机**：支持自动拉上/拉开窗帘
 
 ### 网络与基础设施
-- **Home Assistant 运行设备**：树莓派 / Mac Mini / NAS 虚拟机，建议与 Agent 节点分离
+- **Home Assistant 运行位置已定**：现有 J3455 / Proxmox 独立 HAOS VM，资源/备份待验收
 - **UPS 不间断电源**：保护 Mac Studio、Mac Mini、NAS 免受电力波动影响
-- **网络交换机**：2.5G/10G 交换机，用于 NAS 与主机高速传输
+- **网络设备到货验收**：按已确认7台订单和v1.6端口表核对，无新增交换机采购
 
 ## 下一步计划（历史路线，不是当前执行清单）
 
 > **⚠️ 请勿按本节直接采购或施工**：本节保留早期软件/副路由路线；当前网络、设备、房间点位、Apple HomeView和模型部署以[家庭基础设施登记与实施台账](docs/home-infrastructure-register.md)为准。
 
-- 历史副路由器采购项已取消：小米 AX3000T RD03 不在当前品牌范围；不得按本条采购或部署。
-- [ ] 刷 OpenWrt 固件
-- [ ] 配置副路由器基础网络 (WAN/LAN/DHCP)
-- [ ] 配置 WireGuard 隧道连接公司网络
-- [ ] 配置 avahi-daemon mDNS 中继
-- [ ] 测试 NAS 跨子网访问
-- [ ] 测试 AirPlay 跨子网投屏
-- [ ] 测试 HomeKit 跨子网控制
+- [ ] 按[当前网络实施计划](docs/superpowers/plans/2026-11-05-home-device-rule-routing.md)完成设备到货、同LAN配置与恢复验收。
 - [ ] 确定集成方案
 - [ ] 搭建运行环境 (决定是跑在本地还是 Docker)
 - [ ] 开发 Middleware 核心服务

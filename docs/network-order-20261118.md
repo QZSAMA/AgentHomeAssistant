@@ -6,7 +6,7 @@
 
 接线与摆位更新：**2026-11-26，v1.6影音终端更正**。下表规划位置采用最新安排，订单型号、数量、金额和采购状态不变。
 
-本文端口表现采用v1.6：Fusion直连中央ES210、电竞ES210及普通电脑墙口A/B，四LAN均2.5G、全部占用；中央SFP+10G光纤级联客厅ES206，J3455改接客厅，原Fusion→客厅铜上联不再接通。v1.4/v1.5仅作历史；拓扑已选，光纤/模块型号待核、未购/未实施，不代表新增订单。
+本文端口表现采用v1.6：Fusion直连中央ES210、电竞ES210及普通电脑墙口A/B，四LAN均2.5G、全部占用；中央SFP+10G光纤级联客厅ES206，J3455改接客厅，原Fusion→客厅铜上联不再接通。拓扑已选，光纤/模块型号待核、未购/未实施，不代表新增订单。
 
 ## 本次订单
 
@@ -67,4 +67,4 @@
 - [ ] Fusion 采购后验证 Omada 接管全部 3 台交换机和 4 台 AP、固件兼容、配置备份与断电恢复。
 - [ ] 按v1.6验收9条在用远端铜缆：中央至6个PD、Fusion至电脑A/B与电竞交换机；另验中央—客厅1条10G光纤链路及Fusion—中央本地跳线。A/B均2.5G，原客厅铜线仅未接备用；核协商、丢包与吞吐。验Mac Studio本地10G、无线覆盖及J3455客厅位置/供电/恢复；网卡升级与未来NAS仍待验。
 
-现行入口：[采购 BOM](purchase-bom.md)、[网络拓扑与端口](network-topology.md)、[结构化采购数据](../config/network-procurement.json)、[设备选型](device-selection-list.md)、[施工要求](renovation-wiring-requirements.md)。2026-10-19/20 的采购工作簿和 11-17 的比价表保留为报价历史，未写入本次订单；不再据其旧数量重复采购或交底。
+现行入口：[采购 BOM](purchase-bom.md)、[网络拓扑与端口](network-topology.md)、[结构化采购数据](../config/network-procurement.json)、[设备选型](device-selection-list.md)、[施工要求](renovation-wiring-requirements.md)。已清理过时网络工作簿与备选方案；历史报价可从 Git 查询，本页保留原订单事实，不据旧数量重复采购或交底。
